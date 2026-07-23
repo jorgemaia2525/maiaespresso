@@ -508,7 +508,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       const storedMesa = localStorage.getItem('maia_qr_mesa');
       const storedTime = parseInt(localStorage.getItem('maia_qr_time') || '0', 10);
-      const isExpired = Date.now() - storedTime > 90 * 60 * 1000; // 90 minutos de expiración
+      const FIVE_HOURS_MS = 5 * 60 * 60 * 1000; // 5 horas en ms (18.000.000 ms)
+      const isExpired = Date.now() - storedTime > FIVE_HOURS_MS;
 
       if (storedMesa && !isExpired) {
         mesaNumber = storedMesa;
@@ -539,6 +540,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 800);
       }
     }
+    
+    // Periodic check to auto-clear table session after 5 hours
+    setInterval(() => {
+      if (mesaNumber) {
+        const storedTime = parseInt(localStorage.getItem('maia_qr_time') || '0', 10);
+        const FIVE_HOURS_MS = 5 * 60 * 60 * 1000;
+        if (storedTime && (Date.now() - storedTime > FIVE_HOURS_MS)) {
+          clearTableSession('✨ Tu sesión de mesa ha finalizado automáticamente tras 5 horas. ¡Gracias por visitar Maia Espresso!');
+        }
+      }
+    }, 60000);
     
     outOfStockItems = JSON.parse(localStorage.getItem('maia_out_of_stock')) || [];
     
@@ -1907,6 +1919,14 @@ function fallbackLocalCharge(orderId, billedAt) {
 window.deleteOrderKds = function(orderId) {
   if (!confirm('¿Seguro que quieres eliminar este pedido permanentemente? (Esta acción no se puede deshacer)')) return;
 
+  let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
+  const targetOrder = ordersList.find(o => o.id === orderId);
+  const targetMesa = targetOrder ? targetOrder.mesa : null;
+
+  if (targetMesa && typeof orderChannel !== 'undefined' && orderChannel) {
+    orderChannel.postMessage({ type: 'CLEAR_TABLE_SESSION', mesa: targetMesa });
+  }
+
   if (supabaseClient) {
     supabaseClient
       .from('maia_orders')
@@ -1918,7 +1938,6 @@ window.deleteOrderKds = function(orderId) {
         }
       });
   } else {
-    let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
     ordersList = ordersList.filter(o => o.id !== orderId);
     localStorage.setItem('maia_live_orders', JSON.stringify(ordersList));
     renderKdsOrders();
