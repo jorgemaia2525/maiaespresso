@@ -895,6 +895,12 @@ function initCartDrawer() {
 }
 
 window.addToCart = function(productId, qty = 1, showToastFlag = true) {
+  if (!mesaNumber) {
+    const modal = document.getElementById('no-qr-modal-backdrop');
+    if (modal) modal.style.display = 'flex';
+    return;
+  }
+
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
 
@@ -3041,26 +3047,13 @@ function initFullDigitalMenu() {
   }
 }
 
-let pendingNoQrProductId = null;
-
 window.closeNoQrModal = function() {
   const modal = document.getElementById('no-qr-modal-backdrop');
   if (modal) modal.style.display = 'none';
-  pendingNoQrProductId = null;
-};
-
-window.allowAddWithoutQr = function() {
-  sessionStorage.setItem('maia_allow_no_qr', 'true');
-  const targetId = pendingNoQrProductId;
-  window.closeNoQrModal();
-  if (targetId) {
-    window.quickAddFromFullMenu(targetId);
-  }
 };
 
 window.quickAddFromFullMenu = function(productId) {
-  if (!mesaNumber && sessionStorage.getItem('maia_allow_no_qr') !== 'true') {
-    pendingNoQrProductId = productId;
+  if (!mesaNumber) {
     const modal = document.getElementById('no-qr-modal-backdrop');
     if (modal) modal.style.display = 'flex';
     return;
