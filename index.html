@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maia | Cafetería & Gastro Brunch en Tenerife</title>
+  <meta name="description" content="Buen café, buena comida y buenos momentos en Santa Cruz de Tenerife. Disfruta de nuestro café de especialidad, bocadillos de pata asada con mojo y matchas premium.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpg" href="assets/logo.jpg">
+  
+  <!-- Global error catcher for mobile diagnostics -->
+  <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      alert("Fallo de Script:\n" + message + "\n\nArchivo: " + source + "\nLínea: " + lineno);
+      return false;
+    };
+  </script>
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Client View Wrapper -->
+  <div id="client-view">
+    <!-- --- HEADER / NAVBAR --- -->
+    <header class="navbar" id="navbar">
+      <div class="container nav-container">
+        <a href="#" class="logo-link">
+          <img src="assets/logo.jpg" alt="Maia Logo" class="logo-img">
+        </a>
+        <!-- Mesa badge for QR mode -->
+        <span id="mesa-badge" style="display: none; background-color: var(--accent-olive); color: var(--white); font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: var(--radius-sm); margin-left: 8px; vertical-align: middle; height: fit-content; text-transform: uppercase;">Mesa 0</span>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#filosofia">Esencia</a></li>
+            <li><a href="#menu">Carta</a></li>
+          <li><a href="#brunch">Arma tu Brunch</a></li>
+          <li><a href="#reserva">Reserva</a></li>
+        </ul>
+      </nav>
+      
+      <div class="nav-actions">
+        <a href="https://www.instagram.com/maiaespresso_food/" target="_blank" class="nav-social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <button class="cart-toggle" id="cart-toggle" aria-label="Abrir carrito">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <a href="#brunch" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.85rem;">Armar Brunch</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- --- HERO SECTION --- -->
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+          </svg>
+          Cafetería de Especialidad
+        </div>
+        <h1 class="hero-title">Buen café, buena comida,<br><span>buenos momentos.</span></h1>
+        <p class="hero-desc">Tu cafetería de especialidad en Santa Cruz de Tenerife. Café recién tostado, tostadas de masa madre, bocadillos de pata asada canaria y opciones veganas en un espacio donde sentirte a gusto.</p>
+        <div class="hero-buttons">
+          <a href="#menu" class="btn btn-primary">Ver la Carta</a>
+          <a href="#brunch" class="btn btn-secondary">Crear mi Tostada</a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <div class="hero-image-wrapper">
+          <img src="assets/hero_bg.jpg" alt="Carta Maia Espresso" class="hero-img" id="hero-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- ESSENCE / PHILOSOPHY SECTION --- -->
+  <section class="section philosophy" id="filosofia">
+    <div class="container">
+      <h2 class="section-title">Café de especialidad y comida hecha al momento</h2>
+      <p class="section-subtitle">Ingredientes locales, pan de masa madre y granos seleccionados. Sin complicaciones, solo buen sabor.</p>
+      
+      <div class="philosophy-grid">
+        <!-- Card 1 -->
+        <div class="philosophy-card">
+          <div class="phi-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+              <line x1="6" y1="1" x2="6" y2="4"></line>
+              <line x1="10" y1="1" x2="10" y2="4"></line>
+              <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
+          </div>
+          <h3>Café de Especialidad</h3>
+          <p>Granos de origen tostados por expertos. Desde un espresso corto e intenso hasta lattes cremosos y tés seleccionados.</p>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="philosophy-card">
+          <div class="phi-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+              <path class="clock-hand" d="M12 6v6l4 2"></path>
+            </svg>
+          </div>
+          <h3>Hecho al Momento</h3>
+          <p>Tostadas de masa madre, brioches calentitos y bocadillos preparados en el acto con productos frescos de la zona.</p>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="philosophy-card">
+          <div class="phi-icon">
+            <!-- Pet-friendly Paw Icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="4.5" cy="9.5" r="2.5"></circle>
+              <circle cx="9" cy="5.5" r="2.5"></circle>
+              <circle cx="15" cy="5.5" r="2.5"></circle>
+              <circle cx="19.5" cy="9.5" r="2.5"></circle>
+              <path d="M12 10.5c-2.3 0-4.3 1.5-4.8 3.5-.5 1.9.4 3.7 2 4.5.8.4 1.7.6 2.8.6s2-.2 2.8-.6c1.6-.8 2.5-2.6 2-4.5-.5-2-2.5-3.5-4.8-3.5z"></path>
+            </svg>
+          </div>
+          <h3>Espacio Pet-Friendly</h3>
+          <p>Tu perro es bienvenido siempre. Un lugar cómodo y fresco donde sentarte tranquilamente en su compañía.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- ESSENCE GALLERY SECTION --- -->
+  <section class="essence-gallery">
+    <div class="container">
+      <div class="essence-grid">
+        <!-- Left: Overlapping images -->
+        <div class="essence-images-container">
+          <img src="assets/essence_interior.jpg" alt="Interior acogedor de Maia Espresso" class="essence-img-interior">
+          <img src="assets/essence_coffee.png" alt="Café de especialidad en Maia Espresso" class="essence-img-coffee">
+        </div>
+        <!-- Right: Description -->
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="hero-badge" style="width: fit-content;">Nuestra Esencia</div>
+          <h2 style="font-family: var(--font-title); font-size: 2.25rem; margin: 0; color: var(--text-primary);">Tu pausa diaria en Santa Cruz</h2>
+          <p style="color: var(--text-secondary); line-height: 1.7; margin: 0; font-size: 1rem;">
+            En Maia Espresso preparamos café de especialidad y comida rica sin prisas. Queremos que tengas un lugar cómodo para trabajar con tu portátil, leer con calma o ponerte al día con amigos disfrutando de un buen desayuno.
+          </p>
+          <div style="display: flex; gap: 16px; align-items: center; margin-top: 8px;">
+            <div style="font-size: 2rem;">☕</div>
+            <div>
+              <h5 style="margin: 0 0 4px 0; font-size: 1.05rem; font-weight: 600; color: var(--text-primary);">Origen Trazable</h5>
+              <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary);">Trabajamos con tostadores que seleccionan granos directamente de fincas locales e internacionales.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- MENU / CARTA SECTION --- -->
+  <section class="section menu-section" id="menu">
+    <div class="container">
+      <h2 class="section-title">Nuestra Carta</h2>
+      <p class="section-subtitle">Bocadillos con ingrediente local y sabor canario, tés, café recién molido y repostería casera.</p>
+      
+      <!-- QR Live Order Info Banner -->
+      <div class="qr-info-banner">
+        <div class="qr-info-icon">📲</div>
+        <div class="qr-info-text" style="font-weight: 600;">
+          <strong>Pide desde tu mesa:</strong> Escanea el código QR de tu mesa y marcharemos tu pedido directo a cocina.
+        </div>
+      </div>
+      
+      <div class="menu-filters">
+        <button class="filter-btn active" data-category="todos">Todo</button>
+        <button class="filter-btn" data-category="bocadillos">Bocadillos & Pulgas</button>
+        <button class="filter-btn" data-category="bebidas-calientes">Café & Té</button>
+        <button class="filter-btn" data-category="bebidas-frias">Matchas & Cold</button>
+        <button class="filter-btn" data-category="dulces">Repostería</button>
+      </div>
+      
+      <div class="menu-grid" id="menu-grid">
+        <!-- El JS rellenará este grid dinámicamente con los productos definidos abajo -->
+      </div>
+      
+      <!-- Show More Menu Button -->
+      <div id="menu-show-more-container" style="text-align: center; margin-top: 36px; display: none;">
+        <button id="btn-menu-show-more" class="btn btn-outline-rust" style="padding: 12px 32px; font-weight: 600; font-size: 0.95rem;">Ver toda la carta</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- INTERACTIVE BRUNCH BUILDER --- -->
+  <section class="section brunch-section" id="brunch">
+    <div class="container">
+      <h2 class="section-title">Reserva y Arma tu Brunch</h2>
+      <p class="section-subtitle">Crea tu tostada ideal paso a paso con los ingredientes que prefieras, añade tu bebida favorita y reserva mesa.</p>
+      
+      <!-- Brunch Booking Info Banner -->
+      <div class="qr-info-banner brunch-banner">
+        <div class="qr-info-icon">🥞</div>
+        <div class="qr-info-text" style="font-weight: 600;">
+          <strong>Brunch por QR:</strong> Escanea el QR de tu mesa para montar y pedir tu brunch al momento.
+        </div>
+      </div>
+      
+      <div class="brunch-creator-card">
+        <div class="brunch-grid">
+          <!-- Left Column: Creator Panel -->
+          <div class="brunch-creator">
+            
+            <!-- Step Indicators -->
+            <div class="brunch-steps">
+              <div class="brunch-step-indicator active" data-step="1">1</div>
+              <div class="brunch-step-indicator" data-step="2">2</div>
+              <div class="brunch-step-indicator" data-step="3">3</div>
+              <div class="brunch-step-indicator" data-step="4">4</div>
+            </div>
+            
+            <!-- Step 1: Base bread -->
+            <div class="brunch-panel active" id="panel-step-1">
+              <h3>Paso 1: Elige tu base de pan</h3>
+              <p class="brunch-panel-desc">Elige la base de pan de masa madre recién horneado.</p>
+              <div class="option-grid" id="brunch-grid-base">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+            
+            <!-- Step 2: Untables & Proteins -->
+            <div class="brunch-panel" id="panel-step-2">
+              <h3>Paso 2: Base Untable & Proteína</h3>
+              <p class="brunch-panel-desc">Selecciona la crema untable y el ingrediente principal.</p>
+              <div class="option-grid" id="brunch-grid-protein">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+            
+            <!-- Step 3: Sauces & Toppings -->
+            <div class="brunch-panel" id="panel-step-3">
+              <h3>Paso 3: Salsas y Toppings</h3>
+              <p class="brunch-panel-desc">Dale el toque final con nuestras salsas caseras y extras.</p>
+              <div class="option-grid" id="brunch-grid-sauce">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+            
+            <!-- Step 4: Drink -->
+            <div class="brunch-panel" id="panel-step-4">
+              <h3>Paso 4: Elige tu bebida</h3>
+              <p class="brunch-panel-desc">Acompaña tu tostada con un café, zumo natural o matcha.</p>
+              <div class="option-grid" id="brunch-grid-drink">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+            
+            <!-- Navigation controls -->
+            <div class="brunch-nav">
+              <button class="btn btn-secondary" id="brunch-prev-btn" disabled>Atrás</button>
+              <button class="btn btn-primary" id="brunch-next-btn">Siguiente</button>
+            </div>
+            
+          </div>
+          
+          <!-- Right Column: Visual Summary Preview -->
+          <div class="brunch-preview">
+            <h4>Tu Creación</h4>
+            
+            <!-- Sandwich Stack visual representation -->
+            <div class="sandwich-visualizer" id="sandwich-visualizer">
+              <!-- JS will dynamically stack divs with layer classes here -->
+              <div class="sandwich-layer layer-bread-top" id="vis-bread-top">Masa Madre</div>
+              <div class="sandwich-layer layer-bread-bottom" id="vis-bread-bottom">Masa Madre</div>
+            </div>
+            
+            <ul class="brunch-summary-list" id="brunch-summary-list">
+              <li class="brunch-summary-item" data-summary="base">
+                <span>Pan base:</span>
+                <span class="val">-</span>
+              </li>
+              <li class="brunch-summary-item" data-summary="protein">
+                <span>Ingrediente principal:</span>
+                <span class="val">-</span>
+              </li>
+              <li class="brunch-summary-item" data-summary="sauce">
+                <span>Salsa / Topping:</span>
+                <span class="val">-</span>
+              </li>
+              <li class="brunch-summary-item" data-summary="drink">
+                <span>Bebida:</span>
+                <span class="val">-</span>
+              </li>
+            </ul>
+            
+            <div class="brunch-total">
+              <span class="brunch-total-label">Total Brunch:</span>
+              <span class="brunch-total-price" id="brunch-total-price">0.00€</span>
+            </div>
+            
+            <button class="btn btn-primary" id="btn-add-brunch-cart" style="width: 100%;" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"></path>
+              </svg>
+              Añadir Brunch a Reservas
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- REVIEWS SECTION --- -->
+  <section class="section reviews-section" id="opiniones">
+    <div class="container">
+      <h2 class="section-title">Qué dicen de Maia</h2>
+      <p class="section-subtitle">Las opiniones reales de nuestra comunidad en Google. ¡Déjanos la tuya!</p>
+      
+      <div class="reviews-slider-container" style="position: relative; overflow: hidden; margin-bottom: 24px;">
+        <div class="reviews-slider" id="reviews-slider" style="display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 16px 8px; scrollbar-width: none; -ms-overflow-style: none;">
+          <!-- Review 1 -->
+          <div class="review-card" style="min-width: 290px; flex: 0 0 350px; scroll-snap-align: start;">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"El mejor Iced Strawberry Matcha que he probado, súper equilibrado. Y la tostada de pata asada con mojo pesto es una auténtica delicia. Se ha convertido en mi rincón favorito de Santa Cruz."</p>
+            </div>
+            <div class="review-author">
+              <div class="review-avatar">LM</div>
+              <div class="review-info-meta">
+                <h5>Laura Martín</h5>
+                <span>Hace 1 semana en Google</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="review-card" style="min-width: 290px; flex: 0 0 350px; scroll-snap-align: start;">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Un sitio precioso, minimalista y con una vibra excelente. Me encanta que sea pet-friendly, mi perro Cooper estuvo súper a gusto mientras yo tomaba un espresso de especialidad increíble."</p>
+            </div>
+            <div class="review-author">
+              <div class="review-avatar">AG</div>
+              <div class="review-info-meta">
+                <h5>Alejandro Guerra</h5>
+                <span>Hace 2 semanas en Google</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="review-card" style="min-width: 290px; flex: 0 0 350px; scroll-snap-align: start;">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Probamos el Brunch personalizado y es un acierto total. El pan de masa madre de centeno es espectacular y el roast beef con trufa increíble. Súper amables y rápidos."</p>
+            </div>
+            <div class="review-author">
+              <div class="review-avatar">CD</div>
+              <div class="review-info-meta">
+                <h5>Carlos Delgado</h5>
+                <span>Hace 3 días en Google</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 4 -->
+          <div class="review-card" style="min-width: 290px; flex: 0 0 350px; scroll-snap-align: start;">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"El Barraquito especial está de muerte y la tortilla francesa con cebolla pochada súper jugosa. La presentación de los platos y las bebidas es de 10. Muy recomendado."</p>
+            </div>
+            <div class="review-author">
+              <div class="review-avatar">MG</div>
+              <div class="review-info-meta">
+                <h5>Marta Gómez</h5>
+                <span>Hace 5 días en Google</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 5 -->
+          <div class="review-card" style="min-width: 290px; flex: 0 0 350px; scroll-snap-align: start;">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Cafetería súper recomendada en Santa Cruz. La tosta de pata con queso blanco ahumado y mojo pesto es de otro nivel. Buen ambiente y servicio excelente."</p>
+            </div>
+            <div class="review-author">
+              <div class="review-avatar">JT</div>
+              <div class="review-info-meta">
+                <h5>Jonay Torres</h5>
+                <span>Hace 4 días en Google</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 6 -->
+          <div class="review-card" style="min-width: 290px; flex: 0 0 350px; scroll-snap-align: start;">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Las cookies recién hechas son una locura, súper crujientes. Tomé un matcha latte con bebida de avena riquísimo. Tienen un trato de diez con los clientes."</p>
+            </div>
+            <div class="review-author">
+              <div class="review-avatar">SV</div>
+              <div class="review-info-meta">
+                <h5>Sofía Valenzuela</h5>
+                <span>Hace 1 semana en Google</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Indicator dots -->
+        <div class="slider-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+
+      <div class="reviews-cta">
+        <a href="https://search.google.com/local/writereview?placeid=ChIJyWp_F62kQQ0RmR7V7Xl1pAM" target="_blank" class="btn btn-outline-rust">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Dejar una reseña en Google
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- RESERVATION FORM --- -->
+  <section class="section reservation-section" id="reserva">
+    <div class="container reservation-grid">
+      <div class="reservation-info">
+        <h2>Reserva tu mesa</h2>
+        <p>Asegura tu mesa en Maia para desayunar, disfrutar de un brunch el fin de semana o hacer una pausa para el café.</p>
+        
+        <div class="info-item">
+          <div class="info-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="info-item-content">
+            <h5>Ubicación</h5>
+            <p>Avenida Ángel Guimerá, 38. Santa Cruz de Tenerife, España.</p>
+          </div>
+        </div>
+        
+        <div class="info-item" onclick="window.openContactOptionsModal()" style="cursor: pointer;">
+          <div class="info-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div class="info-item-content">
+            <h5>Llámanos o escríbenos</h5>
+            <p style="text-decoration: underline; text-underline-offset: 4px; color: var(--accent-rust);">655 64 11 85</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="info-item-content">
+            <h5>Horario de Apertura</h5>
+            <p>Lunes a Viernes: 09:30 – 17:00<br>Sábados y Domingos: Bajo reserva</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="reservation-form">
+        <form id="booking-form">
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="name">Nombre completo</label>
+              <input type="text" id="name" class="form-control" placeholder="Escribe tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Teléfono móvil</label>
+              <input type="tel" id="phone" class="form-control" placeholder="Ej: 600 000 000" required>
+            </div>
+          </div>
+          
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="date">Fecha de la reserva</label>
+              <input type="date" id="date" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="time">Hora aproximada</label>
+              <select id="time" class="form-control" required>
+                <option value="" disabled selected>Elige hora</option>
+                <option value="09:30">09:30</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Elige tu zona favorita</label>
+            <div class="zone-selector">
+              <div class="zone-btn selected" data-zone="interior">Interior Acogedor</div>
+              <div class="zone-btn" data-zone="terraza">Terraza Luminosa</div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes">Notas especiales (Alergias, trona para bebé, etc.)</label>
+            <textarea id="notes" class="form-control" placeholder="¿Algo que debamos saber de antemano?"></textarea>
+          </div>
+          
+          <!-- Si han armado un brunch, se mostrará un aviso de que se incluye -->
+          <div id="booking-brunch-alert" style="display: none; background: rgba(95, 111, 82, 0.1); border: 1.5px solid var(--accent-olive); padding: 12px 18px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.9rem; color: var(--accent-olive); font-weight: 500;">
+            ✓ Reservarás la mesa junto con tu brunch personalizado.
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Confirmar mi Reserva</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- CART DRAWER OVERLAY --- -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <h3>Mi Pedido</h3>
+      <span class="cart-close" id="cart-close">&times;</span>
+    </div>
+    <div class="cart-items" id="cart-items-container">
+      <p class="cart-empty-message">Tu carrito está esperando por deliciosa comida.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-totals">
+        <span>Total estimado:</span>
+        <span id="cart-total-value">0.00€</span>
+      </div>
+      <button class="btn btn-primary" id="btn-checkout" style="width: 100%;">Simular Pedido / Reserva</button>
+    </div>
+  </div>
+
+  <!-- --- FOOTER --- -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-about">
+        <h4 style="font-family: var(--font-title);">MAIA</h4>
+        <p>Buen café, buena comida, buenos momentos. Descubre el sabor de la sencillez en el rincón más acogedor y pet-friendly de Santa Cruz de Tenerife.</p>
+        <p style="font-weight: 600; color: var(--accent-olive);">🐾 ¡Espacio Pet-Friendly!</p>
+      </div>
+      
+      <div class="footer-links">
+        <h5>Explora</h5>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#filosofia">Nuestra Esencia</a></li>
+          <li><a href="#menu">La Carta</a></li>
+          <li><a href="#brunch">Arma tu Brunch</a></li>
+          <li><a href="#reserva">Reservar Mesa</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-hours">
+        <h5>Horarios</h5>
+        <p><strong>Lunes a Viernes:</strong><br>09:30 – 17:00</p>
+        <p><strong>Sábados y Domingos:</strong><br>Bajo reserva</p>
+      </div>
+    </div>
+    
+    <div class="container footer-bottom">
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/maiaespresso_food/" target="_blank" class="social-icon" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+      </div>
+      <p>&copy; 2026 Maia Espresso Food. Todos los derechos reservados. Hecho con amor por <a href="https://madedigital.es" target="_blank" class="madedigital-link">madedigital.es</a>.</p>
+      <p class="footer-legal-links" style="margin-top: 10px; font-size: 0.78rem; color: var(--text-light); display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="aviso-legal.html" style="text-decoration: underline;">Aviso Legal</a>
+        <a href="politica-privacidad.html" style="text-decoration: underline;">Política de Privacidad</a>
+        <a href="politica-cookies.html" style="text-decoration: underline;">Política de Cookies</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- --- MOBILE APP-STYLE NAVIGATION BAR --- -->
+  <nav class="mobile-nav">
+    <a href="#inicio" class="mobile-nav-item active">
+      <span class="mobile-nav-icon">🏠</span>
+      <span>Inicio</span>
+    </a>
+    <a href="#menu" class="mobile-nav-item">
+      <span class="mobile-nav-icon">📖</span>
+      <span>Carta</span>
+    </a>
+    <a href="#brunch" class="mobile-nav-item">
+      <span class="mobile-nav-icon">🥞</span>
+      <span>Brunch</span>
+    </a>
+    <a href="#reserva" class="mobile-nav-item">
+      <span class="mobile-nav-icon">📅</span>
+      <span>Reserva</span>
+    </a>
+    <a href="#" class="mobile-nav-item" id="mobile-cart-toggle">
+      <span class="mobile-nav-icon">🛒</span>
+      <span style="position: relative;">Pedido <span id="mobile-cart-count" style="display: none; background: var(--accent-rust); color: #fff; font-size: 0.65rem; border-radius: 50%; padding: 1px 6px; position: absolute; top: -14px; right: -12px;">0</span></span>
+    </a>
+  </nav>
+
+    <!-- --- SUCCESS TOAST POPUP --- -->
+    <div class="toast-msg" id="toast-msg">Acción completada con éxito.</div>
+  </div> <!-- End of client-view -->
+
+  <!-- Product Detail Modal (MUST be outside client-view and kds-view to be visible in both) -->
+  <div id="product-detail-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; padding: 16px;" onclick="if(event.target === this) closeProductDetailModal()">
+    <div id="product-detail-modal-card" style="background-color: var(--white); color: var(--text-primary); width: 100%; max-width: 420px; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; max-height: 90vh; border: 1px solid rgba(184, 80, 50, 0.1); position: relative;">
+      <!-- Close icon -->
+      <span onclick="closeProductDetailModal()" style="position: absolute; top: 12px; right: 12px; font-size: 1.5rem; cursor: pointer; color: var(--white); background: rgba(0,0,0,0.5); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; font-weight: bold;">&times;</span>
+      
+      <!-- Large Image Header -->
+      <div id="detail-modal-img-container" style="position: relative; aspect-ratio: 16 / 10; background-color: var(--bg-secondary); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <!-- Will hold dynamic image or fallback icon -->
+      </div>
+      
+      <!-- Content Container -->
+      <div style="padding: 20px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
+          <h3 id="detail-modal-title" style="font-family: var(--font-title); font-size: 1.35rem; margin: 0; color: var(--text-primary);">Nombre del Plato</h3>
+          <span id="detail-modal-price" style="font-size: 1.2rem; font-weight: 700; color: var(--accent-rust); white-space: nowrap;">0.00€</span>
+        </div>
+        
+        <div id="detail-modal-tags" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
+        
+        <p id="detail-modal-desc" style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">Descripción detallada del plato.</p>
+        
+        <!-- Bottom Action Row -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 16px; gap: 12px;">
+          <!-- Quantity Selector -->
+          <div style="display: flex; align-items: center; border: 1px solid #D1C7BD; border-radius: var(--radius-sm); overflow: hidden; background: #F5F2EB;">
+            <button onclick="decrementDetailQty()" style="background: transparent; border: none; padding: 8px 12px; font-size: 1rem; cursor: pointer; color: var(--text-primary); font-weight: bold;">-</button>
+            <span id="detail-modal-qty" style="padding: 0 8px; font-weight: 700; font-size: 0.95rem; min-width: 20px; text-align: center; color: var(--text-primary);">1</span>
+            <button onclick="incrementDetailQty()" style="background: transparent; border: none; padding: 8px 12px; font-size: 1rem; cursor: pointer; color: var(--text-primary); font-weight: bold;">+</button>
+          </div>
+          
+          <!-- Add Button -->
+          <button id="btn-detail-add" class="btn" style="flex: 1; padding: 12px 16px; font-size: 0.88rem; font-weight: bold; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background-color 0.2s;">
+            Añadir al pedido (<span id="detail-modal-subtotal">0.00€</span>)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- KITCHEN DISPLAY SYSTEM VIEW --- -->
+  <div id="kds-view" style="display: none; padding: 24px; font-family: var(--font-body); background-color: #1E1B18; color: #F5F2EB; min-height: 100vh;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2C2523; padding-bottom: 16px; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <img src="assets/logo.jpg" alt="Maia Logo" style="height: 48px; border-radius: 50%;">
+        <div>
+          <h2 style="font-family: var(--font-title); margin: 0; color: #F5F2EB;">MAIA • Panel de Cocina y Barra</h2>
+          <span style="font-size: 0.85rem; color: var(--accent-olive); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-olive); display: inline-block; animation: pulse 1.5s infinite;"></span>
+            Sistema en Línea (QR Activo)
+          </span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <button onclick="openCreateProductModal()" class="btn" style="background-color: var(--accent-rust); color: #fff; border: none; font-size: 0.85rem; padding: 8px 16px; cursor: pointer; border-radius: var(--radius-sm); font-weight: bold;">
+          ➕ Añadir Producto
+        </button>
+        <button onclick="openStockModal()" class="btn" style="background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; font-size: 0.85rem; padding: 8px 16px; cursor: pointer; border-radius: var(--radius-sm);">
+          📦 Gestionar Stock
+        </button>
+        <button onclick="openShoppingList()" class="btn" style="background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; font-size: 0.85rem; padding: 8px 16px; cursor: pointer; border-radius: var(--radius-sm);">
+          📋 Lista de Compra
+        </button>
+        <button onclick="openSalesHistoryModal()" class="btn" style="background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; font-size: 0.85rem; padding: 8px 16px; cursor: pointer; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px;">
+          📊 Historial de Ventas
+        </button>
+      </div>
+    </div>
+    
+    <div class="kds-orders-grid" id="kds-orders-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+      <!-- Orders will be injected here in real-time -->
+      <div style="text-align: center; grid-column: 1 / -1; padding: 80px 0; color: #9E9185;">
+        <span style="font-size: 3rem;">📥</span>
+        <h3 style="margin-top: 16px;">Esperando pedidos en directo...</h3>
+        <p style="font-size: 0.9rem;">Escanea el QR en una mesa para simular un pedido en directo.</p>
+      </div>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div id="receipt-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 16px;">
+      <div id="receipt-modal-card" style="background-color: #fff; color: #1E1B18; width: 100%; max-width: 380px; border-radius: var(--radius-sm); padding: 24px; font-family: 'Courier New', Courier, monospace; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column;">
+        
+        <!-- Receipt Content (Printable area) -->
+        <div id="receipt-print-area">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <h3 style="font-family: var(--font-title); margin: 0 0 4px 0; font-weight: 700; color: #1E1B18; font-size: 1.4rem;">MAIA ESPRESSO</h3>
+            <p style="font-size: 0.8rem; margin: 0; color: #555; line-height: 1.4;">Avenida Ángel Guimerá, 38<br>Santa Cruz de Tenerife<br>CIF: B-38291029<br>Tlf: 655 64 11 85</p>
+          </div>
+          
+          <div style="border-top: 1px dashed #1E1B18; border-bottom: 1px dashed #1E1B18; padding: 8px 0; margin-bottom: 16px; font-size: 0.85rem; color: #1E1B18;">
+            <div style="display: flex; justify-content: space-between;">
+              <span>TICKET: #<span id="receipt-number">1029</span></span>
+              <span>FECHA: <span id="receipt-date">16/07/2026</span></span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+              <span>MESA: <span id="receipt-table">Mesa 4</span></span>
+              <span>HORA: <span id="receipt-time">12:34</span></span>
+            </div>
+          </div>
+          
+          <!-- Items List -->
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 16px; color: #1E1B18;">
+            <thead>
+              <tr style="border-bottom: 1px dashed #1E1B18; text-align: left;">
+                <th style="padding-bottom: 6px; width: 45px;">CANT</th>
+                <th style="padding-bottom: 6px;">CONCEPTO</th>
+                <th style="padding-bottom: 6px; text-align: right; width: 75px;">PRECIO</th>
+              </tr>
+            </thead>
+            <tbody id="receipt-items-body">
+              <!-- Injected dynamically -->
+            </tbody>
+          </table>
+          
+          <div style="border-top: 1px dashed #1E1B18; padding-top: 8px; font-size: 0.9rem; color: #1E1B18;">
+            <div style="display: flex; justify-content: space-between; font-weight: 500;">
+              <span>SUBTOTAL (IGIC EXCL.):</span>
+              <span id="receipt-subtotal">0.00€</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 4px; color: #555;">
+              <span>IGIC INCLUIDO (7%):</span>
+              <span id="receipt-tax">0.00€</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: bold; border-top: 2px solid #1E1B18; padding-top: 8px; margin-top: 8px;">
+              <span>TOTAL FACTURA:</span>
+              <span id="receipt-total">0.00€</span>
+            </div>
+          </div>
+          
+          <div style="text-align: center; font-size: 0.8rem; margin-top: 24px; color: #555; line-height: 1.4;">
+            ¡Gracias por tu visita! 🐾<br>Hecho con amor por madedigital.es
+          </div>
+        </div>
+        
+        <!-- Actions (Non-printable) -->
+        <div class="receipt-modal-actions" style="margin-top: 24px; display: flex; flex-direction: column; gap: 8px;">
+          <button onclick="window.print()" class="btn" style="background-color: #A96B5B; color: #fff; width: 100%; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 0.9rem; font-weight: bold; cursor: pointer;">🖨️ Imprimir Ticket de Caja</button>
+          <div style="display: flex; gap: 8px; width: 100%;">
+            <button id="btn-receipt-charge" class="btn" style="background-color: #5F6F52; color: #fff; flex: 1; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer;">💳 Cobrar y Cerrar</button>
+            <button onclick="closeReceiptModal()" class="btn" style="background-color: transparent; border: 1px solid #5C524A; color: #5C524A; flex: 1; border-radius: var(--radius-sm); padding: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer;">❌ Volver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stock Management Modal -->
+    <div id="stock-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 16px;">
+      <div style="background-color: #241E1C; color: #F5F2EB; width: 100%; max-width: 500px; border-radius: var(--radius-md); padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; max-height: 85vh; border: 1px solid #3D3532;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3D3532; padding-bottom: 12px; margin-bottom: 16px;">
+          <h3 style="font-family: var(--font-title); margin: 0; color: #F5F2EB; font-size: 1.25rem;">📦 Control de Stock / Agotados</h3>
+          <span onclick="closeStockModal()" style="font-size: 1.5rem; cursor: pointer; color: var(--text-light);">&times;</span>
+        </div>
+        
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0; margin-bottom: 16px;">Desmarca un producto o ingrediente para marcarlo como "Agotado" en tiempo real en la web de los clientes.</p>
+        
+        <div style="flex-grow: 1; overflow-y: auto; padding-right: 8px; margin-bottom: 16px;">
+          <!-- Section: Menu Products -->
+          <h4 style="font-family: var(--font-title); color: var(--accent-rust); margin-top: 0; margin-bottom: 12px; font-size: 1rem; border-bottom: 1px dashed #3D3532; padding-bottom: 4px;">Productos de la Carta</h4>
+          <div id="stock-products-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
+            <!-- Injected dynamically -->
+          </div>
+          
+          <!-- Section: Brunch Ingredients -->
+          <h4 style="font-family: var(--font-title); color: var(--accent-rust); margin-top: 0; margin-bottom: 12px; font-size: 1rem; border-bottom: 1px dashed #3D3532; padding-bottom: 4px;">Ingredientes de Brunch</h4>
+          <div id="stock-brunch-list" style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+        
+        <div style="border-top: 1px solid #3D3532; padding-top: 16px; text-align: right;">
+          <button onclick="closeStockModal()" class="btn" style="padding: 10px 24px; font-size: 0.85rem; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Product Modal -->
+    <div id="create-product-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 16px;">
+      <div style="background-color: #241E1C; color: #F5F2EB; width: 100%; max-width: 500px; border-radius: var(--radius-md); padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; max-height: 90vh; border: 1px solid #3D3532; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3D3532; padding-bottom: 12px; margin-bottom: 16px;">
+          <h3 style="font-family: var(--font-title); margin: 0; color: #F5F2EB; font-size: 1.25rem;">➕ Añadir Nuevo Producto / Especial</h3>
+          <span onclick="closeCreateProductModal()" style="font-size: 1.5rem; cursor: pointer; color: var(--text-light);">&times;</span>
+        </div>
+        
+        <form id="create-product-form" onsubmit="saveCustomProduct(event)" style="display: flex; flex-direction: column; gap: 16px;">
+          <input type="hidden" id="edit-prod-id" value="">
+          
+          <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="new-prod-type" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Tipo de Item</label>
+            <select id="new-prod-type" onchange="toggleFormItemType()" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem; cursor: pointer;">
+              <option value="carta">Producto de la Carta</option>
+              <option value="brunch">Ingrediente de Brunch</option>
+            </select>
+          </div>
+
+          <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="new-prod-name" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Nombre de la Opción / Plato</label>
+            <input type="text" id="new-prod-name" required placeholder="Ej: Tarta de Queso o Pan de Centeno" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+          </div>
+          
+          <!-- SECCIÓN: CARTA ONLY FIELDS -->
+          <div id="section-carta-fields" style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="kds-form-row">
+              <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="new-prod-category" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Categoría</label>
+                <select id="new-prod-category" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+                  <option value="bocadillos">Bocadillos & Pulgas</option>
+                  <option value="bebidas-calientes">Café & Té</option>
+                  <option value="bebidas-frias">Matchas & Cold</option>
+                  <option value="dulces">Repostería</option>
+                </select>
+              </div>
+              
+              <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="new-prod-price" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Precio (€)</label>
+                <input type="number" step="0.01" min="0" id="new-prod-price" placeholder="Ej: 4.50" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+              </div>
+            </div>
+
+            <div class="kds-form-row">
+              <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="new-prod-icon" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Icono (Emoji)</label>
+                <input type="text" id="new-prod-icon" placeholder="Ej: 🍰 o ☕" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem; text-align: center;">
+              </div>
+              
+              <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="new-prod-tag" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Etiqueta / Destacado</label>
+                <input type="text" id="new-prod-tag" placeholder="Ej: Especial del día" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+              </div>
+            </div>
+            
+            <input type="hidden" id="new-prod-img-url" value="">
+            <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+              <label for="new-prod-file" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Subir Foto Local</label>
+              <input type="file" id="new-prod-file" accept="image/*" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem; cursor: pointer;">
+            </div>
+          </div>
+          
+          <!-- SECCIÓN: BRUNCH ONLY FIELDS -->
+          <div id="section-brunch-fields" style="display: none; flex-direction: column; gap: 16px;">
+            <div class="kds-form-row">
+              <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="new-brunch-category" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Paso de Brunch</label>
+                <select id="new-brunch-category" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+                  <option value="base">Paso 1: Pan Base</option>
+                  <option value="protein">Paso 2: Proteína / Untable</option>
+                  <option value="sauce">Paso 3: Salsa / Topping</option>
+                  <option value="drink">Paso 4: Bebida</option>
+                </select>
+              </div>
+              
+              <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="new-brunch-price" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Precio Extra (€)</label>
+                <input type="number" step="0.01" min="0" id="new-brunch-price" placeholder="Ej: 1.50" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+              </div>
+            </div>
+
+            <div class="kds-form-row">
+              <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="new-brunch-displayname" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Nombre Ficha (Ej: Huevo Poché)</label>
+                <input type="text" id="new-brunch-displayname" placeholder="Nombre corto visual" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+              </div>
+              
+              <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+                <label for="new-brunch-layerclass" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Capa de Sándwich 3D</label>
+                <select id="new-brunch-layerclass" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+                  <option value="">Ninguna (Bebida / Dulce)</option>
+                  <option value="layer-bread-bottom">Pan / Base (Paso 1)</option>
+                  <option value="layer-protein">Proteína Principal</option>
+                  <option value="layer-spread">Untable / Crema</option>
+                  <option value="layer-sauce">Salsa de Autor</option>
+                  <option value="layer-cheese">Queso / Huevo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="new-prod-desc" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Descripción</label>
+            <textarea id="new-prod-desc" rows="3" required placeholder="Ej: Detalle de los ingredientes o modo de preparación." style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem; font-family: inherit; resize: none;"></textarea>
+          </div>
+          
+          <div style="border-top: 1px solid #3D3532; padding-top: 16px; display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px;">
+            <button type="button" onclick="closeCreateProductModal()" class="btn" style="padding: 10px 20px; font-size: 0.85rem; background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">Cancelar</button>
+            <button type="submit" class="btn" style="padding: 10px 20px; font-size: 0.85rem; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">Guardar Plato</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sales History Modal -->
+    <div id="sales-history-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 16px;">
+      <div style="background-color: #2C2523; color: #F5F2EB; width: 100%; max-width: 680px; border-radius: var(--radius-md); padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; max-height: 90vh; border: 1px solid #4A3E3B;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #4A3E3B; padding-bottom: 12px; margin-bottom: 20px;">
+          <h3 style="font-family: var(--font-title); margin: 0; font-size: 1.35rem; color: #F5F2EB;">📊 Historial de Ventas (Web QR)</h3>
+          <span onclick="closeSalesHistoryModal()" style="font-size: 1.5rem; cursor: pointer; color: var(--text-light); transition: color 0.2s;" onmouseover="this.style.color='#f44336'" onmouseout="this.style.color='var(--text-light)'">&times;</span>
+        </div>
+
+        <!-- Toggle Tabs -->
+        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+          <button id="btn-history-today" onclick="window.setHistoryView('today')" style="flex: 1; padding: 10px; font-size: 0.85rem; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer; transition: all 0.2s;">Hoy</button>
+          <button id="btn-history-all" onclick="window.setHistoryView('all')" style="flex: 1; padding: 10px; font-size: 0.85rem; background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer; transition: all 0.2s;">Historial Completo</button>
+        </div>
+
+        <!-- Metrics Dashboard -->
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px;">
+          <div style="background-color: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532; text-align: center;">
+            <span id="history-count-label" style="font-size: 0.8rem; text-transform: uppercase; color: #9E9185; font-weight: 600; display: block; margin-bottom: 4px;">Pedidos Cobrados Hoy</span>
+            <span id="history-total-count" style="font-size: 1.8rem; font-weight: bold; color: var(--accent-olive);">0</span>
+          </div>
+          <div style="background-color: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532; text-align: center;">
+            <span id="history-amount-label" style="font-size: 0.8rem; text-transform: uppercase; color: #9E9185; font-weight: 600; display: block; margin-bottom: 4px;">Total Recaudado Hoy</span>
+            <span id="history-total-amount" style="font-size: 1.8rem; font-weight: bold; color: var(--accent-rust);">0.00€</span>
+          </div>
+        </div>
+
+        <!-- Sales List Table -->
+        <div style="flex: 1; overflow-y: auto; background-color: #1E1B18; border-radius: var(--radius-sm); border: 1px solid #3D3532; padding: 12px; margin-bottom: 20px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 1px solid #3D3532; color: #9E9185; font-size: 0.8rem; text-transform: uppercase;">
+                <th style="padding: 8px; width: 80px;">TICKET</th>
+                <th style="padding: 8px; width: 90px;">HORA COBRO</th>
+                <th style="padding: 8px; width: 80px;">MESA</th>
+                <th style="padding: 8px;">PRODUCTOS</th>
+                <th style="padding: 8px; text-align: right; width: 90px;">IMPORTE</th>
+                <th style="padding: 8px; text-align: center; width: 130px;">ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="sales-history-tbody">
+              <!-- Injected dynamically -->
+            </tbody>
+          </table>
+          <div id="history-empty-msg" style="text-align: center; padding: 40px 0; color: #9E9185; display: none;">
+            <span style="font-size: 2rem;">📭</span>
+            <p style="margin-top: 12px; font-size: 0.9rem;">No hay registros de ventas hoy todavía.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end;">
+          <button onclick="closeSalesHistoryModal()" class="btn" style="padding: 10px 24px; font-size: 0.85rem; background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">Cerrar</button>
+        </div>
+      </div>
+    </div>
+    <!-- Shopping List Sidebar Drawer -->
+    <div id="shopping-list-overlay" onclick="closeShoppingList()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 4000;"></div>
+    <div id="shopping-list-drawer" style="position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100%; background-color: #241E1C; color: #F5F2EB; border-left: 1px solid #3D3532; box-shadow: -5px 0 25px rgba(0,0,0,0.5); z-index: 4001; display: flex; flex-direction: column; transition: right 0.3s ease;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3D3532; padding: 20px; background-color: #1E1B18;">
+        <h3 style="font-family: var(--font-title); margin: 0; color: #F5F2EB; font-size: 1.25rem;">📋 Lista de la Compra</h3>
+        <span onclick="closeShoppingList()" style="font-size: 1.5rem; cursor: pointer; color: var(--text-light);">&times;</span>
+      </div>
+      
+      <!-- Quick Add Form -->
+      <form id="shopping-add-form" onsubmit="addShoppingItem(event)" style="padding: 20px; display: flex; gap: 8px; border-bottom: 1px solid #2C2523;">
+        <input type="text" id="new-shop-item" required placeholder="Ej: Leche de avena, aguacates..." style="flex-grow: 1; background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem;">
+        <button type="submit" class="btn" style="background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); padding: 10px 16px; font-weight: bold; cursor: pointer;">➕ Añadir</button>
+      </form>
+      
+      <!-- Scrollable List Container -->
+      <div id="shopping-items-list" style="flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+        <!-- Injected dynamically -->
+      </div>
+      
+      <!-- Footer Controls -->
+      <div style="border-top: 1px solid #3D3532; padding: 20px; background-color: #1E1B18; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <button onclick="clearCompletedShopping()" class="btn" style="padding: 12px; font-size: 0.85rem; background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">🧹 Limpiar Comprados</button>
+        <button onclick="clearAllShopping()" class="btn" style="padding: 12px; font-size: 0.85rem; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">🗑️ Vaciar Lista</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- COOKIE CONSENT BANNER --- -->
+  <div class="cookie-banner" id="cookie-banner">
+    <div class="cookie-content">
+      <span class="cookie-icon">🍪</span>
+      <p>Utilizamos cookies propias para garantizar el funcionamiento correcto de la web (como tu pedido o brunch personalizado). Consulta nuestra <a href="politica-cookies.html">Política de Cookies</a> para saber más.</p>
+    </div>
+    <div class="cookie-buttons">
+      <button class="btn btn-cookie-reject" id="btn-cookie-reject">Rechazar</button>
+      <button class="btn btn-cookie-accept" id="btn-cookie-accept">Aceptar todas</button>
+    </div>
+  </div>
+
+  <!-- Contact Options Modal -->
+  <div id="contact-options-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.65); z-index: 5000; justify-content: center; align-items: center; padding: 16px; backdrop-filter: blur(4px);">
+    <div style="background-color: #2C2523; color: #F5F2EB; width: 100%; max-width: 320px; border-radius: var(--radius-md); padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 14px; border: 1px solid #4A3E3B; text-align: center;">
+      <h4 style="font-family: var(--font-title); margin: 0; font-size: 1.15rem; color: #F5F2EB;">¿Cómo quieres contactar?</h4>
+      <p style="margin: 0; font-size: 0.9rem; color: #9E9185; margin-bottom: 6px;">Tlf: 655 64 11 85</p>
+      
+      <a href="tel:+34655641185" onclick="window.closeContactOptionsModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; background-color: #5C524A; color: #F5F2EB; padding: 12px; border-radius: var(--radius-sm); text-decoration: none; font-weight: bold; font-size: 0.9rem; border: 1px solid #7C6F65; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#7C6F65'" onmouseout="this.style.backgroundColor='#5C524A'">
+        📞 Llamar por Teléfono
+      </a>
+      
+      <a href="https://wa.me/34655641185" target="_blank" onclick="window.closeContactOptionsModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; background-color: #25D366; color: #fff; padding: 12px; border-radius: var(--radius-sm); text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#128C7E'" onmouseout="this.style.backgroundColor='#25D366'">
+        💬 Enviar WhatsApp
+      </a>
+      
+      <button onclick="window.closeContactOptionsModal()" style="background-color: transparent; border: none; color: #9E9185; font-size: 0.85rem; font-weight: bold; padding: 8px; cursor: pointer; text-decoration: underline; margin-top: 4px;">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <!-- Supabase JS Client Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>
