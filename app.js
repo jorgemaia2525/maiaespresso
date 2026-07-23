@@ -1859,8 +1859,7 @@ window.confirmChargeAndCloseTable = function(orderId) {
     supabaseClient
       .from('maia_orders')
       .update({ 
-        status: 'billed',
-        billed_at: billedAt
+        status: 'billed'
       })
       .eq('id', orderId)
       .then(({ error }) => {
@@ -2688,7 +2687,7 @@ window.renderSalesHistory = async function() {
         .from('maia_orders')
         .select('*')
         .eq('status', 'billed')
-        .order('billed_at', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(200);
         
       if (error) throw error;
@@ -2699,7 +2698,7 @@ window.renderSalesHistory = async function() {
     }
   } else {
     billedOrders = JSON.parse(localStorage.getItem('maia_billed_history')) || [];
-    billedOrders.sort((a, b) => new Date(b.billed_at) - new Date(a.billed_at));
+    billedOrders.sort((a, b) => new Date(b.created_at || b.billed_at || Date.now()) - new Date(a.created_at || a.billed_at || Date.now()));
   }
 
   // Filter based on selected view
@@ -2708,8 +2707,8 @@ window.renderSalesHistory = async function() {
   
   if (currentHistoryView === 'today') {
     displayOrders = billedOrders.filter(order => {
-      if (!order.billed_at) return false;
-      return new Date(order.billed_at).toLocaleDateString() === todayStr;
+      const dateToCheck = order.created_at || order.billed_at || Date.now();
+      return new Date(dateToCheck).toLocaleDateString() === todayStr;
     });
     
     if (countLabel) countLabel.textContent = 'Pedidos Cobrados Hoy';
