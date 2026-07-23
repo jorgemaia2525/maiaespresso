@@ -503,6 +503,22 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     if (mesa) {
       mesaNumber = mesa;
+      localStorage.setItem('maia_qr_mesa', mesa);
+      localStorage.setItem('maia_qr_time', Date.now().toString());
+    } else {
+      const storedMesa = localStorage.getItem('maia_qr_mesa');
+      const storedTime = parseInt(localStorage.getItem('maia_qr_time') || '0', 10);
+      const isExpired = Date.now() - storedTime > 90 * 60 * 1000; // 90 minutos de expiración
+
+      if (storedMesa && !isExpired) {
+        mesaNumber = storedMesa;
+      } else if (storedMesa && isExpired) {
+        localStorage.removeItem('maia_qr_mesa');
+        localStorage.removeItem('maia_qr_time');
+      }
+    }
+
+    if (mesaNumber) {
       const badge = document.getElementById('mesa-badge');
       if (badge) {
         badge.textContent = `Mesa ${mesaNumber}`;
@@ -515,11 +531,13 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutBtn.textContent = `Enviar Pedido (Mesa ${mesaNumber})`;
       }
 
-      // Smooth scroll to menu section in QR table mode
-      setTimeout(() => {
-        const menuSec = document.getElementById('menu');
-        if (menuSec) menuSec.scrollIntoView({ behavior: 'smooth' });
-      }, 800);
+      // Smooth scroll to menu section in QR table mode if scanned
+      if (mesa) {
+        setTimeout(() => {
+          const menuSec = document.getElementById('menu');
+          if (menuSec) menuSec.scrollIntoView({ behavior: 'smooth' });
+        }, 800);
+      }
     }
     
     outOfStockItems = JSON.parse(localStorage.getItem('maia_out_of_stock')) || [];
@@ -609,6 +627,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Re-render brunch options!
         renderBrunchCustomizerOptions();
+      } else if (event.data.type === 'CLEAR_TABLE_SESSION') {
+        if (mesaNumber && String(event.data.mesa) === String(mesaNumber)) {
+          clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por visitar Maia Espresso!');
+        }
       }
     });
 
@@ -1807,7 +1829,14 @@ window.closeReceiptModal = function() {
 
 window.confirmChargeAndCloseTable = function(orderId) {
   const billedAt = new Date().toISOString();
-  
+  let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
+  const targetOrder = ordersList.find(o => o.id === orderId);
+  const targetMesa = targetOrder ? targetOrder.mesa : null;
+
+  if (targetMesa && typeof orderChannel !== 'undefined' && orderChannel) {
+    orderChannel.postMessage({ type: 'CLEAR_TABLE_SESSION', mesa: targetMesa });
+  }
+
   if (supabaseClient) {
     supabaseClient
       .from('maia_orders')
@@ -1824,7 +1853,6 @@ window.confirmChargeAndCloseTable = function(orderId) {
           fallbackLocalCharge(orderId, billedAt);
         } else {
           // Remove from local active orders cache
-          let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
           ordersList = ordersList.filter(o => o.id !== orderId);
           localStorage.setItem('maia_live_orders', JSON.stringify(ordersList));
           
@@ -3075,5 +3103,30 @@ function renderFullDigitalMenu() {
       catClasicos.appendChild(row);
     }
   });
+}
+
+function clearTableSession(msg) {
+  if (!mesaNumber && !localStorage.getItem('maia_qr_mesa')) return;
+  mesaNumber = null;
+  localStorage.removeItem('maia_qr_mesa');
+  localStorage.removeItem('maia_qr_time');
+  
+  const badge = document.getElementById('mesa-badge');
+  if (badge) badge.style.display = 'none';
+
+  const checkoutBtn = document.getElementById('btn-checkout');
+  if (checkoutBtn) checkoutBtn.textContent = 'Enviar Pedido por WhatsApp';
+
+  if (window.history.replaceState) {
+    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+  }
+
+  cart = [];
+  updateCartUI();
+
+  if (msg) {
+    showToast(msg);
+  }
 }
 
