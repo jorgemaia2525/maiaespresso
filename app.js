@@ -3041,7 +3041,31 @@ function initFullDigitalMenu() {
   }
 }
 
+let pendingNoQrProductId = null;
+
+window.closeNoQrModal = function() {
+  const modal = document.getElementById('no-qr-modal-backdrop');
+  if (modal) modal.style.display = 'none';
+  pendingNoQrProductId = null;
+};
+
+window.allowAddWithoutQr = function() {
+  sessionStorage.setItem('maia_allow_no_qr', 'true');
+  const targetId = pendingNoQrProductId;
+  window.closeNoQrModal();
+  if (targetId) {
+    window.quickAddFromFullMenu(targetId);
+  }
+};
+
 window.quickAddFromFullMenu = function(productId) {
+  if (!mesaNumber && sessionStorage.getItem('maia_allow_no_qr') !== 'true') {
+    pendingNoQrProductId = productId;
+    const modal = document.getElementById('no-qr-modal-backdrop');
+    if (modal) modal.style.display = 'flex';
+    return;
+  }
+
   const prodList = (typeof PRODUCTS !== 'undefined' && PRODUCTS.length) ? PRODUCTS : (typeof DEFAULT_PRODUCTS !== 'undefined' ? DEFAULT_PRODUCTS : []);
   const prod = prodList.find(p => p.id === productId);
   if (!prod) return;

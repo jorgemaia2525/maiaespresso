@@ -818,6 +818,37 @@
     </div>
   </div>
 
+  <!-- Modal: No QR Scanned Prompt -->
+  <div id="no-qr-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(18, 16, 15, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000005; justify-content: center; align-items: center; padding: 16px; box-sizing: border-box;" onclick="if(event.target === this) window.closeNoQrModal()">
+    <div style="background-color: #FAF7F2; color: #2C2523; width: 100%; max-width: 440px; border-radius: var(--radius-md); padding: 28px 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid #D8CEBE; text-align: center; position: relative;">
+      <span onclick="window.closeNoQrModal()" style="position: absolute; top: 12px; right: 16px; font-size: 1.8rem; cursor: pointer; color: #7A6F66; line-height: 1;">&times;</span>
+      
+      <div style="width: 60px; height: 60px; background-color: #F0EAE1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 1.8rem; border: 2px solid #D8CEBE;">
+        📱
+      </div>
+      
+      <h3 style="font-family: var(--font-title); font-size: 1.35rem; color: #1A1715; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">¿Estás en Maia Espresso?</h3>
+      
+      <p style="font-size: 0.92rem; color: #5C524A; line-height: 1.5; margin-bottom: 16px;">
+        Para enviar tu pedido **directamente a la cocina de tu mesa**, escanea el **código QR** que encontrarás en tu mesa.
+      </p>
+
+      <div style="background: #F0EAE1; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; color: #4A3E3B; text-align: left; margin-bottom: 20px; border-left: 4px solid var(--accent-rust); line-height: 1.4;">
+        <strong>💡 ¿Estás consultando la carta desde casa?</strong><br>
+        Puedes añadir tus productos favoritos para encargar tu pedido por WhatsApp.
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button onclick="window.closeNoQrModal()" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 0.92rem; font-weight: 700;">
+          📷 Entendido, buscaré el QR de mi mesa
+        </button>
+        <button onclick="window.allowAddWithoutQr()" class="btn btn-outline" style="width: 100%; padding: 10px; font-size: 0.85rem; color: #5C524A; border-color: #C8BEAF;">
+          🛒 Continuar y añadir productos al pedido
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- KDS PIN Protection Lock Screen -->
   <div id="kds-auth-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #1E1B18; z-index: 9999; justify-content: center; align-items: center; padding: 20px;">
     <div style="background-color: #2C2523; color: #F5F2EB; width: 100%; max-width: 360px; border-radius: var(--radius-md); padding: 32px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); text-align: center; border: 1px solid #4A3E3B;">
