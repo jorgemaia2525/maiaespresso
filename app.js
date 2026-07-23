@@ -490,10 +490,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (panel === 'cocina') {
     document.getElementById('client-view').style.display = 'none';
-    document.getElementById('kds-view').style.display = 'block';
     const demoHelper = document.getElementById('demo-helper');
     if (demoHelper) demoHelper.style.display = 'none';
-    initKds();
+
+    if (sessionStorage.getItem('maia_kds_authenticated') === 'true') {
+      document.getElementById('kds-view').style.display = 'block';
+      initKds();
+    } else {
+      const authModal = document.getElementById('kds-auth-modal');
+      if (authModal) authModal.style.display = 'flex';
+    }
   } else {
     if (mesa) {
       mesaNumber = mesa;
@@ -2925,5 +2931,39 @@ window.printQrGrid = function() {
     </html>
   `);
   printWin.document.close();
+};
+
+// --- KDS SECURITY PIN PROTECTION ---
+const KDS_PIN = '2525';
+
+window.verifyKdsPin = function(e) {
+  if (e) e.preventDefault();
+  const input = document.getElementById('kds-pin-input');
+  const errorMsg = document.getElementById('kds-pin-error');
+  if (!input) return;
+
+  if (input.value.trim() === KDS_PIN) {
+    sessionStorage.setItem('maia_kds_authenticated', 'true');
+    const authModal = document.getElementById('kds-auth-modal');
+    if (authModal) authModal.style.display = 'none';
+    document.getElementById('kds-view').style.display = 'block';
+    input.value = '';
+    if (errorMsg) errorMsg.style.display = 'none';
+    initKds();
+  } else {
+    if (errorMsg) {
+      errorMsg.textContent = '❌ PIN Incorrecto. Inténtalo de nuevo.';
+      errorMsg.style.display = 'block';
+    }
+    input.value = '';
+    input.focus();
+  }
+};
+
+window.lockKds = function() {
+  sessionStorage.removeItem('maia_kds_authenticated');
+  document.getElementById('kds-view').style.display = 'none';
+  const authModal = document.getElementById('kds-auth-modal');
+  if (authModal) authModal.style.display = 'flex';
 };
 
