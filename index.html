@@ -768,11 +768,11 @@
 
       <div class="full-menu-footer">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <img src="assets/logo_maia.png" alt="MAIA" style="height: 36px; border-radius: 50%; background: #fff; padding: 2px;">
+          <img src="assets/logo.jpg" alt="MAIA" style="height: 36px; width: 36px; object-fit: cover; border-radius: 50%; background: #fff; padding: 2px; border: 1px solid var(--accent-rust);">
           <span style="font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: #2C2523;">Maia Espresso</span>
         </div>
-        <button id="full-menu-view-cart-btn" class="btn btn-primary" style="padding: 10px 20px; font-weight: 700; font-size: 0.9rem;">
-          🛒 Ver Mi Pedido
+        <button id="full-menu-view-cart-btn" onclick="window.closeFullDigitalMenu(); const tc = document.getElementById('btn-table-cart'); if(tc) tc.click(); else if(window.toggleCartDrawer) window.toggleCartDrawer();" class="btn btn-primary" style="padding: 10px 20px; font-weight: 700; font-size: 0.9rem;">
+          🛒 Ver Mi Pedido (<span id="full-menu-cart-count">0</span>)
         </button>
       </div>
     </div>

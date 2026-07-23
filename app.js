@@ -3041,6 +3041,27 @@ function initFullDigitalMenu() {
   }
 }
 
+window.quickAddFromFullMenu = function(productId) {
+  const prodList = (typeof PRODUCTS !== 'undefined' && PRODUCTS.length) ? PRODUCTS : (typeof DEFAULT_PRODUCTS !== 'undefined' ? DEFAULT_PRODUCTS : []);
+  const prod = prodList.find(p => p.id === productId);
+  if (!prod) return;
+  
+  if (typeof addToCart === 'function') {
+    addToCart(productId, 1, false);
+  }
+  
+  // Update cart count badge in full menu footer
+  const countSpan = document.getElementById('full-menu-cart-count');
+  if (countSpan && typeof cart !== 'undefined') {
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    countSpan.textContent = totalItems;
+  }
+  
+  if (typeof showToast === 'function') {
+    showToast(`✨ ¡1x ${prod.name} añadido a tu pedido!`);
+  }
+};
+
 function renderFullDigitalMenu() {
   const modal = document.getElementById('full-menu-modal');
   if (!modal) return;
@@ -3058,6 +3079,13 @@ function renderFullDigitalMenu() {
   catAdemas.innerHTML = '';
   catCalientes.innerHTML = '';
   catFrias.innerHTML = '';
+
+  // Update cart count in footer
+  const countSpan = document.getElementById('full-menu-cart-count');
+  if (countSpan && typeof cart !== 'undefined') {
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    countSpan.textContent = totalItems;
+  }
 
   const activeProducts = JSON.parse(localStorage.getItem('maia_active_products')) || DEFAULT_PRODUCTS;
 
@@ -3087,7 +3115,7 @@ function renderFullDigitalMenu() {
       </div>
       <div style="display: flex; align-items: center; gap: 8px;">
         <span class="full-menu-item-price">${priceDisplay}</span>
-        ${!isOut ? `<button onclick="openProductDetailModal('${prod.id}')" style="background: var(--accent-rust); color: #fff; border: none; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 0.9rem;" title="Pedir">+</button>` : ''}
+        ${!isOut ? `<button onclick="event.stopPropagation(); window.quickAddFromFullMenu('${prod.id}')" style="background: var(--accent-rust); color: #fff; border: none; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: var(--shadow-sm);" title="Añadir a mi pedido">+</button>` : ''}
       </div>
     `;
 

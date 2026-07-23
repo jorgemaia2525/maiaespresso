@@ -2295,18 +2295,20 @@ textarea.form-control {
 }
 
 .full-menu-container {
-  background-color: #F6F3ED;
-  color: #2C2523;
+  background-color: #FAF7F2 !important;
+  color: #2C2523 !important;
   width: 100%;
   max-width: 980px;
   max-height: 90vh;
   border-radius: var(--radius-lg);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid #E2DACD;
+  border: 2px solid #D8CEBE;
   position: relative;
+  opacity: 1 !important;
+  z-index: 1000000 !important;
 }
 
 .full-menu-header {
@@ -2315,7 +2317,7 @@ textarea.form-control {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #F3EFE7;
+  background-color: #F0EAE1 !important;
   position: relative;
 }
 
@@ -2340,6 +2342,7 @@ textarea.form-control {
   padding: 28px 32px;
   overflow-y: auto;
   flex-grow: 1;
+  background-color: #FAF7F2 !important;
 }
 
 .full-menu-grid {
