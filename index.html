@@ -183,6 +183,13 @@
           <strong>Pide desde tu mesa:</strong> Escanea el código QR de tu mesa y marcharemos tu pedido directo a cocina.
         </div>
       </div>
+
+      <!-- Button to view paper format menu -->
+      <div style="text-align: center; margin-bottom: 24px;">
+        <button id="btn-open-full-menu" class="btn btn-primary" style="padding: 12px 28px; font-weight: 700; font-size: 0.95rem; border-radius: var(--radius-full); box-shadow: var(--shadow-sm);">
+          📜 Ver Carta Formato Papel ("Entre Sorbos y Bocados")
+        </button>
+      </div>
       
       <div class="menu-filters">
         <button class="filter-btn active" data-category="todos">Todo</button>
@@ -196,12 +203,9 @@
         <!-- El JS rellenará este grid dinámicamente con los productos definidos abajo -->
       </div>
       
-      <!-- Show More & Full Digital Menu Button -->
-      <div style="text-align: center; margin-top: 36px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-        <button id="btn-open-full-menu" class="btn btn-primary" style="padding: 14px 28px; font-weight: 700; font-size: 1rem; box-shadow: var(--shadow-md);">
-          📖 Ver Carta Completa ("Entre Sorbos y Bocados")
-        </button>
-        <button id="btn-menu-show-more" class="btn btn-outline-rust" style="padding: 14px 24px; font-weight: 600; font-size: 0.95rem; display: none;">Ver todos en lista</button>
+      <!-- Show More Menu Button (For ordering directly from mobile grid) -->
+      <div id="menu-show-more-container" style="text-align: center; margin-top: 36px; display: none;">
+        <button id="btn-menu-show-more" class="btn btn-outline-rust" style="padding: 12px 32px; font-weight: 600; font-size: 0.95rem;">Ver toda la carta</button>
       </div>
     </div>
   </section>
