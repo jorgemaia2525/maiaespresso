@@ -2985,6 +2985,8 @@ window.openFullDigitalMenu = function() {
   if (modal) {
     renderFullDigitalMenu();
     modal.style.display = 'flex';
+    modal.style.opacity = '1';
+    modal.style.visibility = 'visible';
     modal.classList.add('active');
   }
 };
@@ -2993,6 +2995,8 @@ window.closeFullDigitalMenu = function() {
   const modal = document.getElementById('full-menu-modal');
   if (modal) {
     modal.style.display = 'none';
+    modal.style.opacity = '0';
+    modal.style.visibility = 'hidden';
     modal.classList.remove('active');
   }
 };
