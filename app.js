@@ -612,6 +612,29 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         )
         .subscribe();
+
+      // Realtime listener for table session clearance when billed in Kitchen Panel (works across all devices over Internet!)
+      supabaseClient
+        .channel('client-table-clearance')
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'maia_orders'
+          },
+          payload => {
+            if (payload.new && payload.new.status === 'billed') {
+              const billedMesa = String(payload.new.mesa || '');
+              const currentClientMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
+              
+              if (currentClientMesa && billedMesa === currentClientMesa) {
+                clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por tu visita!');
+              }
+            }
+          }
+        )
+        .subscribe();
     }
     
     // Listen for real-time stock updates from KDS
@@ -1505,11 +1528,11 @@ function handleLocalOrderMerge(ordersList, localExistingOrder, newItems, cartTot
 
 function initKds() {
   if (supabaseClient) {
-    // 1. Fetch active orders from Supabase on load (exclude billed AND served)
+    // 1. Fetch active orders from Supabase on load (exclude billed only)
     supabaseClient
       .from('maia_orders')
       .select('*')
-      .not('status', 'in', '(served,billed)')
+      .ne('status', 'billed')
       .order('created_at', { ascending: true })
       .then(({ data, error }) => {
         if (!error && data) {
@@ -1777,10 +1800,14 @@ function updateDbOrderStatus(orderId, newStatus, updatedItems, ordersList) {
   }
 }
 
+let currentBillingOrderMesa = null;
+
 window.openReceiptModal = function(orderId) {
   let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
   const order = ordersList.find(o => o.id === orderId);
   if (!order) return;
+
+  currentBillingOrderMesa = order.mesa;
 
   // Populate ticket metadata
   document.getElementById('receipt-number').textContent = order.id.replace('order-', '').slice(-4);
@@ -1849,7 +1876,7 @@ window.confirmChargeAndCloseTable = function(orderId) {
   const billedAt = new Date().toISOString();
   let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
   const targetOrder = ordersList.find(o => o.id === orderId);
-  const targetMesa = targetOrder ? targetOrder.mesa : null;
+  const targetMesa = (targetOrder && targetOrder.mesa) ? targetOrder.mesa : currentBillingOrderMesa;
 
   if (targetMesa && typeof orderChannel !== 'undefined' && orderChannel) {
     orderChannel.postMessage({ type: 'CLEAR_TABLE_SESSION', mesa: targetMesa });
