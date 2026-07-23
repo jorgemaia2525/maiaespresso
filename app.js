@@ -544,6 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
               
               // Re-render brunch options availability
               updateBrunchCreatorStock();
+              renderFullDigitalMenu();
             } catch(e) {
               console.error(e);
             }
@@ -573,6 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Re-render brunch options availability
                 updateBrunchCreatorStock();
+                renderFullDigitalMenu();
               } catch(e) {
                 console.error(e);
               }
@@ -618,6 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBrunchCustomizerOptions();
     initReservationForm();
     initReviewsSlider();
+    initFullDigitalMenu();
     updateCartUI();
     initCookieBanner();
     initScrollAnimations();
@@ -2947,4 +2950,111 @@ window.lockKds = function() {
   const authModal = document.getElementById('kds-auth-modal');
   if (authModal) authModal.style.display = 'flex';
 };
+
+// --- FULL DIGITAL MENU ("ENTRE SORBOS Y BOCADOS") ---
+function initFullDigitalMenu() {
+  const openBtn = document.getElementById('btn-open-full-menu');
+  const closeBtn = document.getElementById('close-full-menu-btn');
+  const modal = document.getElementById('full-menu-modal');
+  const viewCartBtn = document.getElementById('full-menu-view-cart-btn');
+
+  if (openBtn && modal) {
+    openBtn.addEventListener('click', () => {
+      renderFullDigitalMenu();
+      modal.classList.add('active');
+    });
+  }
+
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+  }
+
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  }
+
+  if (viewCartBtn && modal) {
+    viewCartBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+      const tableCartBtn = document.getElementById('btn-table-cart');
+      if (tableCartBtn) {
+        tableCartBtn.click();
+      }
+    });
+  }
+}
+
+function renderFullDigitalMenu() {
+  const modal = document.getElementById('full-menu-modal');
+  if (!modal) return;
+
+  const catClasicos = document.getElementById('full-menu-cat-clasicos');
+  const catBocadillos = document.getElementById('full-menu-cat-bocadillos');
+  const catAdemas = document.getElementById('full-menu-cat-ademas');
+  const catCalientes = document.getElementById('full-menu-cat-calientes');
+  const catFrias = document.getElementById('full-menu-cat-frias');
+
+  if (!catClasicos || !catBocadillos || !catAdemas || !catCalientes || !catFrias) return;
+
+  catClasicos.innerHTML = '';
+  catBocadillos.innerHTML = '';
+  catAdemas.innerHTML = '';
+  catCalientes.innerHTML = '';
+  catFrias.innerHTML = '';
+
+  const activeProducts = JSON.parse(localStorage.getItem('maia_active_products')) || DEFAULT_PRODUCTS;
+
+  activeProducts.forEach(prod => {
+    const isOut = outOfStockItems.includes(prod.id);
+    const row = document.createElement('div');
+    row.className = `full-menu-item-row ${isOut ? 'out-of-stock' : ''}`;
+
+    let priceDisplay = `${prod.price.toFixed(2).replace('.', ',')}€`;
+    if (prod.id.includes('bocadillo') || prod.id.includes('classic') || prod.id.includes('islas') || prod.id.includes('mechada')) {
+      if (prod.id === 'bocadillo-classic') priceDisplay = '2,90€ / 4,90€';
+      else if (prod.id === 'bocadillo-chef') priceDisplay = '3,20€ / 5,80€';
+      else if (prod.id === 'bocadillo-pollomiel') priceDisplay = '3,10€ / 5,50€';
+      else if (prod.id === 'bocadillo-islas') priceDisplay = '3,00€ / 5,10€';
+      else if (prod.id === 'bocadillo-mechada') priceDisplay = '3,20€ / 5,80€';
+    } else if (prod.id === 'zumo-naranja') {
+      priceDisplay = '2,40€ / 3,60€';
+    }
+
+    row.innerHTML = `
+      <div class="full-menu-item-info">
+        <h5 class="full-menu-item-name">
+          ${prod.name}
+          ${isOut ? '<span class="badge-agotado">Agotado</span>' : ''}
+        </h5>
+        ${prod.desc ? `<p class="full-menu-item-desc">${prod.desc}</p>` : ''}
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="full-menu-item-price">${priceDisplay}</span>
+        ${!isOut ? `<button onclick="openProductDetailModal('${prod.id}')" style="background: var(--accent-rust); color: #fff; border: none; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 0.9rem;" title="Pedir">+</button>` : ''}
+      </div>
+    `;
+
+    if (prod.tags && prod.tags.includes('Clásicos de la Mañana')) {
+      catClasicos.appendChild(row);
+    } else if (prod.category === 'bocadillos' || (prod.tags && prod.tags.includes('Bocadillos & Pulgas'))) {
+      catBocadillos.appendChild(row);
+    } else if (prod.tags && prod.tags.includes('Además...')) {
+      catAdemas.appendChild(row);
+    } else if (prod.category === 'bebidas-calientes') {
+      catCalientes.appendChild(row);
+    } else if (prod.category === 'bebidas-frias') {
+      catFrias.appendChild(row);
+    } else if (prod.category === 'dulces') {
+      catAdemas.appendChild(row);
+    } else {
+      catClasicos.appendChild(row);
+    }
+  });
+}
 
