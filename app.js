@@ -1,7 +1,7 @@
 // --- SUPABASE CONFIGURATION (PRODUCCIÓN) ---
 const SUPABASE_CONFIG = {
-  url: 'https://sjwrgeamxvofocviuipq.supabase.co',
-  key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqd3JnZWFteHZvZm9jdml1aXBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyNzU0ODYsImV4cCI6MjA5OTg1MTQ4Nn0.Tt2_EPaeKEsovMxuYhiLdZmQH3ncxjLXGW3fDnnI2gA',
+  url: 'https://vkgbojayerxrbngavflu.supabase.co',
+  key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZrZ2JvamF5ZXJ4cmJuZ2F2Zmx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4MTkxMTgsImV4cCI6MjEwMDM5NTExOH0.eeYPN_KdwtfeCjldC9joc9l0uwRKiIMbmD4ErCXbLPI',
   enabled: true
 };
 
