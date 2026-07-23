@@ -1299,22 +1299,15 @@ function initReviewsSlider() {
   const dots = document.querySelectorAll('.slider-dots .dot');
   if (!slider || dots.length === 0) return;
 
-  // Handle dot clicks dynamically and responsively
+  // Handle dot clicks dynamically
   dots.forEach((dot, idx) => {
     dot.addEventListener('click', () => {
-      const card = slider.querySelector('.review-card');
-      if (!card) return;
-      const gap = parseInt(window.getComputedStyle(slider).gap) || 24;
-      const cardWidth = card.offsetWidth + gap;
-      
-      // Map dots to target card indices:
-      // Dot 0 -> Card 0
-      // Dot 1 -> Card 2
-      // Dot 2 -> Card 4
-      const targetCardIndex = idx * 2;
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      if (maxScroll <= 0) return;
+      const targetScroll = (idx / (dots.length - 1)) * maxScroll;
       
       slider.scrollTo({
-        left: targetCardIndex * cardWidth,
+        left: targetScroll,
         behavior: 'smooth'
       });
     });
@@ -1322,25 +1315,13 @@ function initReviewsSlider() {
 
   // Update active dot on scroll
   slider.addEventListener('scroll', () => {
-    const scrollLeft = slider.scrollLeft;
-    const card = slider.querySelector('.review-card');
-    if (!card) return;
-    const gap = parseInt(window.getComputedStyle(slider).gap) || 24;
-    const cardWidth = card.offsetWidth + gap;
-    
-    // Determine active index card
-    const activeCardIndex = Math.round(scrollLeft / cardWidth);
-    
-    // Group active dots (0-1: dot 0, 2-3: dot 1, 4-5: dot 2)
-    let dotIndex = 0;
-    if (activeCardIndex >= 4) {
-      dotIndex = 2;
-    } else if (activeCardIndex >= 2) {
-      dotIndex = 1;
-    }
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    if (maxScroll <= 0) return;
+    const progress = Math.min(1, Math.max(0, slider.scrollLeft / maxScroll));
+    const activeDotIndex = Math.min(dots.length - 1, Math.round(progress * (dots.length - 1)));
 
     dots.forEach((dot, idx) => {
-      if (idx === dotIndex) {
+      if (idx === activeDotIndex) {
         dot.classList.add('active');
       } else {
         dot.classList.remove('active');
