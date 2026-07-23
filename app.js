@@ -2861,3 +2861,69 @@ window.closeContactOptionsModal = function() {
   if (modal) modal.style.display = 'none';
 };
 
+// --- QR TABLES MANAGER (MESAS 1 A 11) ---
+window.openQrModal = function() {
+  const modal = document.getElementById('qr-modal-backdrop');
+  const container = document.getElementById('qr-grid-container');
+  if (!modal || !container) return;
+
+  const baseUrl = window.location.origin + window.location.pathname;
+  let html = '';
+
+  for (let i = 1; i <= 11; i++) {
+    const tableUrl = `${baseUrl}?mesa=${i}`;
+    const qrImageApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=10&data=${encodeURIComponent(tableUrl)}`;
+
+    html += `
+      <div style="background-color: #1E1B18; border: 1px solid #3D3532; border-radius: var(--radius-sm); padding: 16px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+        <div>
+          <span style="font-size: 0.75rem; background-color: var(--accent-rust); color: #fff; padding: 2px 8px; border-radius: 12px; font-weight: bold; text-transform: uppercase;">MAIA ESPRESSO</span>
+          <h4 style="font-family: var(--font-title); margin: 8px 0; color: #F5F2EB; font-size: 1.25rem;">Mesa ${i}</h4>
+        </div>
+        
+        <div style="background-color: #fff; padding: 10px; border-radius: 8px; margin: 12px 0;">
+          <img src="${qrImageApi}" alt="QR Mesa ${i}" style="width: 140px; height: 140px; display: block;">
+        </div>
+
+        <a href="${tableUrl}" target="_blank" class="btn" style="font-size: 0.75rem; color: var(--accent-olive); text-decoration: underline; word-break: break-all;">Probador Mesa ${i} ↗</a>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
+  modal.style.display = 'flex';
+};
+
+window.closeQrModal = function() {
+  const modal = document.getElementById('qr-modal-backdrop');
+  if (modal) modal.style.display = 'none';
+};
+
+window.printQrGrid = function() {
+  const container = document.getElementById('qr-grid-container');
+  if (!container) return;
+  const printWin = window.open('', '_blank');
+  printWin.document.write(`
+    <html>
+      <head>
+        <title>QRs Mesas - Maia Espresso</title>
+        <style>
+          body { font-family: sans-serif; text-align: center; padding: 20px; color: #000; }
+          .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+          .card { border: 2px solid #000; border-radius: 12px; padding: 16px; margin-bottom: 10px; page-break-inside: avoid; }
+          h2 { margin: 5px 0; font-size: 1.5rem; }
+          p { font-size: 0.85rem; margin-top: 4px; }
+          img { width: 160px; height: 160px; }
+        </style>
+      </head>
+      <body>
+        <h1>☕ MAIA ESPRESSO • CÓDIGOS QR MESAS 1 AL 11</h1>
+        <p>Coloca cada QR en su mesa correspondiente para pedidos en directo a cocina.</p>
+        <div class="grid">${container.innerHTML}</div>
+        <script>setTimeout(() => { window.print(); window.close(); }, 500);<\/script>
+      </body>
+    </html>
+  `);
+  printWin.document.close();
+};
+
