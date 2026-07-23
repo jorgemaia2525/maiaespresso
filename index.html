@@ -186,7 +186,7 @@
 
       <!-- Button to view paper format menu -->
       <div style="text-align: center; margin-bottom: 24px;">
-        <button id="btn-open-full-menu" class="btn btn-primary" style="padding: 12px 28px; font-weight: 700; font-size: 0.95rem; border-radius: var(--radius-full); box-shadow: var(--shadow-sm);">
+        <button id="btn-open-full-menu" onclick="window.openFullDigitalMenu()" class="btn btn-primary" style="padding: 12px 28px; font-weight: 700; font-size: 0.95rem; border-radius: var(--radius-full); box-shadow: var(--shadow-sm); cursor: pointer;">
           📜 Ver Carta Formato Papel ("Entre Sorbos y Bocados")
         </button>
       </div>
@@ -694,7 +694,7 @@
             <h2 class="full-menu-main-title">ENTRE SORBOS Y BOCADOS</h2>
             <p class="full-menu-subtitle">Carta Completa • Maia Espresso (Santa Cruz de Tenerife)</p>
           </div>
-          <button id="close-full-menu-btn" style="background: transparent; border: none; font-size: 2rem; color: #1A1715; cursor: pointer; line-height: 1; padding: 4px 8px;">&times;</button>
+          <button id="close-full-menu-btn" onclick="window.closeFullDigitalMenu()" style="background: transparent; border: none; font-size: 2rem; color: #1A1715; cursor: pointer; line-height: 1; padding: 4px 8px;">&times;</button>
         </div>
 
         <div class="full-menu-body">

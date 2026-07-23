@@ -2952,41 +2952,60 @@ window.lockKds = function() {
 };
 
 // --- FULL DIGITAL MENU ("ENTRE SORBOS Y BOCADOS") ---
+window.openFullDigitalMenu = function() {
+  const modal = document.getElementById('full-menu-modal');
+  if (modal) {
+    renderFullDigitalMenu();
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+  }
+};
+
+window.closeFullDigitalMenu = function() {
+  const modal = document.getElementById('full-menu-modal');
+  if (modal) {
+    modal.style.display = 'none';
+    modal.classList.remove('active');
+  }
+};
+
 function initFullDigitalMenu() {
   const openBtn = document.getElementById('btn-open-full-menu');
   const closeBtn = document.getElementById('close-full-menu-btn');
   const modal = document.getElementById('full-menu-modal');
   const viewCartBtn = document.getElementById('full-menu-view-cart-btn');
 
-  if (openBtn && modal) {
-    openBtn.addEventListener('click', () => {
-      renderFullDigitalMenu();
-      modal.classList.add('active');
-    });
+  if (openBtn) {
+    openBtn.onclick = (e) => {
+      if (e) e.preventDefault();
+      window.openFullDigitalMenu();
+    };
   }
 
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
+  if (closeBtn) {
+    closeBtn.onclick = (e) => {
+      if (e) e.preventDefault();
+      window.closeFullDigitalMenu();
+    };
   }
 
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        modal.classList.remove('active');
+        window.closeFullDigitalMenu();
       }
     });
   }
 
-  if (viewCartBtn && modal) {
-    viewCartBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
+  if (viewCartBtn) {
+    viewCartBtn.onclick = (e) => {
+      if (e) e.preventDefault();
+      window.closeFullDigitalMenu();
       const tableCartBtn = document.getElementById('btn-table-cart');
       if (tableCartBtn) {
         tableCartBtn.click();
       }
-    });
+    };
   }
 }
 
