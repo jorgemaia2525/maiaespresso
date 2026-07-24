@@ -541,16 +541,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
-    // Periodic check to auto-clear table session after 5 hours
-    setInterval(() => {
-      if (mesaNumber) {
-        const storedTime = parseInt(localStorage.getItem('maia_qr_time') || '0', 10);
-        const FIVE_HOURS_MS = 5 * 60 * 60 * 1000;
-        if (storedTime && (Date.now() - storedTime > FIVE_HOURS_MS)) {
-          clearTableSession('✨ Tu sesión de mesa ha finalizado automáticamente tras 5 horas. ¡Gracias por visitar Maia Espresso!');
-        }
-      }
-    }, 60000);
+    // Automatic & active table session clearance verification
+    checkTableSessionStatus();
+    setInterval(checkTableSessionStatus, 10000);
+    window.addEventListener('focus', checkTableSessionStatus);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) checkTableSessionStatus();
+    });
     
     outOfStockItems = JSON.parse(localStorage.getItem('maia_out_of_stock')) || [];
     
@@ -613,9 +610,20 @@ document.addEventListener('DOMContentLoaded', () => {
         )
         .subscribe();
 
-      // Realtime listener for table session clearance when billed in Kitchen Panel (works across all devices over Internet!)
+      // Realtime listener for table session clearance when billed in Kitchen Panel (Broadcast + Postgres Changes across all devices over Internet!)
       supabaseClient
         .channel('client-table-clearance')
+        .on(
+          'broadcast',
+          { event: 'CLEAR_TABLE_SESSION' },
+          payload => {
+            const billedMesa = String((payload && payload.payload && payload.payload.mesa) || (payload && payload.mesa) || '');
+            const currentClientMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
+            if (currentClientMesa && billedMesa === currentClientMesa) {
+              clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por tu visita!');
+            }
+          }
+        )
         .on(
           'postgres_changes',
           {
@@ -2103,37 +2111,53 @@ window.confirmChargeAndCloseTable = function(orderId) {
   const billedAt = new Date().toISOString();
   let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
   const targetOrder = ordersList.find(o => o.id === orderId);
-  const targetMesa = (targetOrder && targetOrder.mesa) ? targetOrder.mesa : currentBillingOrderMesa;
+  const targetMesa = (targetOrder && targetOrder.mesa) ? String(targetOrder.mesa) : (currentBillingOrderMesa ? String(currentBillingOrderMesa) : null);
 
+  // 1. Send BroadcastChannel event to local tabs
   if (targetMesa && typeof orderChannel !== 'undefined' && orderChannel) {
     orderChannel.postMessage({ type: 'CLEAR_TABLE_SESSION', mesa: targetMesa });
+    orderChannel.postMessage({ type: 'ORDER_UPDATED' });
   }
 
+  // 2. Broadcast via Supabase Realtime across all devices over Internet
+  if (supabaseClient && targetMesa) {
+    try {
+      supabaseClient.channel('client-table-clearance').send({
+        type: 'broadcast',
+        event: 'CLEAR_TABLE_SESSION',
+        payload: { mesa: targetMesa }
+      });
+    } catch(e) {
+      console.error('Error broadcasting table clear:', e);
+    }
+  }
+
+  // 3. Mark all orders for targetMesa (or specific orderId) as 'billed' in Supabase
   if (supabaseClient) {
-    supabaseClient
-      .from('maia_orders')
-      .update({ 
-        status: 'billed'
-      })
-      .eq('id', orderId)
+    const query = targetMesa 
+      ? supabaseClient.from('maia_orders').update({ status: 'billed' }).eq('mesa', targetMesa)
+      : supabaseClient.from('maia_orders').update({ status: 'billed' }).eq('id', orderId);
+
+    query
       .then(({ error }) => {
         if (error) {
           console.error('Error archivando pedido en Supabase:', error);
-          alert('Aviso: Falló la sincronización con la base de datos Supabase:\n' + JSON.stringify(error) + '\n\nProcediendo con cobro local offline para no interrumpir el servicio.');
-          // Fallback to local
           fallbackLocalCharge(orderId, billedAt);
         } else {
+          // Ensure orderId is explicitly updated as well
+          supabaseClient.from('maia_orders').update({ status: 'billed' }).eq('id', orderId);
+
           // Remove from local active orders cache
-          ordersList = ordersList.filter(o => o.id !== orderId);
+          ordersList = ordersList.filter(o => o.id !== orderId && (targetMesa ? String(o.mesa) !== String(targetMesa) : true));
           localStorage.setItem('maia_live_orders', JSON.stringify(ordersList));
           
           renderKdsOrders();
           closeReceiptModal();
+          showToast(`💳 Mesa ${targetMesa || ''} cobrada y liberada con éxito.`);
         }
       })
       .catch(err => {
         console.error('Excepción al cobrar en Supabase:', err);
-        alert('Excepción crítica al guardar en base de datos. Usando cobro local para no detener la cocina.');
         fallbackLocalCharge(orderId, billedAt);
       });
   } else {
@@ -3424,6 +3448,36 @@ function renderFullDigitalMenu() {
       catClasicos.appendChild(row);
     }
   });
+}
+
+function checkTableSessionStatus() {
+  const currentClientMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
+  if (!currentClientMesa) return;
+
+  // 1. Check auto-expire after 5 hours
+  const storedTime = parseInt(localStorage.getItem('maia_qr_time') || '0', 10);
+  const FIVE_HOURS_MS = 5 * 60 * 60 * 1000;
+  if (storedTime && (Date.now() - storedTime > FIVE_HOURS_MS)) {
+    clearTableSession('✨ Tu sesión de mesa ha finalizado automáticamente tras 5 horas. ¡Gracias por visitar Maia Espresso!');
+    return;
+  }
+
+  // 2. Query Supabase database to verify if all orders for this mesa are billed
+  if (supabaseClient) {
+    supabaseClient
+      .from('maia_orders')
+      .select('id, status')
+      .eq('mesa', currentClientMesa)
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          const hasActiveOrders = data.some(o => o.status !== 'billed');
+          if (!hasActiveOrders) {
+            clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por tu visita!');
+          }
+        }
+      })
+      .catch(err => console.error('Error verificando estado de mesa:', err));
+  }
 }
 
 function clearTableSession(msg) {
