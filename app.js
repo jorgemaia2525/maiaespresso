@@ -1767,7 +1767,7 @@ function initKds() {
     supabaseClient
       .from('maia_orders')
       .select('*')
-      .ne('status', 'billed')
+      .neq('status', 'billed')
       .order('created_at', { ascending: true })
       .then(({ data, error }) => {
         if (!error && data) {
