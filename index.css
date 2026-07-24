@@ -2269,7 +2269,7 @@ textarea.form-control {
   
 /* --- CARTA COMPLETA INTERACTIVA "ENTRE SORBOS Y BOCADOS" --- */
 .full-menu-modal-overlay {
-  display: none !important;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;

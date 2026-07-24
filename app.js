@@ -3282,6 +3282,7 @@ window.lockKds = function() {
 };
 
 // --- FULL DIGITAL MENU ("ENTRE SORBOS Y BOCADOS") ---
+// --- FULL DIGITAL MENU ("ENTRE SORBOS Y BOCADOS") ---
 window.openFullDigitalMenu = function() {
   const modal = document.getElementById('full-menu-modal');
   if (modal) {
@@ -3290,6 +3291,7 @@ window.openFullDigitalMenu = function() {
     modal.style.opacity = '1';
     modal.style.visibility = 'visible';
     modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 };
 
@@ -3300,6 +3302,7 @@ window.closeFullDigitalMenu = function() {
     modal.style.opacity = '0';
     modal.style.visibility = 'hidden';
     modal.classList.remove('active');
+    document.body.style.overflow = '';
   }
 };
 
@@ -3400,14 +3403,22 @@ function renderFullDigitalMenu() {
     countSpan.textContent = totalItems;
   }
 
-  const activeProducts = JSON.parse(localStorage.getItem('maia_active_products')) || DEFAULT_PRODUCTS;
+  let activeProducts = [];
+  try {
+    const stored = localStorage.getItem('maia_active_products');
+    if (stored) activeProducts = JSON.parse(stored);
+  } catch(e) {}
+
+  if (!activeProducts || !Array.isArray(activeProducts) || activeProducts.length === 0) {
+    activeProducts = (typeof PRODUCTS !== 'undefined' && Array.isArray(PRODUCTS) && PRODUCTS.length > 0) ? PRODUCTS : DEFAULT_PRODUCTS;
+  }
 
   activeProducts.forEach(prod => {
-    const isOut = outOfStockItems.includes(prod.id);
+    const isOut = (typeof outOfStockItems !== 'undefined' && Array.isArray(outOfStockItems)) ? outOfStockItems.includes(prod.id) : false;
     const row = document.createElement('div');
     row.className = `full-menu-item-row ${isOut ? 'out-of-stock' : ''}`;
 
-    let priceDisplay = `${prod.price.toFixed(2).replace('.', ',')}€`;
+    let priceDisplay = `${Number(prod.price || 0).toFixed(2).replace('.', ',')}€`;
     if (prod.id.includes('bocadillo') || prod.id.includes('classic') || prod.id.includes('islas') || prod.id.includes('mechada')) {
       if (prod.id === 'bocadillo-classic') priceDisplay = '2,90€ / 4,90€';
       else if (prod.id === 'bocadillo-chef') priceDisplay = '3,20€ / 5,80€';
