@@ -1359,41 +1359,268 @@ function initReservationForm() {
   });
 }
 
-// --- GOOGLE REVIEWS SLIDER CAROUSEL ---
+// --- GOOGLE REVIEWS DATA & RANDOM SLIDER ---
+const ALL_GOOGLE_REVIEWS = [
+  {
+    author: "Ruth Fuentes Domínguez",
+    initials: "RF",
+    color: "var(--accent-rust)",
+    text: "Una experiencia de 10 en Maia. El ambiente es agradable, el personal súper atento y la comida espectacular. Todo estaba delicioso y muy bien presentado. Sin duda, un sitio para repetir y recomendar. ⭐"
+  },
+  {
+    author: "Nadia Gopalan",
+    initials: "NG",
+    color: "var(--accent-olive)",
+    text: "Buen lugar para desayunar, todo muy rico!! El café buenísimo y el mango matcha espectacular. Recomiendo el yogurt griego con granola y frutas."
+  },
+  {
+    author: "Carlos Sánchez",
+    initials: "CS",
+    color: "#6C5A4B",
+    text: "¡Un gran descubrimiento! Probamos el brunch y estuvo espectacular, todo riquísimo y la atención de diez. Sin duda volveremos, súper recomendable."
+  },
+  {
+    author: "Santiago Álava",
+    initials: "SÁ",
+    color: "#8C5A46",
+    text: "No soy de poner reseñas, pero este sitio lo merece. Un lugar que se ha vuelto imprescindible en mi día a día, tanto por sus menús desayuno, como por sus menús."
+  },
+  {
+    author: "Noelia Rodríguez Manero",
+    initials: "NR",
+    color: "#5A6C58",
+    text: "Todo lo que hacen está hecho con mucho mimo y productos de calidad. He ido por los desayunos y por el menú de almuerzo, no como carne así que agradezco mucho que siempre tengan varias opciones. La comida es deliciosa y el trato excelente."
+  },
+  {
+    author: "Raquel Navarro Cantó",
+    initials: "RN",
+    color: "#9C6B52",
+    text: "Un lugar con mucho encanto donde se cuida con mucho mimo y atención cada detalle. Productos buenísimos con buenos precios y gran sabor. Adaptación para personas con intolerancias."
+  },
+  {
+    author: "Oliver",
+    initials: "O",
+    color: "#7B6858",
+    text: "¡Qué regalo para los sentidos! Da gusto que entre tanta cocina rápida industrial, aparezca algo que demuestre que el cariño por la cocina y la comida sana aún es posible. Volveremos ;)"
+  },
+  {
+    author: "Zuri Sevillano",
+    initials: "ZS",
+    color: "#556B69",
+    text: "La comida está impresionante, se nota la profesionalidad y el buen gusto! Hemos disfrutado mucho y nos han atendido de lujo! Volveremos."
+  },
+  {
+    author: "Beatriz Amador",
+    initials: "BA",
+    color: "#8B6B5C",
+    text: "Comida casera hecha con mucho cariño y sabor. Calidad - precio un 10/10, y el lugar muy bonito."
+  },
+  {
+    author: "Marcos Adex García Pérez",
+    initials: "MG",
+    color: "#5C6B8B",
+    text: "La comida deliciosa, el lugar céntrico y cómodo, decoración acogedora y una atención excelente. Siempre que venimos salimos satisfechos."
+  },
+  {
+    author: "Jose Lopez",
+    initials: "JL",
+    color: "#7A6354",
+    text: "Una experiencia absolutamente excepcional. Desde el primer momento, el restaurante nos ofreció una atención impecable y un trato cercano que hizo que nos sintiéramos como en casa."
+  },
+  {
+    author: "Eidher Mesa hdez",
+    initials: "EM",
+    color: "#607B5E",
+    text: "Me encantó el sitio, el trato y el ambiente que se crea. La comida ha sido estupenda."
+  },
+  {
+    author: "jonay Hernandez",
+    initials: "JH",
+    color: "#7B5E7A",
+    text: "Hemos comido en Maia y la experiencia ha sido sencillamente exquisita. Evento privado de Navidad para un grupo de 12 personas, con unos tiempos impecables."
+  },
+  {
+    author: "Cristina Torres",
+    initials: "CT",
+    color: "#4A6B6C",
+    text: "Un atendimiento bastante bueno, la comida excelente, son muy rápidos y profesionales, un lugar muy hogareño, volveré sin duda."
+  },
+  {
+    author: "Jennifer Amate",
+    initials: "JA",
+    color: "#8A5A5A",
+    text: "¡Fantástico! Hemos disfrutado de una experiencia increíble, la comida y el trato de Jorge y Cintia impecable. Seguiremos eligiéndoles!!!"
+  },
+  {
+    author: "Xoan Torres Luque",
+    initials: "XT",
+    color: "#6B7A5A",
+    text: "Desayunos muy buenos y con una calidad que impresiona, las pulguitas nunca decepcionan y el café está muy rico."
+  },
+  {
+    author: "Xavér S",
+    initials: "XS",
+    color: "#7A6B5A",
+    text: "Primera Vez, La Atencion, El Lugar Excelente Un Diez Volveré."
+  },
+  {
+    author: "Miguel MaDa",
+    initials: "MM",
+    color: "#9A6552",
+    text: "Muy buena la comida es poco, excelente, igual que la atención. 🥇🍹📍"
+  },
+  {
+    author: "SENEQUE",
+    initials: "S",
+    color: "#527A9A",
+    text: "Difícil no puntuar con 5X, por entusiasmo, cordialidad, prestancia y por su oferta gastro. Local, con mesas en terraza frente a paso del tranvía."
+  },
+  {
+    author: "Aarón Padilla Herrera",
+    initials: "AP",
+    color: "#8A6A52",
+    text: "Sitio muy acogedor con un servicio 10 y una carta que esta zona necesitaba hace tiempo."
+  },
+  {
+    author: "Jorge QM",
+    initials: "JQ",
+    color: "#6A8A52",
+    text: "Una joya que acaba de abrir en pleno centro de Santa Cruz con una propuesta sencilla y asequible pero de un nivel que nada tiene que envidiarle a los mejores."
+  },
+  {
+    author: "Ainhoa González Gutiérrez",
+    initials: "AG",
+    color: "#8A527A",
+    text: "Mi nuevo sitio favorito en Santa Cruz!! Tienen menús de almuerzo a un precio increíble, muy completos y con raciones generosas."
+  },
+  {
+    author: "Raquel Villarreal",
+    initials: "RV",
+    color: "#528A8A",
+    text: "Hemos estado muy a gusto, pero además la comida ha acompañado. El pollo crujiente es una delicia, crujiente por fuera y súper jugoso por dentro."
+  },
+  {
+    author: "Se AndCo",
+    initials: "SA",
+    color: "#4F6D7A",
+    text: "Absolutely recommended!! I just had a Salmon toast and a Latte Macchiato, both delicious. This is the first spot on the island where healthy meets wonderful..."
+  },
+  {
+    author: "Guille El Invencible",
+    initials: "GI",
+    color: "#C05C46",
+    text: "Todo super rico, atencion super buena y buen ambiente, volveré"
+  },
+  {
+    author: "Gabriel Rodríguez Hernández",
+    initials: "GH",
+    color: "#567D62",
+    text: "Muy buen sitio, la comida genial"
+  },
+  {
+    author: "Eszter Szabo",
+    initials: "ES",
+    color: "#3B7A9E",
+    text: "Kind staff, amazing sandwiches! Highly recommended spot in Santa Cruz."
+  },
+  {
+    author: "Ivan Garcia",
+    initials: "IG",
+    color: "#9A6B46",
+    text: "Se come muy bien"
+  },
+  {
+    author: "Tito Rodríguez",
+    initials: "TR",
+    color: "#C76B38",
+    text: "Es un sitio buenísimo. Siempre que vengo a comer salgo encantado tanto por la atención ofrecida como por la calidad de la comida."
+  },
+  {
+    author: "Pablo Garrido",
+    initials: "PG",
+    color: "#546E7A",
+    text: "Excelente opción para desayunar en el centro de Santa Cruz. Tanto el trato como la comida de 10. Todo lo que pedimos estaba excelente. Bocadillo de carne..."
+  },
+  {
+    author: "Elio 2306",
+    initials: "E2",
+    color: "#D48C46",
+    text: "Sehr schönes Café mit freundlichem Service und richtig leckerem Essen (das die Wartezeit wert ist)"
+  },
+  {
+    author: "Esther De Martin Pacheco",
+    initials: "EM",
+    color: "#6D8B74",
+    text: "Servicio súper atento, comida riquísima y un ambiente encantador en pleno centro."
+  },
+  {
+    author: "Rocío Hernández Santos",
+    initials: "RH",
+    color: "#00897B",
+    text: "Gran ambiente, trato inmejorable y comida exquisita. Totalmente recomendable."
+  },
+  {
+    author: "Cesar Montelongo hernandez",
+    initials: "CM",
+    color: "#E64A19",
+    text: "Excelente lugar en Santa Cruz, la comida riquísima y la atención de 10."
+  }
+];
+
 function initReviewsSlider() {
   const slider = document.getElementById('reviews-slider');
-  const dots = document.querySelectorAll('.slider-dots .dot');
-  if (!slider || dots.length === 0) return;
+  const dotsContainer = document.querySelector('.slider-dots');
+  if (!slider) return;
 
-  // Handle dot clicks dynamically
-  dots.forEach((dot, idx) => {
-    dot.addEventListener('click', () => {
-      const maxScroll = slider.scrollWidth - slider.clientWidth;
-      if (maxScroll <= 0) return;
-      const targetScroll = (idx / (dots.length - 1)) * maxScroll;
-      
-      slider.scrollTo({
-        left: targetScroll,
-        behavior: 'smooth'
+  // Shuffle reviews randomly on each page visit
+  const shuffledReviews = [...ALL_GOOGLE_REVIEWS].sort(() => Math.random() - 0.5);
+
+  // Render cards
+  slider.innerHTML = shuffledReviews.map(rev => `
+    <div class="review-card" style="min-width: 290px; flex: 0 0 350px; scroll-snap-align: start; text-align: left;">
+      <div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"${rev.text}"</p>
+      </div>
+      <div class="review-author">
+        <div class="review-avatar" style="background-color: ${rev.color};">${rev.initials}</div>
+        <div class="review-info-meta">
+          <h5>${rev.author}</h5>
+          <span class="verified-tag">✓ Reseña verificada en Google</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Render navigation dots dynamically
+  if (dotsContainer) {
+    const numDots = Math.min(5, Math.ceil(shuffledReviews.length / 2));
+    dotsContainer.innerHTML = Array.from({ length: numDots }, (_, i) => 
+      `<span class="dot ${i === 0 ? 'active' : ''}" data-idx="${i}"></span>`
+    ).join('');
+
+    const dots = dotsContainer.querySelectorAll('.dot');
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+        if (maxScroll <= 0) return;
+        const targetScroll = (idx / (dots.length - 1)) * maxScroll;
+        slider.scrollTo({ left: targetScroll, behavior: 'smooth' });
       });
     });
-  });
 
-  // Update active dot on scroll
-  slider.addEventListener('scroll', () => {
-    const maxScroll = slider.scrollWidth - slider.clientWidth;
-    if (maxScroll <= 0) return;
-    const progress = Math.min(1, Math.max(0, slider.scrollLeft / maxScroll));
-    const activeDotIndex = Math.min(dots.length - 1, Math.round(progress * (dots.length - 1)));
+    slider.addEventListener('scroll', () => {
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      if (maxScroll <= 0) return;
+      const progress = Math.min(1, Math.max(0, slider.scrollLeft / maxScroll));
+      const activeDotIndex = Math.min(dots.length - 1, Math.round(progress * (dots.length - 1)));
 
-    dots.forEach((dot, idx) => {
-      if (idx === activeDotIndex) {
-        dot.classList.add('active');
-      } else {
-        dot.classList.remove('active');
-      }
+      dots.forEach((dot, idx) => {
+        if (idx === activeDotIndex) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
     });
-  });
+  }
 }
 
 // --- SYSTEM UTILS: TOAST NOTIFICATIONS ---
