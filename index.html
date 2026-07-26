@@ -904,11 +904,11 @@
     </div>
 
     <!-- Receipt Modal -->
-    <div id="receipt-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 16px;">
-      <div id="receipt-modal-card" style="background-color: #fff; color: #1E1B18; width: 100%; max-width: 380px; border-radius: var(--radius-sm); padding: 24px; font-family: 'Courier New', Courier, monospace; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column;">
+    <div id="receipt-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 20px 16px; overflow-y: auto; box-sizing: border-box;" onclick="if(event.target === this) closeReceiptModal()">
+      <div id="receipt-modal-card" style="background-color: #fff; color: #1E1B18; width: 100%; max-width: 420px; max-height: 90vh; border-radius: var(--radius-md); padding: 24px; font-family: 'Courier New', Courier, monospace; box-shadow: 0 15px 35px rgba(0,0,0,0.6); display: flex; flex-direction: column; overflow-y: auto; box-sizing: border-box; margin: auto;">
         
         <!-- Receipt Content (Printable area) -->
-        <div id="receipt-print-area">
+        <div id="receipt-print-area" style="margin-bottom: 16px;">
           <div style="text-align: center; margin-bottom: 16px;">
             <h3 style="font-family: var(--font-title); margin: 0 0 4px 0; font-weight: 700; color: #1E1B18; font-size: 1.4rem;">MAIA ESPRESSO</h3>
             <p style="font-size: 0.8rem; margin: 0; color: #555; line-height: 1.4;">Avenida Ángel Guimerá, 38<br>Santa Cruz de Tenerife<br>CIF: B-38291029<br>Tlf: 655 64 11 85</p>
@@ -960,11 +960,11 @@
         </div>
         
         <!-- Actions (Non-printable) -->
-        <div class="receipt-modal-actions" style="margin-top: 24px; display: flex; flex-direction: column; gap: 8px;">
+        <div class="receipt-modal-actions" style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed #DDD; display: flex; flex-direction: column; gap: 10px;">
           <button onclick="window.print()" class="btn" style="background-color: #A96B5B; color: #fff; width: 100%; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 0.9rem; font-weight: bold; cursor: pointer;">🖨️ Imprimir Ticket de Caja</button>
           <div style="display: flex; gap: 8px; width: 100%;">
             <button id="btn-receipt-charge" class="btn" style="background-color: #5F6F52; color: #fff; flex: 1; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer;">💳 Cobrar y Cerrar</button>
-            <button onclick="closeReceiptModal()" class="btn" style="background-color: transparent; border: 1px solid #5C524A; color: #5C524A; flex: 1; border-radius: var(--radius-sm); padding: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer;">❌ Volver</button>
+            <button onclick="closeReceiptModal()" class="btn" style="background-color: transparent; border: 1px solid #5C524A; color: #5C524A; flex: 1; border-radius: var(--radius-sm); padding: 12px; font-size: 0.85rem; font-weight: bold; cursor: pointer;">❌ Cerrar</button>
           </div>
         </div>
       </div>
@@ -1146,11 +1146,11 @@
             <thead>
               <tr style="border-bottom: 1px solid #3D3532; color: #9E9185; font-size: 0.8rem; text-transform: uppercase;">
                 <th style="padding: 8px; width: 80px;">TICKET</th>
-                <th style="padding: 8px; width: 90px;">HORA COBRO</th>
+                <th style="padding: 8px; width: 110px;">FECHA / HORA</th>
                 <th style="padding: 8px; width: 80px;">MESA</th>
                 <th style="padding: 8px;">PRODUCTOS</th>
                 <th style="padding: 8px; text-align: right; width: 90px;">IMPORTE</th>
-                <th style="padding: 8px; text-align: center; width: 130px;">ACCIONES</th>
+                <th style="padding: 8px; text-align: center; width: 190px;">ACCIONES</th>
               </tr>
             </thead>
             <tbody id="sales-history-tbody">
@@ -1254,6 +1254,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=mesa-badge-x-fix"></script>
+  <script src="app.js?v=receipt-modal-history-fix"></script>
 </body>
 </html>

@@ -2241,24 +2241,48 @@ function updateDbOrderStatus(orderId, newStatus, updatedItems, ordersList) {
 
 let currentBillingOrderMesa = null;
 
-window.openReceiptModal = function(orderId) {
-  let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
-  const order = ordersList.find(o => o.id === orderId);
-  if (!order) return;
+window.openReceiptModal = function(orderOrId, isHistorical = false) {
+  let order = null;
+  if (typeof orderOrId === 'object' && orderOrId !== null) {
+    order = orderOrId;
+  } else if (typeof orderOrId === 'string') {
+    let liveOrders = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
+    order = liveOrders.find(o => o.id === orderOrId);
+    if (!order) {
+      let billedHistory = JSON.parse(localStorage.getItem('maia_billed_history')) || [];
+      order = billedHistory.find(o => o.id === orderOrId);
+    }
+  }
+
+  if (!order) {
+    showToast('No se encontró la información del pedido.');
+    return;
+  }
 
   currentBillingOrderMesa = order.mesa;
 
   // Populate ticket metadata
-  document.getElementById('receipt-number').textContent = order.id.replace('order-', '').slice(-4);
-  document.getElementById('receipt-date').textContent = new Date().toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric' });
+  document.getElementById('receipt-number').textContent = (order.id || '').replace('order-', '').slice(-4);
+  
+  let formattedDate = new Date().toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric' });
+  let formattedTime = order.time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  if (order.billed_at || order.created_at) {
+    const d = new Date(order.billed_at || order.created_at);
+    if (!isNaN(d.getTime())) {
+      formattedDate = d.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric' });
+      formattedTime = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+
+  document.getElementById('receipt-date').textContent = formattedDate;
   document.getElementById('receipt-table').textContent = `Mesa ${order.mesa}`;
-  document.getElementById('receipt-time').textContent = order.time;
+  document.getElementById('receipt-time').textContent = formattedTime;
 
   // Build items rows
   const tbody = document.getElementById('receipt-items-body');
   tbody.innerHTML = '';
 
-  // Consolidate duplicate items for printing (same name and description)
   const consolidatedItems = [];
   (order.items || []).forEach(item => {
     const existing = consolidatedItems.find(r => r.name === item.name && (r.desc || '') === (item.desc || ''));
@@ -2270,7 +2294,6 @@ window.openReceiptModal = function(orderId) {
   });
 
   let totalCalculated = 0;
-  tbody.innerHTML = '';
   consolidatedItems.forEach(item => {
     const itemPrice = item.price || 0;
     const itemTotal = itemPrice * item.qty;
@@ -2289,7 +2312,7 @@ window.openReceiptModal = function(orderId) {
   });
 
   const total = order.total || totalCalculated;
-  const subtotal = total / 1.07; // 7% IGIC en Canarias
+  const subtotal = total / 1.07;
   const tax = total - subtotal;
 
   document.getElementById('receipt-subtotal').textContent = `${subtotal.toFixed(2)}€`;
@@ -2298,10 +2321,17 @@ window.openReceiptModal = function(orderId) {
 
   // Bind Charge & Close Action
   const chargeBtn = document.getElementById('btn-receipt-charge');
-  chargeBtn.textContent = '💳 Cobrar y Cerrar';
-  chargeBtn.onclick = () => {
-    confirmChargeAndCloseTable(order.id);
-  };
+  if (order.status === 'billed' || isHistorical) {
+    if (chargeBtn) chargeBtn.style.display = 'none';
+  } else {
+    if (chargeBtn) {
+      chargeBtn.style.display = 'block';
+      chargeBtn.textContent = '💳 Cobrar y Cerrar';
+      chargeBtn.onclick = () => {
+        confirmChargeAndCloseTable(order.id);
+      };
+    }
+  }
 
   // Display the receipt modal backdrop
   document.getElementById('receipt-modal-backdrop').style.display = 'flex';
@@ -3239,33 +3269,39 @@ window.renderSalesHistory = async function() {
   displayOrders.forEach(order => {
     const tr = document.createElement('tr');
     tr.style.borderBottom = '1px solid #3D3532';
+    tr.style.cursor = 'pointer';
+    tr.style.transition = 'background-color 0.2s';
+    tr.onmouseover = () => tr.style.backgroundColor = '#2D2523';
+    tr.onmouseout = () => tr.style.backgroundColor = 'transparent';
+    tr.onclick = (e) => {
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+      window.openReceiptModal(order, true);
+    };
     
-    // Formatting time/date:
-    // If today, show HH:MM. If other day, show DD/MM HH:MM.
-    let timeFormatted = '--:--';
-    if (order.billed_at) {
-      const billedDate = new Date(order.billed_at);
-      if (billedDate.toLocaleDateString() === todayStr) {
-        timeFormatted = billedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      } else {
-        timeFormatted = billedDate.toLocaleDateString([], { day: '2-digit', month: '2-digit' }) + ' ' + 
-                        billedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      }
-    } else {
-      timeFormatted = order.time || '--:--';
+    // Formatting date and time:
+    let dateFormatted = '--/--/--';
+    let timeFormatted = order.time || '--:--';
+    const dateObj = order.billed_at ? new Date(order.billed_at) : (order.created_at ? new Date(order.created_at) : null);
+    if (dateObj && !isNaN(dateObj.getTime())) {
+      dateFormatted = dateObj.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: '2-digit' });
+      timeFormatted = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
     const itemsSummary = (order.items || []).map(item => `${item.qty}x ${item.name}`).join(', ');
 
     tr.innerHTML = `
-      <td style="padding: 12px 8px; font-weight: bold; font-family: monospace; color: var(--accent-rust);">#${order.id.replace('order-', '').slice(-4)}</td>
-      <td style="padding: 12px 8px; white-space: nowrap;">${timeFormatted}</td>
+      <td style="padding: 12px 8px; font-weight: bold; font-family: monospace; color: var(--accent-rust);">#${(order.id || '').replace('order-', '').slice(-4)}</td>
+      <td style="padding: 12px 8px; white-space: nowrap;">
+        <div style="font-weight: 600; color: #F5F2EB;">${timeFormatted}</div>
+        <div style="font-size: 0.75rem; color: #9E9185;">${dateFormatted}</div>
+      </td>
       <td style="padding: 12px 8px; font-weight: bold;">Mesa ${order.mesa}</td>
       <td style="padding: 12px 8px; color: var(--text-light); font-size: 0.82rem; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${itemsSummary}">${itemsSummary}</td>
       <td style="padding: 12px 8px; text-align: right; font-weight: bold; color: var(--text-primary);">${Number(order.total || 0).toFixed(2)}€</td>
       <td style="padding: 12px 8px; text-align: center; display: flex; gap: 6px; justify-content: center; align-items: center;">
-        <button onclick="window.reprintTicketFromHistory('${order.id}')" style="background-color: #5C524A; color: #F5F2EB; border: none; padding: 6px 10px; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: bold; cursor: pointer; transition: background-color 0.2s; white-space: nowrap;" onmouseover="this.style.backgroundColor='#A96B5B'" onmouseout="this.style.backgroundColor='#5C524A'">🖨️ Imprimir</button>
-        <button onclick="window.deleteSaleRecord('${order.id}')" style="background-color: transparent; color: var(--accent-rust); border: 1px solid var(--accent-rust); padding: 5px 8px; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: bold; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.backgroundColor='var(--accent-rust)'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--accent-rust)';" title="Eliminar del historial">&times;</button>
+        <button onclick="event.stopPropagation(); window.openReceiptModal('${order.id}', true)" style="background-color: var(--accent-rust); color: #fff; border: none; padding: 6px 10px; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: bold; cursor: pointer; transition: background-color 0.2s; white-space: nowrap;" title="Ver Ticket Completo">👁️ Ver Ticket</button>
+        <button onclick="event.stopPropagation(); window.reprintTicketFromHistory('${order.id}')" style="background-color: #5C524A; color: #F5F2EB; border: none; padding: 6px 10px; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: bold; cursor: pointer; transition: background-color 0.2s; white-space: nowrap;" onmouseover="this.style.backgroundColor='#A96B5B'" onmouseout="this.style.backgroundColor='#5C524A'">🖨️ Imprimir</button>
+        <button onclick="event.stopPropagation(); window.deleteSaleRecord('${order.id}')" style="background-color: transparent; color: var(--accent-rust); border: 1px solid var(--accent-rust); padding: 5px 8px; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: bold; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.backgroundColor='var(--accent-rust)'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--accent-rust)';" title="Eliminar del historial">&times;</button>
       </td>
     `;
     tbody.appendChild(tr);
