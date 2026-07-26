@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mesaNumber) {
       const badge = document.getElementById('mesa-badge');
       if (badge) {
-        badge.textContent = `Mesa ${mesaNumber}`;
+        badge.innerHTML = `Mesa ${mesaNumber} <span style="margin-left: 4px; font-size: 0.75rem; background: rgba(0,0,0,0.25); padding: 0 4px; border-radius: 4px; font-weight: bold;">✕</span>`;
         badge.style.display = 'inline-block';
       }
       
