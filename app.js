@@ -3716,8 +3716,15 @@ function checkTableSessionStatus() {
   }
 }
 
+window.confirmLeaveTable = function() {
+  const currentMesa = mesaNumber || localStorage.getItem('maia_qr_mesa');
+  if (!currentMesa) return;
+  if (confirm(`¿Quieres salir de la Mesa ${currentMesa}?`)) {
+    clearTableSession('Has salido de la mesa.');
+  }
+};
+
 function clearTableSession(msg) {
-  if (!mesaNumber && !localStorage.getItem('maia_qr_mesa')) return;
   mesaNumber = null;
   localStorage.removeItem('maia_qr_mesa');
   localStorage.removeItem('maia_qr_time');
