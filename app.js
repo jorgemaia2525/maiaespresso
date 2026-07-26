@@ -3688,14 +3688,14 @@ function renderFullDigitalMenu() {
     }
 
     row.innerHTML = `
-      <div class="full-menu-item-info">
-        <h5 class="full-menu-item-name">
-          ${prod.name}
-          ${isOut ? '<span class="badge-agotado">Agotado</span>' : ''}
-        </h5>
+      <div class="full-menu-item-main">
+        <div class="full-menu-item-header">
+          <span class="full-menu-item-name">${prod.name}</span>
+          ${isOut ? '<span class="badge-agotado">AGOTADO</span>' : ''}
+        </div>
         ${prod.desc ? `<p class="full-menu-item-desc">${prod.desc}</p>` : ''}
       </div>
-      <div style="display: flex; align-items: center; gap: 8px;">
+      <div class="full-menu-item-action">
         <span class="full-menu-item-price">${priceDisplay}</span>
         ${!isOut ? `<button onclick="event.stopPropagation(); window.quickAddFromFullMenu('${prod.id}')" class="btn-full-menu-add" title="Añadir a mi pedido">+</button>` : ''}
       </div>
