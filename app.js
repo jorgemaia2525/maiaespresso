@@ -1884,6 +1884,14 @@ function renderKdsOrders() {
     return;
   }
 
+  // Sort orders: pending first, preparing second, served last
+  const statusPriority = { 'pending': 1, 'preparing': 2, 'served': 3 };
+  ordersList.sort((a, b) => {
+    const prioA = statusPriority[a.status] || 99;
+    const prioB = statusPriority[b.status] || 99;
+    return prioA - prioB;
+  });
+
   container.innerHTML = '';
   
   ordersList.forEach(order => {
@@ -1915,7 +1923,8 @@ function renderKdsOrders() {
     });
 
     let itemsHTML = '';
-    Object.keys(grouped).forEach(timeKey => {
+    // Reverse batch keys so newest batch with NUEVO items appears at top of card
+    Object.keys(grouped).reverse().forEach(timeKey => {
       itemsHTML += `
         <div style="margin-bottom: 12px;">
           <div style="font-size: 0.8rem; font-weight: bold; color: var(--accent-olive); border-bottom: 1px solid #4A3E3B; padding-bottom: 4px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
