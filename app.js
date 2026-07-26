@@ -505,6 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mesaNumber = mesa;
       localStorage.setItem('maia_qr_mesa', mesa);
       localStorage.setItem('maia_qr_time', Date.now().toString());
+      localStorage.removeItem('maia_session_has_placed_order');
     } else {
       const storedMesa = localStorage.getItem('maia_qr_mesa');
       const storedTime = parseInt(localStorage.getItem('maia_qr_time') || '0', 10);
@@ -619,7 +620,8 @@ document.addEventListener('DOMContentLoaded', () => {
           payload => {
             const billedMesa = String((payload && payload.payload && payload.payload.mesa) || (payload && payload.mesa) || '');
             const currentClientMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
-            if (currentClientMesa && billedMesa === currentClientMesa) {
+            const hasPlacedOrder = localStorage.getItem('maia_session_has_placed_order') === 'true';
+            if (currentClientMesa && billedMesa === currentClientMesa && hasPlacedOrder) {
               clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por tu visita!');
             }
           }
@@ -635,8 +637,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (payload.new && payload.new.status === 'billed') {
               const billedMesa = String(payload.new.mesa || '');
               const currentClientMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
+              const hasPlacedOrder = localStorage.getItem('maia_session_has_placed_order') === 'true';
               
-              if (currentClientMesa && billedMesa === currentClientMesa) {
+              if (currentClientMesa && billedMesa === currentClientMesa && hasPlacedOrder) {
                 clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por tu visita!');
               }
             }
@@ -671,7 +674,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-render brunch options!
         renderBrunchCustomizerOptions();
       } else if (event.data.type === 'CLEAR_TABLE_SESSION') {
-        if (mesaNumber && String(event.data.mesa) === String(mesaNumber)) {
+        const hasPlacedOrder = localStorage.getItem('maia_session_has_placed_order') === 'true';
+        if (mesaNumber && String(event.data.mesa) === String(mesaNumber) && hasPlacedOrder) {
           clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por visitar Maia Espresso!');
         }
       }
@@ -1725,6 +1729,9 @@ async function sendOrderToKds() {
   } else {
     handleLocalOrderMerge(ordersList, localExistingOrder, newItems, cartTotal, orderTime);
   }
+
+  // Record that an order was placed in this session
+  localStorage.setItem('maia_session_has_placed_order', 'true');
 
   // Clear cart and update UI
   cart = [];
@@ -3473,8 +3480,9 @@ function checkTableSessionStatus() {
     return;
   }
 
-  // 2. Query Supabase database to verify if all orders for this mesa are billed
-  if (supabaseClient) {
+  // 2. Query Supabase database ONLY if client has placed an order in this session
+  const hasPlacedOrderInSession = localStorage.getItem('maia_session_has_placed_order') === 'true';
+  if (supabaseClient && hasPlacedOrderInSession) {
     supabaseClient
       .from('maia_orders')
       .select('id, status')
@@ -3496,6 +3504,7 @@ function clearTableSession(msg) {
   mesaNumber = null;
   localStorage.removeItem('maia_qr_mesa');
   localStorage.removeItem('maia_qr_time');
+  localStorage.removeItem('maia_session_has_placed_order');
   
   const badge = document.getElementById('mesa-badge');
   if (badge) badge.style.display = 'none';
