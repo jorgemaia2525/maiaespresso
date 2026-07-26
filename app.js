@@ -419,14 +419,18 @@ const DEFAULT_PRODUCTS = [
 let PRODUCTS = [];
 
 function loadActiveProducts() {
-  const stored = localStorage.getItem('maia_active_products');
-  if (stored) {
-    PRODUCTS = JSON.parse(stored);
-  } else {
-    // Merge existing custom products if any existed from previous step
-    const oldCustom = JSON.parse(localStorage.getItem('maia_custom_products')) || [];
-    PRODUCTS = [...JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)), ...oldCustom];
-    localStorage.setItem('maia_active_products', JSON.stringify(PRODUCTS));
+  try {
+    const stored = localStorage.getItem('maia_active_products');
+    if (stored) {
+      PRODUCTS = JSON.parse(stored);
+    } else {
+      const oldCustom = JSON.parse(localStorage.getItem('maia_custom_products')) || [];
+      PRODUCTS = [...JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)), ...oldCustom];
+      localStorage.setItem('maia_active_products', JSON.stringify(PRODUCTS));
+    }
+  } catch(e) {
+    console.error('Error loading stored products, resetting to default:', e);
+    PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
   }
 }
 loadActiveProducts();
