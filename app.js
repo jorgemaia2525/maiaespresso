@@ -3697,7 +3697,7 @@ function renderFullDigitalMenu() {
       </div>
       <div style="display: flex; align-items: center; gap: 8px;">
         <span class="full-menu-item-price">${priceDisplay}</span>
-        ${!isOut ? `<button onclick="event.stopPropagation(); window.quickAddFromFullMenu('${prod.id}')" style="background: var(--accent-rust); color: #fff; border: none; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: var(--shadow-sm);" title="Añadir a mi pedido">+</button>` : ''}
+        ${!isOut ? `<button onclick="event.stopPropagation(); window.quickAddFromFullMenu('${prod.id}')" class="btn-full-menu-add" title="Añadir a mi pedido">+</button>` : ''}
       </div>
     `;
 
