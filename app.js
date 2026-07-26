@@ -1169,10 +1169,10 @@ function displayLiveTableSummary(order, container) {
     const itemPrice = item.price || 0;
     const lineTotal = itemPrice * item.qty;
     let statusBadge = '<span style="font-size: 0.7rem; background-color: #D97706; color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px;">⏳ Recibido</span>';
-    if (item.status === 'preparing' || order.status === 'preparing') {
-      statusBadge = '<span style="font-size: 0.7rem; background-color: var(--accent-rust); color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 2px;">🍳 En preparación</span>';
-    } else if (item.status === 'served' || order.status === 'served') {
+    if (item.status === 'served') {
       statusBadge = '<span style="font-size: 0.7rem; background-color: var(--accent-olive); color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px;">✅ Servido</span>';
+    } else if (item.status === 'preparing') {
+      statusBadge = '<span style="font-size: 0.7rem; background-color: var(--accent-rust); color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 2px;">🍳 En preparación</span>';
     }
 
     return `
@@ -1192,12 +1192,12 @@ function displayLiveTableSummary(order, container) {
 
   let myHTML = '';
   if (myItems.length > 0) {
-    myItems.forEach(item => myHTML += buildItemRow(item));
+    [...myItems].reverse().forEach(item => myHTML += buildItemRow(item));
   }
 
   let otherHTML = '';
   if (otherItems.length > 0) {
-    otherItems.forEach(item => otherHTML += buildItemRow(item));
+    [...otherItems].reverse().forEach(item => otherHTML += buildItemRow(item));
   }
 
   container.style.display = 'block';
@@ -1231,7 +1231,7 @@ function displayLiveTableSummary(order, container) {
     `;
   } else {
     let allHTML = '';
-    order.items.forEach(item => allHTML += buildItemRow(item));
+    [...order.items].reverse().forEach(item => allHTML += buildItemRow(item));
 
     container.innerHTML = `
       <div style="background-color: #F7F3EB; border: 1.5px solid #E5DEC9; border-radius: var(--radius-sm); padding: 14px; margin-top: 10px;">
