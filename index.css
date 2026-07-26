@@ -2275,15 +2275,15 @@ textarea.form-control {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(18, 16, 15, 0.85);
+  background-color: rgba(18, 16, 15, 0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 999999;
-  padding: 16px;
+  padding: 24px;
   box-sizing: border-box;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
 }
 
 .full-menu-modal-overlay.active {
@@ -2296,6 +2296,7 @@ textarea.form-control {
 
 .full-menu-container {
   background-color: #FAF7F2 !important;
+  background: #FAF7F2 !important;
   color: #2C2523 !important;
   width: 100%;
   max-width: 980px;
@@ -2308,7 +2309,9 @@ textarea.form-control {
   border: 2px solid #D8CEBE;
   position: relative;
   opacity: 1 !important;
+  visibility: visible !important;
   z-index: 1000000 !important;
+  margin: auto;
 }
 
 .full-menu-header {
