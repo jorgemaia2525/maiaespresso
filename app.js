@@ -626,8 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
           payload => {
             const billedMesa = String((payload && payload.payload && payload.payload.mesa) || (payload && payload.mesa) || '');
             const currentClientMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
-            const hasPlacedOrder = localStorage.getItem('maia_session_has_placed_order') === 'true';
-            if (currentClientMesa && billedMesa === currentClientMesa && hasPlacedOrder) {
+            if (currentClientMesa && billedMesa === currentClientMesa) {
               clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por tu visita!');
             }
           }
@@ -643,9 +642,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (payload.new && payload.new.status === 'billed') {
               const billedMesa = String(payload.new.mesa || '');
               const currentClientMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
-              const hasPlacedOrder = localStorage.getItem('maia_session_has_placed_order') === 'true';
               
-              if (currentClientMesa && billedMesa === currentClientMesa && hasPlacedOrder) {
+              if (currentClientMesa && billedMesa === currentClientMesa) {
                 clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por tu visita!');
               }
             }
@@ -699,8 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-render brunch options!
         renderBrunchCustomizerOptions();
       } else if (event.data.type === 'CLEAR_TABLE_SESSION') {
-        const hasPlacedOrder = localStorage.getItem('maia_session_has_placed_order') === 'true';
-        if (mesaNumber && String(event.data.mesa) === String(mesaNumber) && hasPlacedOrder) {
+        if (mesaNumber && String(event.data.mesa) === String(mesaNumber)) {
           clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por visitar Maia Espresso!');
         }
       } else if (event.data.type === 'ORDER_UPDATED' || event.data.type === 'NEW_ORDER') {
