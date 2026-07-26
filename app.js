@@ -646,6 +646,25 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         )
         .subscribe();
+
+      // Realtime listener for client table order status updates
+      supabaseClient
+        .channel('client-table-order-updates')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'maia_orders'
+          },
+          payload => {
+            const currentClientMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
+            if (payload.new && String(payload.new.mesa) === currentClientMesa) {
+              renderLiveTableOrderInCart();
+            }
+          }
+        )
+        .subscribe();
     }
     
     // Listen for real-time stock updates from KDS
@@ -678,6 +697,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mesaNumber && String(event.data.mesa) === String(mesaNumber) && hasPlacedOrder) {
           clearTableSession('✨ Tu mesa ha sido liberada por la cocina. ¡Gracias por visitar Maia Espresso!');
         }
+      } else if (event.data.type === 'ORDER_UPDATED' || event.data.type === 'NEW_ORDER') {
+        renderLiveTableOrderInCart();
       }
     });
 
@@ -912,6 +933,7 @@ function initCartDrawer() {
     if(e) e.preventDefault();
     drawer.classList.add('open');
     overlay.classList.add('open');
+    renderLiveTableOrderInCart();
   };
 
   const closeDrawer = () => {
@@ -1014,6 +1036,7 @@ function updateCartUI() {
     
     // Hide reservation alert
     document.getElementById('booking-brunch-alert').style.display = 'none';
+    renderLiveTableOrderInCart();
     return;
   }
 
@@ -1058,9 +1081,113 @@ function updateCartUI() {
   } else {
     bookingAlert.style.display = 'none';
   }
+
+  renderLiveTableOrderInCart();
 }
 
-// --- INTERACTIVE BRUNCH CREATOR ---
+window.renderLiveTableOrderInCart = function() {
+  const container = document.getElementById('cart-table-live-summary');
+  if (!container) return;
+
+  const currentMesa = String(mesaNumber || localStorage.getItem('maia_qr_mesa') || '');
+  if (!currentMesa) {
+    container.style.display = 'none';
+    container.innerHTML = '';
+    return;
+  }
+
+  if (supabaseClient) {
+    supabaseClient
+      .from('maia_orders')
+      .select('*')
+      .eq('mesa', currentMesa)
+      .neq('status', 'billed')
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          displayLiveTableSummary(data[0], container);
+        } else {
+          const ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
+          const localOrder = ordersList.find(o => String(o.mesa) === String(currentMesa) && o.status !== 'billed');
+          if (localOrder) {
+            displayLiveTableSummary(localOrder, container);
+          } else {
+            container.style.display = 'none';
+            container.innerHTML = '';
+          }
+        }
+      })
+      .catch(() => {
+        container.style.display = 'none';
+      });
+  } else {
+    const ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
+    const localOrder = ordersList.find(o => String(o.mesa) === String(currentMesa) && o.status !== 'billed');
+    if (localOrder) {
+      displayLiveTableSummary(localOrder, container);
+    } else {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
+  }
+};
+
+function displayLiveTableSummary(order, container) {
+  if (!order || !order.items || order.items.length === 0) {
+    container.style.display = 'none';
+    container.innerHTML = '';
+    return;
+  }
+
+  let tableTotal = 0;
+  let itemsHTML = '';
+
+  order.items.forEach(item => {
+    const itemPrice = item.price || 0;
+    const lineTotal = itemPrice * item.qty;
+    tableTotal += lineTotal;
+
+    let statusBadge = '<span style="font-size: 0.7rem; background-color: #D97706; color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px;">⏳ Recibido</span>';
+    if (item.status === 'preparing' || order.status === 'preparing') {
+      statusBadge = '<span style="font-size: 0.7rem; background-color: var(--accent-rust); color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 2px;">🍳 En preparación</span>';
+    } else if (item.status === 'served' || order.status === 'served') {
+      statusBadge = '<span style="font-size: 0.7rem; background-color: var(--accent-olive); color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px;">✅ Servido</span>';
+    }
+
+    itemsHTML += `
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #E5DEC9; font-size: 0.85rem;">
+        <div>
+          <span style="font-weight: bold; margin-right: 4px; color: var(--accent-rust);">${item.qty}x</span>
+          <span style="color: #2C2523; font-weight: 500;">${item.name}</span>
+          ${item.desc ? `<div style="font-size: 0.72rem; color: #7E7165; font-style: italic;">(${item.desc})</div>` : ''}
+        </div>
+        <div style="text-align: right; flex-shrink: 0; margin-left: 8px;">
+          <div style="font-weight: 700; color: #2C2523;">${lineTotal.toFixed(2)}€</div>
+          <div style="margin-top: 2px;">${statusBadge}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  const totalToShow = order.total || tableTotal;
+
+  container.style.display = 'block';
+  container.innerHTML = `
+    <div style="background-color: #F7F3EB; border: 1.5px solid #E5DEC9; border-radius: var(--radius-sm); padding: 14px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #D8CEBE;">
+        <span style="font-weight: bold; font-size: 0.9rem; color: var(--accent-rust);">📋 Pedidos de la Mesa ${order.mesa}</span>
+        <span style="font-size: 0.72rem; color: var(--accent-olive); font-weight: 600; background: #EAE3D2; padding: 2px 8px; border-radius: 10px;">En directo</span>
+      </div>
+      <div style="max-height: 200px; overflow-y: auto; margin-bottom: 10px; padding-right: 2px;">
+        ${itemsHTML}
+      </div>
+      <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; color: #2C2523; padding-top: 6px; border-top: 1px solid #D8CEBE;">
+        <span>Total Mesa enviado:</span>
+        <span style="color: var(--accent-rust);">${totalToShow.toFixed(2)}€</span>
+      </div>
+    </div>
+  `;
+}
+
 // --- INTERACTIVE BRUNCH CREATOR ---
 function initBrunchCreator() {
   const prevBtn = document.getElementById('brunch-prev-btn');
@@ -2355,6 +2482,26 @@ window.toggleStock = function(itemId, isAvailable) {
   } else {
     if (!outOfStockItems.includes(itemId)) {
       outOfStockItems.push(itemId);
+    }
+
+    // Auto-add item to shopping list when marked as Agotado
+    const prod = PRODUCTS.find(p => p.id === itemId);
+    const brunchOpt = typeof BRUNCH_OPTIONS !== 'undefined' ? BRUNCH_OPTIONS.find(b => b.name === itemId || b.id === itemId) : null;
+    const itemName = prod ? prod.name : (brunchOpt ? brunchOpt.name : itemId);
+
+    let shoppingList = JSON.parse(localStorage.getItem('maia_shopping_list')) || [];
+    if (!shoppingList.some(i => i.text.toLowerCase() === itemName.toLowerCase())) {
+      shoppingList.push({
+        id: 'shop-' + Date.now(),
+        text: itemName,
+        completed: false
+      });
+      localStorage.setItem('maia_shopping_list', JSON.stringify(shoppingList));
+      if (typeof orderChannel !== 'undefined' && orderChannel) {
+        orderChannel.postMessage({ type: 'SHOPPING_LIST_UPDATED' });
+      }
+      if (typeof renderShoppingList === 'function') renderShoppingList();
+      showToast(`📝 "${itemName}" añadido a la Lista de la Compra`);
     }
   }
   localStorage.setItem('maia_out_of_stock', JSON.stringify(outOfStockItems));
