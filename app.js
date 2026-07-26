@@ -3547,6 +3547,7 @@ window.openFullDigitalMenu = function() {
   const modal = document.getElementById('full-menu-modal');
   if (modal) {
     renderFullDigitalMenu();
+    modal.classList.add('active');
     modal.style.display = 'flex';
     modal.style.justifyContent = 'center';
     modal.style.alignItems = 'center';
@@ -3557,6 +3558,7 @@ window.openFullDigitalMenu = function() {
 window.closeFullDigitalMenu = function() {
   const modal = document.getElementById('full-menu-modal');
   if (modal) {
+    modal.classList.remove('active');
     modal.style.display = 'none';
     document.body.style.overflow = '';
   }
