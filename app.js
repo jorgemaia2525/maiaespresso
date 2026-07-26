@@ -3452,20 +3452,35 @@ window.openQrModal = function() {
 
   for (let i = 1; i <= 11; i++) {
     const tableUrl = `${baseUrl}?mesa=${i}`;
-    const qrImageApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=10&data=${encodeURIComponent(tableUrl)}`;
+    const qrImageApi = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=8&ecc=H&data=${encodeURIComponent(tableUrl)}`;
 
     html += `
-      <div style="background-color: #1E1B18; border: 1px solid #3D3532; border-radius: var(--radius-sm); padding: 16px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+      <div style="background-color: #FAF7F2; color: #2C2523; border: 2px dashed #B85032; border-radius: 18px; padding: 18px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 6px 20px rgba(0,0,0,0.3); position: relative;">
         <div>
-          <span style="font-size: 0.75rem; background-color: var(--accent-rust); color: #fff; padding: 2px 8px; border-radius: 12px; font-weight: bold; text-transform: uppercase;">MAIA ESPRESSO</span>
-          <h4 style="font-family: var(--font-title); margin: 8px 0; color: #F5F2EB; font-size: 1.25rem;">Mesa ${i}</h4>
+          <span style="font-size: 0.65rem; background-color: var(--accent-rust); color: #fff; padding: 3px 10px; border-radius: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">MAIA ESPRESSO</span>
+          <h4 style="font-family: var(--font-title); margin: 6px 0 2px 0; color: #1A1715; font-size: 1.5rem; font-weight: 800;">MESA ${i}</h4>
         </div>
         
-        <div style="background-color: #fff; padding: 10px; border-radius: 8px; margin: 12px 0;">
-          <img src="${qrImageApi}" alt="QR Mesa ${i}" style="width: 140px; height: 140px; display: block;">
+        <div style="margin: 4px 0;">
+          <div style="font-size: 0.72rem; font-weight: 800; color: var(--accent-rust); text-transform: uppercase; letter-spacing: 0.5px;">
+            👇 ESCANEA Y PIDE AQUÍ 👇
+          </div>
+          <div style="font-size: 0.66rem; color: #6E6359; font-weight: 600; margin-top: 1px;">
+            Directo a cocina • Sin esperas
+          </div>
         </div>
 
-        <a href="${tableUrl}" target="_blank" class="btn" style="font-size: 0.75rem; color: var(--accent-olive); text-decoration: underline; word-break: break-all;">Probador Mesa ${i} ↗</a>
+        <div style="position: relative; display: inline-block; background-color: #fff; padding: 10px; border-radius: 12px; border: 2px solid #D8CEBE; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin: 6px 0;">
+          <img src="${qrImageApi}" alt="QR Mesa ${i}" style="width: 145px; height: 145px; display: block; border-radius: 4px;">
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 42px; height: 42px; background: #ffffff; border-radius: 50%; padding: 2px; box-shadow: 0 2px 8px rgba(0,0,0,0.35); border: 2.5px solid var(--accent-rust); display: flex; align-items: center; justify-content: center; z-index: 10;">
+            <img src="assets/logo.jpg" alt="Maia Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+          </div>
+        </div>
+
+        <div style="margin-top: 2px;">
+          <div style="font-size: 0.65rem; color: #7A6F66; font-weight: 600;">📲 Apunta con tu cámara</div>
+          <a href="${tableUrl}" target="_blank" style="font-size: 0.72rem; color: var(--accent-rust); font-weight: 700; text-decoration: underline; margin-top: 2px; display: inline-block;">Probar Mesa ${i} ↗</a>
+        </div>
       </div>
     `;
   }
@@ -3480,27 +3495,155 @@ window.closeQrModal = function() {
 };
 
 window.printQrGrid = function() {
-  const container = document.getElementById('qr-grid-container');
-  if (!container) return;
+  const baseUrl = window.location.origin + window.location.pathname;
+  let printCardsHtml = '';
+
+  for (let i = 1; i <= 11; i++) {
+    const tableUrl = `${baseUrl}?mesa=${i}`;
+    const qrImageApi = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=8&ecc=H&data=${encodeURIComponent(tableUrl)}`;
+
+    printCardsHtml += `
+      <div class="sticker-card">
+        <div class="brand">MAIA ESPRESSO</div>
+        <div class="table-name">MESA ${i}</div>
+        <div class="arrow-text">👇 ESCANEA Y PIDE AQUÍ 👇</div>
+        <div class="sub-text">Directo a cocina • Sin esperas</div>
+        <div class="qr-box">
+          <img src="${qrImageApi}" alt="QR Mesa ${i}">
+          <div class="logo-center">
+            <img src="assets/logo.jpg" alt="Maia Logo">
+          </div>
+        </div>
+        <div class="hint">📲 Apunta con la cámara de tu móvil</div>
+      </div>
+    `;
+  }
+
   const printWin = window.open('', '_blank');
   printWin.document.write(`
+    <!DOCTYPE html>
     <html>
       <head>
-        <title>QRs Mesas - Maia Espresso</title>
+        <title>Pegatinas QRs Mesas - Maia Espresso</title>
         <style>
-          body { font-family: sans-serif; text-align: center; padding: 20px; color: #000; }
-          .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-          .card { border: 2px solid #000; border-radius: 12px; padding: 16px; margin-bottom: 10px; page-break-inside: avoid; }
-          h2 { margin: 5px 0; font-size: 1.5rem; }
-          p { font-size: 0.85rem; margin-top: 4px; }
-          img { width: 160px; height: 160px; }
+          @page { size: A4 portrait; margin: 8mm; }
+          body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #fff; color: #1A1715; margin: 0; padding: 10px; }
+          h1 { text-align: center; font-size: 1.3rem; margin: 0 0 2px 0; text-transform: uppercase; letter-spacing: 1px; color: #1A1715; }
+          p.subtitle { text-align: center; font-size: 0.8rem; color: #666; margin: 0 0 14px 0; }
+          
+          .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            justify-items: center;
+          }
+          
+          .sticker-card {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 62mm;
+            border: 2px dashed #B85032;
+            border-radius: 14mm;
+            padding: 4mm 3mm;
+            background: #FAF7F2;
+            text-align: center;
+            page-break-inside: avoid;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          
+          .brand {
+            font-size: 6.5pt;
+            background: #B85032;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          }
+          
+          .table-name {
+            font-size: 16pt;
+            font-weight: 900;
+            color: #1A1715;
+            margin: 2mm 0 1mm 0;
+            line-height: 1;
+          }
+          
+          .arrow-text {
+            font-size: 7.5pt;
+            font-weight: 800;
+            color: #B85032;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5mm;
+          }
+          
+          .sub-text {
+            font-size: 6pt;
+            color: #6E6359;
+            font-weight: 600;
+            margin-bottom: 1.5mm;
+          }
+          
+          .qr-box {
+            position: relative;
+            display: inline-block;
+            background: #fff;
+            padding: 1.5mm;
+            border-radius: 3mm;
+            border: 1px solid #D8CEBE;
+          }
+          
+          .qr-box img {
+            width: 36mm;
+            height: 36mm;
+            display: block;
+          }
+          
+          .logo-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10mm;
+            height: 10mm;
+            background: #ffffff;
+            border-radius: 50%;
+            padding: 0.5mm;
+            border: 0.6mm solid #B85032;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .logo-center img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          
+          .hint {
+            font-size: 6pt;
+            color: #666;
+            margin-top: 1.5mm;
+            font-weight: 600;
+          }
         </style>
       </head>
       <body>
-        <h1>☕ MAIA ESPRESSO • CÓDIGOS QR MESAS 1 AL 11</h1>
-        <p>Coloca cada QR en su mesa correspondiente para pedidos en directo a cocina.</p>
-        <div class="grid">${container.innerHTML}</div>
-        <script>setTimeout(() => { window.print(); window.close(); }, 500);<\/script>
+        <h1>☕ MAIA ESPRESSO • PEGATINAS PARA MESAS (1 AL 11)</h1>
+        <p class="subtitle">Imprime en papel adhesivo y recorta por la línea de puntos para colocar en cada mesa.</p>
+        <div class="grid">${printCardsHtml}</div>
+        <script>
+          window.onload = function() {
+            setTimeout(() => { window.print(); }, 600);
+          };
+        <\/script>
       </body>
     </html>
   `);
