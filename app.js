@@ -3547,8 +3547,9 @@ window.openFullDigitalMenu = function() {
   const modal = document.getElementById('full-menu-modal');
   if (modal) {
     renderFullDigitalMenu();
-    modal.style.display = '';
-    modal.classList.add('active');
+    modal.style.display = 'flex';
+    modal.style.justifyContent = 'center';
+    modal.style.alignItems = 'center';
     document.body.style.overflow = 'hidden';
   }
 };
@@ -3556,7 +3557,6 @@ window.openFullDigitalMenu = function() {
 window.closeFullDigitalMenu = function() {
   const modal = document.getElementById('full-menu-modal');
   if (modal) {
-    modal.classList.remove('active');
     modal.style.display = 'none';
     document.body.style.overflow = '';
   }
