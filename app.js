@@ -474,6 +474,12 @@ let activeStep = 1;
 let mesaNumber = null;
 const orderChannel = new BroadcastChannel('maia_live_orders_channel');
 
+let deviceId = localStorage.getItem('maia_device_id');
+if (!deviceId) {
+  deviceId = 'dev-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+  localStorage.setItem('maia_device_id', deviceId);
+}
+
 // Brunch Customizer Choices
 let brunchChoices = {
   base: null,
@@ -1138,14 +1144,30 @@ function displayLiveTableSummary(order, container) {
     return;
   }
 
+  const currentDeviceId = localStorage.getItem('maia_device_id') || '';
+
+  // Classify items into personal and other table items
+  const myItems = [];
+  const otherItems = [];
+  let myTotal = 0;
   let tableTotal = 0;
-  let itemsHTML = '';
 
   order.items.forEach(item => {
     const itemPrice = item.price || 0;
     const lineTotal = itemPrice * item.qty;
     tableTotal += lineTotal;
 
+    if (item.deviceId && item.deviceId === currentDeviceId) {
+      myItems.push(item);
+      myTotal += lineTotal;
+    } else {
+      otherItems.push(item);
+    }
+  });
+
+  const buildItemRow = (item) => {
+    const itemPrice = item.price || 0;
+    const lineTotal = itemPrice * item.qty;
     let statusBadge = '<span style="font-size: 0.7rem; background-color: #D97706; color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px;">⏳ Recibido</span>';
     if (item.status === 'preparing' || order.status === 'preparing') {
       statusBadge = '<span style="font-size: 0.7rem; background-color: var(--accent-rust); color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 2px;">🍳 En preparación</span>';
@@ -1153,7 +1175,7 @@ function displayLiveTableSummary(order, container) {
       statusBadge = '<span style="font-size: 0.7rem; background-color: var(--accent-olive); color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px;">✅ Servido</span>';
     }
 
-    itemsHTML += `
+    return `
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #E5DEC9; font-size: 0.85rem;">
         <div>
           <span style="font-weight: bold; margin-right: 4px; color: var(--accent-rust);">${item.qty}x</span>
@@ -1166,26 +1188,67 @@ function displayLiveTableSummary(order, container) {
         </div>
       </div>
     `;
-  });
+  };
 
-  const totalToShow = order.total || tableTotal;
+  let myHTML = '';
+  if (myItems.length > 0) {
+    myItems.forEach(item => myHTML += buildItemRow(item));
+  }
+
+  let otherHTML = '';
+  if (otherItems.length > 0) {
+    otherItems.forEach(item => otherHTML += buildItemRow(item));
+  }
 
   container.style.display = 'block';
-  container.innerHTML = `
-    <div style="background-color: #F7F3EB; border: 1.5px solid #E5DEC9; border-radius: var(--radius-sm); padding: 14px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #D8CEBE;">
-        <span style="font-weight: bold; font-size: 0.9rem; color: var(--accent-rust);">📋 Pedidos de la Mesa ${order.mesa}</span>
-        <span style="font-size: 0.72rem; color: var(--accent-olive); font-weight: 600; background: #EAE3D2; padding: 2px 8px; border-radius: 10px;">En directo</span>
+
+  if (myItems.length > 0) {
+    container.innerHTML = `
+      <div style="background-color: #F7F3EB; border: 1.5px solid #E5DEC9; border-radius: var(--radius-sm); padding: 14px; margin-top: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1.5px solid var(--accent-rust);">
+          <span style="font-weight: 700; font-size: 0.92rem; color: var(--accent-rust);">👤 Mi Cuenta (Tus Pedidos)</span>
+          <span style="font-size: 0.72rem; color: var(--accent-olive); font-weight: 600; background: #EAE3D2; padding: 2px 8px; border-radius: 10px;">En directo</span>
+        </div>
+        <div style="max-height: 160px; overflow-y: auto; margin-bottom: 10px; padding-right: 2px;">
+          ${myHTML}
+        </div>
+        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.95rem; color: #2C2523; padding-top: 6px; padding-bottom: 6px; border-top: 1px solid #D8CEBE;">
+          <span>Mi parte a pagar:</span>
+          <span style="color: var(--accent-rust); font-size: 1.1rem;">${myTotal.toFixed(2)}€</span>
+        </div>
+
+        ${otherItems.length > 0 ? `
+          <details style="margin-top: 8px; border-top: 1px dashed #D8CEBE; padding-top: 8px;">
+            <summary style="font-size: 0.82rem; font-weight: 600; color: #5C524A; cursor: pointer; user-select: none;">
+              👥 Ver otros pedidos de la Mesa ${order.mesa} (Total Mesa: ${(order.total || tableTotal).toFixed(2)}€)
+            </summary>
+            <div style="max-height: 140px; overflow-y: auto; margin-top: 8px; padding-right: 2px;">
+              ${otherHTML}
+            </div>
+          </details>
+        ` : ''}
       </div>
-      <div style="max-height: 200px; overflow-y: auto; margin-bottom: 10px; padding-right: 2px;">
-        ${itemsHTML}
+    `;
+  } else {
+    let allHTML = '';
+    order.items.forEach(item => allHTML += buildItemRow(item));
+
+    container.innerHTML = `
+      <div style="background-color: #F7F3EB; border: 1.5px solid #E5DEC9; border-radius: var(--radius-sm); padding: 14px; margin-top: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #D8CEBE;">
+          <span style="font-weight: bold; font-size: 0.9rem; color: var(--accent-rust);">📋 Pedidos de la Mesa ${order.mesa}</span>
+          <span style="font-size: 0.72rem; color: var(--accent-olive); font-weight: 600; background: #EAE3D2; padding: 2px 8px; border-radius: 10px;">En directo</span>
+        </div>
+        <div style="max-height: 200px; overflow-y: auto; margin-bottom: 10px; padding-right: 2px;">
+          ${allHTML}
+        </div>
+        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; color: #2C2523; padding-top: 6px; border-top: 1px solid #D8CEBE;">
+          <span>Total Mesa enviado:</span>
+          <span style="color: var(--accent-rust);">${(order.total || tableTotal).toFixed(2)}€</span>
+        </div>
       </div>
-      <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; color: #2C2523; padding-top: 6px; border-top: 1px solid #D8CEBE;">
-        <span>Total Mesa enviado:</span>
-        <span style="color: var(--accent-rust);">${totalToShow.toFixed(2)}€</span>
-      </div>
-    </div>
-  `;
+    `;
+  }
 }
 
 // --- INTERACTIVE BRUNCH CREATOR ---
@@ -1781,7 +1844,7 @@ async function sendOrderToKds() {
   const orderTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
   
-  // Format the new items with their batch time and default status 'pending'
+  // Format the new items with their batch time, deviceId, and default status 'pending'
   const newItems = cart.map(item => ({
     name: item.name,
     qty: item.qty,
@@ -1789,7 +1852,8 @@ async function sendOrderToKds() {
     desc: item.desc || '',
     price: item.price,
     time: orderTime,
-    status: 'pending'
+    status: 'pending',
+    deviceId: deviceId
   }));
 
   let ordersList = JSON.parse(localStorage.getItem('maia_live_orders')) || [];
