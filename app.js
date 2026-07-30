@@ -2162,7 +2162,7 @@ function renderKdsOrders() {
       btnClass = 'btn-outline-rust';
     } else if (order.status === 'served') {
       statusLabel = 'Servido ✅';
-      btnText = 'Generar Factura 🧾';
+      btnText = 'Generar Cuenta 🧾';
       btnClass = 'btn-outline-olive';
     }
 
