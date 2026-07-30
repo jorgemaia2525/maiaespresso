@@ -2602,13 +2602,15 @@ textarea.form-control {
 }
 
 .daily-menu-card {
-  background: linear-gradient(135deg, #241E1C 0%, #1A1614 100%);
-  border: 1.5px solid rgba(220, 174, 138, 0.25);
+  background: linear-gradient(135deg, rgba(36, 30, 28, 0.88) 0%, rgba(26, 22, 20, 0.85) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(220, 174, 138, 0.35);
   border-radius: var(--radius-lg);
   padding: 36px 40px;
   color: #F5F2EB;
   position: relative;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }

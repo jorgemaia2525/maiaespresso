@@ -4056,19 +4056,19 @@ function renderDailyMenuSection() {
     </div>
     
     <div class="daily-menu-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 32px;">
-      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 20px;">
+      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
         <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">🥗 Primeros</h3>
         <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
           ${primerosHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
-      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 20px;">
+      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
         <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">🍳 Segundos</h3>
         <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
           ${segundosHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
-      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); padding: 20px;">
+      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
         <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">🍰 Postre o Bebida</h3>
         <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
           ${postresHTML || `<li style="${itemStyle}">Opciones del día</li>`}
