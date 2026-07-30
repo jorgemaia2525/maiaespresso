@@ -37,9 +37,10 @@
           <ul class="nav-links">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#filosofia">Esencia</a></li>
+            <li><a href="#menu-del-dia">Menú del Día</a></li>
             <li><a href="#menu">Carta</a></li>
-          <li><a href="#brunch">Arma tu Brunch</a></li>
-          <li><a href="#reserva">Reserva</a></li>
+            <li><a href="#brunch">Arma tu Brunch</a></li>
+            <li><a href="#reserva">Reserva</a></li>
         </ul>
       </nav>
       
@@ -166,6 +167,15 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- MENU DEL DIA SECTION --- -->
+  <section class="section daily-menu-section" id="menu-del-dia">
+    <div class="container">
+      <div class="daily-menu-card" id="daily-menu-card">
+        <!-- Injected dynamically by app.js -->
       </div>
     </div>
   </section>
@@ -873,6 +883,9 @@
         </div>
       </div>
       <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <button onclick="openDailyMenuModal()" class="btn" style="background-color: var(--accent-olive); color: #fff; border: none; font-size: 0.85rem; padding: 8px 16px; cursor: pointer; border-radius: var(--radius-sm); font-weight: bold; display: flex; align-items: center; gap: 6px;">
+          🗓️ Menú del Día
+        </button>
         <button onclick="openCreateProductModal()" class="btn" style="background-color: var(--accent-rust); color: #fff; border: none; font-size: 0.85rem; padding: 8px 16px; cursor: pointer; border-radius: var(--radius-sm); font-weight: bold;">
           ➕ Añadir Producto
         </button>
@@ -1211,6 +1224,103 @@
       <div style="border-top: 1px solid #3D3532; padding: 20px; background-color: #1E1B18; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
         <button onclick="clearCompletedShopping()" class="btn" style="padding: 12px; font-size: 0.85rem; background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">🧹 Limpiar Comprados</button>
         <button onclick="clearAllShopping()" class="btn" style="padding: 12px; font-size: 0.85rem; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">🗑️ Vaciar Lista</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- DAILY MENU SELECTOR MODAL (CUSTOMER) --- -->
+  <div id="daily-menu-selector-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(18, 16, 15, 0.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 999999; justify-content: center; align-items: center; padding: 20px 16px; box-sizing: border-box; overflow-y: auto;" onclick="if(event.target === this) window.closeDailyMenuSelector();">
+    <div style="background-color: var(--white); color: var(--text-primary); width: 100%; max-width: 520px; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid rgba(184, 80, 50, 0.15); display: flex; flex-direction: column; max-height: 90vh;">
+      <div style="padding: 20px 24px; background-color: var(--bg-tertiary); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span style="display: inline-block; background-color: var(--accent-rust); color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 12px; margin-bottom: 4px;">Configurar Pedido</span>
+          <h3 style="font-family: var(--font-title); font-size: 1.35rem; color: var(--text-primary); margin: 0;">Selecciona tus Platos del Menú</h3>
+        </div>
+        <button onclick="window.closeDailyMenuSelector()" style="background: transparent; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer;">&times;</button>
+      </div>
+      <div style="padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px;" id="daily-menu-selector-body">
+        <!-- Injected by JS: 1º choice, 2º choice, postre/bebida choice -->
+      </div>
+      <div style="padding: 16px 24px; background-color: var(--bg-secondary); border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span style="font-size: 0.85rem; color: var(--text-secondary);">Total Menú Completo:</span>
+          <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-rust);" id="daily-menu-selector-price">12,90 €</div>
+        </div>
+        <button class="btn btn-primary" onclick="window.confirmDailyMenuToCart()" style="padding: 10px 20px; font-size: 0.9rem;">
+          🛒 Añadir Menú al Carrito
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- KDS DAILY MENU MANAGEMENT MODAL --- -->
+  <div id="daily-menu-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 16px;">
+    <div style="background-color: #241E1C; color: #F5F2EB; width: 100%; max-width: 650px; max-height: 90vh; border-radius: var(--radius-md); border: 1px solid #3D3532; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.6);">
+      <div style="padding: 20px 24px; border-bottom: 1px solid #3D3532; display: flex; justify-content: space-between; align-items: center; background-color: #1E1B18;">
+        <div>
+          <h3 style="font-family: var(--font-title); font-size: 1.25rem; margin: 0; color: #F5F2EB;">🗓️ Configurar Menú del Día</h3>
+          <p style="margin: 4px 0 0 0; font-size: 0.8rem; color: #9E9185;">Gestión diaria de platos, disponibilidad y precio para los clientes.</p>
+        </div>
+        <button onclick="closeDailyMenuModal()" style="background: transparent; border: none; color: #9E9185; font-size: 1.5rem; cursor: pointer;">&times;</button>
+      </div>
+      
+      <div style="padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px;">
+        <!-- Toggle active state & Price -->
+        <div style="display: flex; gap: 16px; align-items: center; justify-content: space-between; background: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532; flex-wrap: wrap;">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">
+            <input type="checkbox" id="kds-daily-active" style="width: 20px; height: 20px; accent-color: var(--accent-olive);">
+            Menú del Día Activo Hoy
+          </label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="kds-daily-price" style="font-size: 0.85rem; color: #9E9185; font-weight: bold;">Precio (€):</label>
+            <input type="number" id="kds-daily-price" step="0.10" value="12.90" style="width: 90px; padding: 8px 10px; background-color: #2C2523; border: 1px solid #4A3E3B; color: #F5F2EB; border-radius: var(--radius-sm); font-weight: bold; font-size: 1rem; text-align: center;">
+          </div>
+        </div>
+
+        <!-- Title and Subtitle inputs -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: #9E9185; margin-bottom: 4px; font-weight: bold;">Título del Menú:</label>
+            <input type="text" id="kds-daily-title" value="Menú del Día Maia" style="width: 100%; padding: 10px; background-color: #2C2523; border: 1px solid #4A3E3B; color: #F5F2EB; border-radius: var(--radius-sm); font-size: 0.9rem;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; color: #9E9185; margin-bottom: 4px; font-weight: bold;">Horario / Descripción Corta:</label>
+            <input type="text" id="kds-daily-subtitle" value="Disponible de Lunes a Viernes (12:30 a 16:30h). Incluye 1º Plato + 2º Plato + Postre o Bebida." style="width: 100%; padding: 10px; background-color: #2C2523; border: 1px solid #4A3E3B; color: #F5F2EB; border-radius: var(--radius-sm); font-size: 0.9rem;">
+          </div>
+        </div>
+
+        <!-- Category lists -->
+        <!-- 1º Primeros -->
+        <div style="background-color: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="margin: 0; color: var(--accent-rust); font-size: 0.95rem; font-family: var(--font-title);">🥗 Primeros Platos</h4>
+            <button type="button" onclick="addDailyMenuCategoryItem('primeros')" style="background-color: var(--accent-rust); color: #fff; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.8rem; cursor: pointer; font-weight: bold;">+ Añadir Opción</button>
+          </div>
+          <div id="kds-daily-primeros-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+
+        <!-- 2º Segundos -->
+        <div style="background-color: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="margin: 0; color: var(--accent-rust); font-size: 0.95rem; font-family: var(--font-title);">🍳 Segundos Platos</h4>
+            <button type="button" onclick="addDailyMenuCategoryItem('segundos')" style="background-color: var(--accent-rust); color: #fff; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.8rem; cursor: pointer; font-weight: bold;">+ Añadir Opción</button>
+          </div>
+          <div id="kds-daily-segundos-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+
+        <!-- Postres / Bebidas -->
+        <div style="background-color: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="margin: 0; color: var(--accent-olive); font-size: 0.95rem; font-family: var(--font-title);">🍰 Postre o Bebida</h4>
+            <button type="button" onclick="addDailyMenuCategoryItem('postresBebidas')" style="background-color: var(--accent-olive); color: #fff; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.8rem; cursor: pointer; font-weight: bold;">+ Añadir Opción</button>
+          </div>
+          <div id="kds-daily-postres-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+      </div>
+
+      <div style="padding: 16px 24px; border-top: 1px solid #3D3532; background-color: #1E1B18; display: flex; justify-content: flex-end; gap: 12px;">
+        <button onclick="closeDailyMenuModal()" class="btn" style="background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; font-size: 0.85rem; padding: 8px 16px; cursor: pointer; border-radius: var(--radius-sm);">Cancelar</button>
+        <button onclick="saveDailyMenuConfig()" class="btn" style="background-color: var(--accent-rust); color: #fff; border: none; font-size: 0.85rem; padding: 8px 20px; cursor: pointer; border-radius: var(--radius-sm); font-weight: bold;">Guardar y Publicar Menú</button>
       </div>
     </div>
   </div>

@@ -13,6 +13,36 @@ if (SUPABASE_CONFIG.enabled && typeof supabase !== 'undefined') {
 
 let outOfStockItems = [];
 
+// --- DAILY MENU DEFAULT CONFIGURATION ---
+const DEFAULT_DAILY_MENU = {
+  active: true,
+  title: "Menú del Día Maia",
+  subtitle: "Disponible de Lunes a Viernes (12:30 a 16:30h). Incluye 1º Plato + 2º Plato + Postre o Bebida.",
+  price: 12.90,
+  primeros: [
+    "Salmorejo Cordobés con Virutas de Jamón y Huevo",
+    "Ensalada Templada de Quinoa, Aguacate y Granada",
+    "Crema Casera de Calabaza Asada y Coco"
+  ],
+  segundos: [
+    "Tostada Abierta de Salmón Ahumado y Huevo Poché",
+    "Bowl Maia de Pollo Marinado y Arroz Salvaje",
+    "Sandwich Brioche de Pastrami Gourmet y Queso Cheddar"
+  ],
+  postresBebidas: [
+    "Tarta de Queso Artesana de la Casa",
+    "Café Especialidad o Infusión Orgánica",
+    "Zumo Natural de Naranja Recién Exprimido"
+  ]
+};
+
+let dailyMenuConfig = JSON.parse(localStorage.getItem('maia_daily_menu_config')) || DEFAULT_DAILY_MENU;
+let selectedDailyOptions = {
+  primero: null,
+  segundo: null,
+  postreBebida: null
+};
+
 // --- PRODUCT DATA (Real menu items from Maia Espresso Tenerife) ---
 const DEFAULT_PRODUCTS = [
   // --- CLÁSICOS DE LA MAÑANA ---
@@ -562,8 +592,34 @@ document.addEventListener('DOMContentLoaded', () => {
     
     outOfStockItems = JSON.parse(localStorage.getItem('maia_out_of_stock')) || [];
     
+    // Load & render Daily Menu
+    loadDailyMenuConfig();
+
     // Fetch and subscribe to stock settings from Supabase in real-time
     if (supabaseClient) {
+      // Subscribe to real-time daily menu changes
+      supabaseClient
+        .channel('daily-menu-changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'maia_products',
+            filter: 'id=eq.settings-daily-menu'
+          },
+          payload => {
+            if (payload.new && payload.new.desc) {
+              try {
+                dailyMenuConfig = JSON.parse(payload.new.desc);
+                localStorage.setItem('maia_daily_menu_config', JSON.stringify(dailyMenuConfig));
+                renderDailyMenuSection();
+              } catch(e) { console.error(e); }
+            }
+          }
+        )
+        .subscribe();
+
       supabaseClient
         .from('maia_products')
         .select('*')
@@ -706,6 +762,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } else if (event.data.type === 'ORDER_UPDATED' || event.data.type === 'NEW_ORDER') {
         renderLiveTableOrderInCart();
+      } else if (event.data.type === 'DAILY_MENU_UPDATED') {
+        if (event.data.config) {
+          dailyMenuConfig = event.data.config;
+          localStorage.setItem('maia_daily_menu_config', JSON.stringify(dailyMenuConfig));
+        }
+        renderDailyMenuSection();
       }
     });
 
@@ -3929,4 +3991,267 @@ function clearTableSession(msg) {
     showToast(msg);
   }
 }
+
+// --- DAILY MENU FUNCTIONS (CLIENT & KDS) ---
+function loadDailyMenuConfig() {
+  if (supabaseClient) {
+    supabaseClient
+      .from('maia_products')
+      .select('*')
+      .eq('id', 'settings-daily-menu')
+      .single()
+      .then(({ data, error }) => {
+        if (!error && data && data.desc) {
+          try {
+            dailyMenuConfig = JSON.parse(data.desc) || DEFAULT_DAILY_MENU;
+            localStorage.setItem('maia_daily_menu_config', JSON.stringify(dailyMenuConfig));
+            renderDailyMenuSection();
+          } catch(e) {
+            console.error('Error parseando menú del día:', e);
+            renderDailyMenuSection();
+          }
+        } else {
+          renderDailyMenuSection();
+        }
+      })
+      .catch(err => {
+        console.error('Error cargando menú del día de Supabase:', err);
+        renderDailyMenuSection();
+      });
+  } else {
+    renderDailyMenuSection();
+  }
+}
+
+function renderDailyMenuSection() {
+  const container = document.getElementById('daily-menu-card');
+  const section = document.getElementById('menu-del-dia');
+  if (!container || !section) return;
+
+  if (!dailyMenuConfig || dailyMenuConfig.active === false) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+
+  const primerosHTML = (dailyMenuConfig.primeros || []).map(item => `<li>${item}</li>`).join('');
+  const segundosHTML = (dailyMenuConfig.segundos || []).map(item => `<li>${item}</li>`).join('');
+  const postresHTML = (dailyMenuConfig.postresBebidas || []).map(item => `<li>${item}</li>`).join('');
+
+  container.innerHTML = `
+    <div class="daily-menu-header">
+      <div>
+        <span class="daily-menu-badge">✨ Selección de Hoy</span>
+        <h2 class="daily-menu-title">${dailyMenuConfig.title || 'Menú del Día Maia'}</h2>
+        <p class="daily-menu-subtitle">${dailyMenuConfig.subtitle || ''}</p>
+      </div>
+      <div class="daily-menu-price-tag">
+        <div class="daily-menu-price-amount">${(dailyMenuConfig.price || 12.90).toFixed(2)}€</div>
+        <div class="daily-menu-price-lbl">Menú Completo</div>
+      </div>
+    </div>
+    
+    <div class="daily-menu-grid">
+      <div class="daily-menu-col">
+        <h3 class="daily-menu-col-title">🥗 Primeros</h3>
+        <ul class="daily-menu-list">
+          ${primerosHTML || '<li>Opciones del día</li>'}
+        </ul>
+      </div>
+      <div class="daily-menu-col">
+        <h3 class="daily-menu-col-title">🍳 Segundos</h3>
+        <ul class="daily-menu-list">
+          ${segundosHTML || '<li>Opciones del día</li>'}
+        </ul>
+      </div>
+      <div class="daily-menu-col">
+        <h3 class="daily-menu-col-title">🍰 Postre o Bebida</h3>
+        <ul class="daily-menu-list">
+          ${postresHTML || '<li>Opciones del día</li>'}
+        </ul>
+      </div>
+    </div>
+
+    <div class="daily-menu-footer">
+      <div style="font-size: 0.88rem; color: #9E9185;">
+        <span>ℹ️ Incluye servicio de pan artesano e IVA.</span>
+      </div>
+      <button class="btn btn-primary" onclick="window.openDailyMenuSelector()" style="padding: 12px 28px; font-size: 0.95rem; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+        🍽️ Elegir y Pedir Menú del Día (${(dailyMenuConfig.price || 12.90).toFixed(2)}€)
+      </button>
+    </div>
+  `;
+}
+
+window.openDailyMenuSelector = function() {
+  selectedDailyOptions = { primero: null, segundo: null, postreBebida: null };
+  renderDailyMenuSelectorBody();
+  const priceElem = document.getElementById('daily-menu-selector-price');
+  if (priceElem) priceElem.textContent = `${(dailyMenuConfig.price || 12.90).toFixed(2)} €`;
+  const modal = document.getElementById('daily-menu-selector-modal');
+  if (modal) modal.style.display = 'flex';
+};
+
+window.closeDailyMenuSelector = function() {
+  const modal = document.getElementById('daily-menu-selector-modal');
+  if (modal) modal.style.display = 'none';
+};
+
+function renderDailyMenuSelectorBody() {
+  const body = document.getElementById('daily-menu-selector-body');
+  if (!body) return;
+
+  const renderGroup = (title, categoryKey, items) => {
+    let itemsHTML = items.map((item, idx) => {
+      const isSelected = selectedDailyOptions[categoryKey] === item;
+      return `
+        <div class="daily-menu-option-card ${isSelected ? 'selected' : ''}" onclick="window.selectDailyMenuOption('${categoryKey}', ${idx})">
+          <div style="font-weight: 600; font-size: 0.92rem; color: var(--text-primary);">${item}</div>
+          <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid ${isSelected ? 'var(--accent-rust)' : 'var(--border-dark)'}; display: flex; align-items: center; justify-content: center; background-color: ${isSelected ? 'var(--accent-rust)' : 'transparent'}; flex-shrink: 0;">
+            ${isSelected ? '<span style="color: #fff; font-size: 0.75rem; font-weight: bold;">✓</span>' : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div>
+        <h4 style="font-family: var(--font-title); font-size: 1.05rem; margin: 0 0 10px 0; color: var(--accent-rust);">${title}</h4>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          ${itemsHTML}
+        </div>
+      </div>
+    `;
+  };
+
+  body.innerHTML = `
+    ${renderGroup('1. Elige tu 1º Plato', 'primero', dailyMenuConfig.primeros || [])}
+    ${renderGroup('2. Elige tu 2º Plato', 'segundo', dailyMenuConfig.segundos || [])}
+    ${renderGroup('3. Elige tu Postre o Bebida', 'postreBebida', dailyMenuConfig.postresBebidas || [])}
+  `;
+}
+
+window.selectDailyMenuOption = function(categoryKey, idx) {
+  const keyMap = { primero: 'primeros', segundo: 'segundos', postreBebida: 'postresBebidas' };
+  const list = dailyMenuConfig[keyMap[categoryKey]];
+  if (list && list[idx]) {
+    selectedDailyOptions[categoryKey] = list[idx];
+    renderDailyMenuSelectorBody();
+  }
+};
+
+window.confirmDailyMenuToCart = function() {
+  if (!selectedDailyOptions.primero || !selectedDailyOptions.segundo || !selectedDailyOptions.postreBebida) {
+    showToast('⚠️ Por favor selecciona 1º plato, 2º plato y postre/bebida.');
+    return;
+  }
+
+  const customDesc = `1º: ${selectedDailyOptions.primero} | 2º: ${selectedDailyOptions.segundo} | Postre/Bebida: ${selectedDailyOptions.postreBebida}`;
+  const menuItem = {
+    id: 'daily-menu-' + Date.now(),
+    name: 'Menú del Día Completo',
+    category: 'menu-dia',
+    price: dailyMenuConfig.price || 12.90,
+    desc: customDesc,
+    icon: '🍽️',
+    qty: 1
+  };
+
+  cart.push(menuItem);
+  saveCart();
+  updateCartCount();
+  renderCartDrawer();
+  window.closeDailyMenuSelector();
+  showToast('✨ Menú del Día añadido a tu carrito');
+};
+
+// KDS Daily Menu Management Functions
+window.openDailyMenuModal = function() {
+  const modal = document.getElementById('daily-menu-modal-backdrop');
+  if (!modal) return;
+
+  document.getElementById('kds-daily-active').checked = dailyMenuConfig.active !== false;
+  document.getElementById('kds-daily-price').value = (dailyMenuConfig.price || 12.90).toFixed(2);
+  document.getElementById('kds-daily-title').value = dailyMenuConfig.title || 'Menú del Día Maia';
+  document.getElementById('kds-daily-subtitle').value = dailyMenuConfig.subtitle || '';
+
+  renderKdsCategoryList('primeros', 'kds-daily-primeros-list');
+  renderKdsCategoryList('segundos', 'kds-daily-segundos-list');
+  renderKdsCategoryList('postresBebidas', 'kds-daily-postres-list');
+
+  modal.style.display = 'flex';
+};
+
+window.closeDailyMenuModal = function() {
+  const modal = document.getElementById('daily-menu-modal-backdrop');
+  if (modal) modal.style.display = 'none';
+};
+
+function renderKdsCategoryList(key, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const items = dailyMenuConfig[key] || [];
+  container.innerHTML = items.map((item, idx) => `
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <input type="text" value="${item.replace(/"/g, '&quot;')}" onchange="window.updateDailyMenuItem('${key}', ${idx}, this.value)" style="flex-grow: 1; padding: 8px 12px; background-color: #2C2523; border: 1px solid #4A3E3B; color: #F5F2EB; border-radius: var(--radius-sm); font-size: 0.88rem;">
+      <button type="button" onclick="window.removeDailyMenuCategoryItem('${key}', ${idx})" style="background: transparent; border: 1px solid #5C524A; color: #8c7b72; padding: 6px 10px; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.9rem;" title="Eliminar opción">&times;</button>
+    </div>
+  `).join('');
+}
+
+window.updateDailyMenuItem = function(key, idx, value) {
+  if (dailyMenuConfig[key] && dailyMenuConfig[key][idx] !== undefined) {
+    dailyMenuConfig[key][idx] = value.trim();
+  }
+};
+
+window.addDailyMenuCategoryItem = function(key) {
+  if (!dailyMenuConfig[key]) dailyMenuConfig[key] = [];
+  dailyMenuConfig[key].push('Nuevo Plato');
+  renderKdsCategoryList(key, key === 'primeros' ? 'kds-daily-primeros-list' : (key === 'segundos' ? 'kds-daily-segundos-list' : 'kds-daily-postres-list'));
+};
+
+window.removeDailyMenuCategoryItem = function(key, idx) {
+  if (dailyMenuConfig[key]) {
+    dailyMenuConfig[key].splice(idx, 1);
+    renderKdsCategoryList(key, key === 'primeros' ? 'kds-daily-primeros-list' : (key === 'segundos' ? 'kds-daily-segundos-list' : 'kds-daily-postres-list'));
+  }
+};
+
+window.saveDailyMenuConfig = function() {
+  dailyMenuConfig.active = document.getElementById('kds-daily-active').checked;
+  dailyMenuConfig.price = parseFloat(document.getElementById('kds-daily-price').value) || 12.90;
+  dailyMenuConfig.title = document.getElementById('kds-daily-title').value.trim();
+  dailyMenuConfig.subtitle = document.getElementById('kds-daily-subtitle').value.trim();
+
+  dailyMenuConfig.primeros = (dailyMenuConfig.primeros || []).filter(item => item.trim() !== '');
+  dailyMenuConfig.segundos = (dailyMenuConfig.segundos || []).filter(item => item.trim() !== '');
+  dailyMenuConfig.postresBebidas = (dailyMenuConfig.postresBebidas || []).filter(item => item.trim() !== '');
+
+  localStorage.setItem('maia_daily_menu_config', JSON.stringify(dailyMenuConfig));
+
+  if (supabaseClient) {
+    supabaseClient
+      .from('maia_products')
+      .upsert({
+        id: 'settings-daily-menu',
+        name: 'settings-daily-menu',
+        category: 'settings',
+        desc: JSON.stringify(dailyMenuConfig),
+        price: dailyMenuConfig.price,
+        icon: '🗓️',
+        tags: []
+      })
+      .then(({ error }) => {
+        if (error) console.error('Error al guardar menú del día en Supabase:', error);
+      });
+  }
+
+  orderChannel.postMessage({ type: 'DAILY_MENU_UPDATED', config: dailyMenuConfig });
+  renderDailyMenuSection();
+  closeDailyMenuModal();
+  showToast('✨ Menú del Día guardado y publicado');
+};
 
