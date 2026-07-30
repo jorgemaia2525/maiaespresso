@@ -4145,6 +4145,13 @@ window.selectDailyMenuOption = function(categoryKey, idx) {
 };
 
 window.confirmDailyMenuToCart = function() {
+  if (!mesaNumber) {
+    const modal = document.getElementById('no-qr-modal-backdrop');
+    if (modal) modal.style.display = 'flex';
+    window.closeDailyMenuSelector();
+    return;
+  }
+
   if (!selectedDailyOptions.primero || !selectedDailyOptions.segundo || !selectedDailyOptions.postreBebida) {
     showToast('⚠️ Por favor selecciona 1º plato, 2º plato y postre/bebida.');
     return;
@@ -4162,9 +4169,7 @@ window.confirmDailyMenuToCart = function() {
   };
 
   cart.push(menuItem);
-  saveCart();
-  updateCartCount();
-  renderCartDrawer();
+  updateCartUI();
   window.closeDailyMenuSelector();
   showToast('✨ Menú del Día añadido a tu carrito');
 };
