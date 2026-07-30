@@ -1290,29 +1290,38 @@
           </div>
         </div>
 
-        <!-- Category lists -->
-        <!-- 1º Primeros -->
+        <!-- Category lists with customizable titles & emojis -->
+        <!-- 1º Categoría -->
         <div style="background-color: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h4 style="margin: 0; color: var(--accent-rust); font-size: 0.95rem; font-family: var(--font-title);">🥗 Primeros Platos</h4>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 320px;">
+              <span style="font-size: 0.8rem; color: #9E9185; font-weight: bold; white-space: nowrap;">Título 1º:</span>
+              <input type="text" id="kds-daily-label1" value="🥗 Primeros" placeholder="Ej: 🥗 Primeros Platos" style="flex-grow: 1; padding: 6px 10px; background-color: #2C2523; border: 1px solid #4A3E3B; color: #F5F2EB; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: bold;">
+            </div>
             <button type="button" onclick="addDailyMenuCategoryItem('primeros')" style="background-color: var(--accent-rust); color: #fff; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.8rem; cursor: pointer; font-weight: bold;">+ Añadir Opción</button>
           </div>
           <div id="kds-daily-primeros-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
 
-        <!-- 2º Segundos -->
+        <!-- 2º Categoría -->
         <div style="background-color: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h4 style="margin: 0; color: var(--accent-rust); font-size: 0.95rem; font-family: var(--font-title);">🍳 Segundos Platos</h4>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 320px;">
+              <span style="font-size: 0.8rem; color: #9E9185; font-weight: bold; white-space: nowrap;">Título 2º:</span>
+              <input type="text" id="kds-daily-label2" value="🍳 Segundos" placeholder="Ej: 🍳 Segundos Platos" style="flex-grow: 1; padding: 6px 10px; background-color: #2C2523; border: 1px solid #4A3E3B; color: #F5F2EB; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: bold;">
+            </div>
             <button type="button" onclick="addDailyMenuCategoryItem('segundos')" style="background-color: var(--accent-rust); color: #fff; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.8rem; cursor: pointer; font-weight: bold;">+ Añadir Opción</button>
           </div>
           <div id="kds-daily-segundos-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
 
-        <!-- Postres / Bebidas -->
+        <!-- 3º Categoría -->
         <div style="background-color: #1E1B18; padding: 16px; border-radius: var(--radius-sm); border: 1px solid #3D3532;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h4 style="margin: 0; color: var(--accent-olive); font-size: 0.95rem; font-family: var(--font-title);">🍰 Postre o Bebida</h4>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 320px;">
+              <span style="font-size: 0.8rem; color: #9E9185; font-weight: bold; white-space: nowrap;">Título 3º:</span>
+              <input type="text" id="kds-daily-label3" value="🍰 Postre o Bebida" placeholder="Ej: 🍰 Postre o Bebida" style="flex-grow: 1; padding: 6px 10px; background-color: #2C2523; border: 1px solid #4A3E3B; color: #F5F2EB; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: bold;">
+            </div>
             <button type="button" onclick="addDailyMenuCategoryItem('postresBebidas')" style="background-color: var(--accent-olive); color: #fff; border: none; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 0.8rem; cursor: pointer; font-weight: bold;">+ Añadir Opción</button>
           </div>
           <div id="kds-daily-postres-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
@@ -1365,6 +1374,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=remove-pan-v1"></script>
+  <script src="app.js?v=custom-labels-v1"></script>
 </body>
 </html>

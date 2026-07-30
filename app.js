@@ -19,6 +19,9 @@ const DEFAULT_DAILY_MENU = {
   title: "Menú del Día Maia",
   subtitle: "Disponible de Lunes a Viernes (12:30 a 16:30h). Incluye 1º Plato + 2º Plato + Postre o Bebida.",
   price: 12.90,
+  label1: "🥗 Primeros",
+  label2: "🍳 Segundos",
+  label3: "🍰 Postre o Bebida",
   primeros: [
     "Salmorejo Cordobés con Virutas de Jamón y Huevo",
     "Ensalada Templada de Quinoa, Aguacate y Granada",
@@ -4057,19 +4060,19 @@ function renderDailyMenuSection() {
     
     <div class="daily-menu-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 32px;">
       <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">🥗 Primeros</h3>
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">${dailyMenuConfig.label1 || '🥗 Primeros'}</h3>
         <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
           ${primerosHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
       <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">🍳 Segundos</h3>
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">${dailyMenuConfig.label2 || '🍳 Segundos'}</h3>
         <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
           ${segundosHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
       <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
-        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">🍰 Postre o Bebida</h3>
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">${dailyMenuConfig.label3 || '🍰 Postre o Bebida'}</h3>
         <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
           ${postresHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
@@ -4126,9 +4129,9 @@ function renderDailyMenuSelectorBody() {
   };
 
   body.innerHTML = `
-    ${renderGroup('1. Elige tu 1º Plato', 'primero', dailyMenuConfig.primeros || [])}
-    ${renderGroup('2. Elige tu 2º Plato', 'segundo', dailyMenuConfig.segundos || [])}
-    ${renderGroup('3. Elige tu Postre o Bebida', 'postreBebida', dailyMenuConfig.postresBebidas || [])}
+    ${renderGroup(`1. ${dailyMenuConfig.label1 || 'Elige tu 1º Plato'}`, 'primero', dailyMenuConfig.primeros || [])}
+    ${renderGroup(`2. ${dailyMenuConfig.label2 || 'Elige tu 2º Plato'}`, 'segundo', dailyMenuConfig.segundos || [])}
+    ${renderGroup(`3. ${dailyMenuConfig.label3 || 'Elige tu Postre o Bebida'}`, 'postreBebida', dailyMenuConfig.postresBebidas || [])}
   `;
 }
 
@@ -4181,6 +4184,13 @@ window.openDailyMenuModal = function() {
   document.getElementById('kds-daily-title').value = dailyMenuConfig.title || 'Menú del Día Maia';
   document.getElementById('kds-daily-subtitle').value = dailyMenuConfig.subtitle || '';
 
+  const lbl1 = document.getElementById('kds-daily-label1');
+  if (lbl1) lbl1.value = dailyMenuConfig.label1 || '🥗 Primeros';
+  const lbl2 = document.getElementById('kds-daily-label2');
+  if (lbl2) lbl2.value = dailyMenuConfig.label2 || '🍳 Segundos';
+  const lbl3 = document.getElementById('kds-daily-label3');
+  if (lbl3) lbl3.value = dailyMenuConfig.label3 || '🍰 Postre o Bebida';
+
   renderKdsCategoryList('primeros', 'kds-daily-primeros-list');
   renderKdsCategoryList('segundos', 'kds-daily-segundos-list');
   renderKdsCategoryList('postresBebidas', 'kds-daily-postres-list');
@@ -4230,6 +4240,13 @@ window.saveDailyMenuConfig = function() {
   dailyMenuConfig.price = parseFloat(document.getElementById('kds-daily-price').value) || 12.90;
   dailyMenuConfig.title = document.getElementById('kds-daily-title').value.trim();
   dailyMenuConfig.subtitle = document.getElementById('kds-daily-subtitle').value.trim();
+
+  const lbl1 = document.getElementById('kds-daily-label1');
+  if (lbl1) dailyMenuConfig.label1 = lbl1.value.trim() || '🥗 Primeros';
+  const lbl2 = document.getElementById('kds-daily-label2');
+  if (lbl2) dailyMenuConfig.label2 = lbl2.value.trim() || '🍳 Segundos';
+  const lbl3 = document.getElementById('kds-daily-label3');
+  if (lbl3) dailyMenuConfig.label3 = lbl3.value.trim() || '🍰 Postre o Bebida';
 
   dailyMenuConfig.primeros = (dailyMenuConfig.primeros || []).filter(item => item.trim() !== '');
   dailyMenuConfig.segundos = (dailyMenuConfig.segundos || []).filter(item => item.trim() !== '');
