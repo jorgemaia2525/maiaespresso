@@ -4076,10 +4076,7 @@ function renderDailyMenuSection() {
       </div>
     </div>
 
-    <div class="daily-menu-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid rgba(245, 242, 235, 0.15); padding-top: 24px;">
-      <div style="font-size: 0.88rem; color: #9E9185;">
-        <span>ℹ️ Incluye servicio de pan artesano e IVA.</span>
-      </div>
+    <div class="daily-menu-footer" style="display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid rgba(245, 242, 235, 0.15); padding-top: 24px;">
       <button class="btn btn-primary" onclick="window.openDailyMenuSelector()" style="padding: 12px 28px; font-size: 0.95rem; font-weight: bold; display: flex; align-items: center; gap: 8px; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer;">
         🍽️ Elegir y Pedir Menú del Día (${(dailyMenuConfig.price || 12.90).toFixed(2)}€)
       </button>
