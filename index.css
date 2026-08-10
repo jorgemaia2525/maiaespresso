@@ -540,7 +540,8 @@ button, input, select, textarea {
 .floating-reserva-btn {
   position: fixed;
   bottom: 84px;
-  right: 24px;
+  left: 24px;
+  right: auto;
   z-index: 9999;
   background: linear-gradient(135deg, var(--accent-rust) 0%, #9E4025 100%);
   color: #fff;
@@ -580,7 +581,8 @@ button, input, select, textarea {
 @media (max-width: 768px) {
   .floating-reserva-btn {
     bottom: 76px;
-    right: 16px;
+    left: 16px;
+    right: auto;
     padding: 10px 16px;
     font-size: 0.82rem;
   }
