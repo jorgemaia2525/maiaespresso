@@ -831,10 +831,51 @@ function initNavbarScroll() {
 
   initScrollAnimations();
   init3DTilt();
+  initLiveStatus();
+  initZoneSelectors();
+}
+
+function initLiveStatus() {
+  const statusEl = document.getElementById('live-status-text');
+  if (!statusEl) return;
+
+  const now = new Date();
+  const day = now.getDay(); // 0: Sun, 1: Mon, ..., 6: Sat
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const currentTime = hours * 60 + minutes;
+
+  const openTime = 9 * 60 + 30;  // 09:30
+  const closeTime = 17 * 60;      // 17:00
+
+  const isWeekday = day >= 1 && day <= 5;
+  const isOpen = isWeekday && (currentTime >= openTime && currentTime < closeTime);
+
+  if (isOpen) {
+    statusEl.innerText = "ABIERTO AHORA • Atendiendo en Santa Cruz";
+    statusEl.parentElement.style.borderColor = "rgba(46, 204, 113, 0.4)";
+    statusEl.parentElement.style.color = "#2ECC71";
+  } else {
+    statusEl.innerText = "CERRADO AHORA • Abrimos a las 09:30";
+    statusEl.parentElement.style.borderColor = "rgba(231, 76, 60, 0.4)";
+    statusEl.parentElement.style.color = "#E74C3C";
+    const dot = statusEl.parentElement.querySelector('.live-status-dot');
+    if (dot) dot.style.backgroundColor = "#E74C3C";
+  }
+}
+
+function initZoneSelectors() {
+  const zoneCards = document.querySelectorAll('.zone-card');
+  zoneCards.forEach(card => {
+    card.addEventListener('click', () => {
+      zoneCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+  });
 }
 
 function initScrollAnimations() {
-  const elements = document.querySelectorAll('.philosophy-card, .essence-gallery, .daily-menu-card, .reservation-grid, .editorial-quote-banner');
+  const elements = document.querySelectorAll('.philosophy-card, .essence-gallery, .daily-menu-card, .reservation-grid, .editorial-quote-banner, .reservation-card-wrapper');
   if (!('IntersectionObserver' in window)) return;
 
   const observer = new IntersectionObserver((entries) => {
@@ -857,7 +898,7 @@ function initScrollAnimations() {
 function init3DTilt() {
   if (window.innerWidth < 768) return; // Desktop & Tablet only for performance
 
-  const tiltElements = document.querySelectorAll('.hero-image-wrapper, .daily-menu-card, .philosophy-card');
+  const tiltElements = document.querySelectorAll('.hero-image-wrapper, .daily-menu-card, .philosophy-card, .reservation-card-wrapper');
   
   tiltElements.forEach(el => {
     el.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease';
@@ -870,8 +911,8 @@ function init3DTilt() {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
-      const rotateX = ((y - centerY) / centerY) * -6; // max 6deg
-      const rotateY = ((x - centerX) / centerX) * 6;  // max 6deg
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
       
       el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
     });
