@@ -4653,4 +4653,77 @@ window.closeImageLightbox = function() {
   if (modal) modal.style.display = 'none';
 };
 
+function init3DTiltAndScrollReveal() {
+  // 1. IntersectionObserver Scroll Reveal with 3D Rise & Clip-path
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -60px 0px',
+    threshold: 0.12
+  };
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal-3d').forEach(el => revealObserver.observe(el));
+
+  // 2. Real Interactive 3D Mouse Parallax Tilt & Light Specular Glare
+  const tiltCards = document.querySelectorAll('.gallery-card, .atmosfera-video-card');
+
+  tiltCards.forEach(card => {
+    if (!card.querySelector('.tilt-glare')) {
+      const glare = document.createElement('div');
+      glare.className = 'tilt-glare';
+      glare.style.cssText = 'position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.28) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s ease; mix-blend-mode: overlay; z-index: 5; border-radius: inherit;';
+      card.appendChild(glare);
+    }
+
+    card.style.transformStyle = 'preserve-3d';
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const maxTilt = 16;
+      const rotateX = ((centerY - y) / centerY) * maxTilt;
+      const rotateY = ((x - centerX) / centerX) * maxTilt;
+
+      card.style.transition = 'transform 0.1s ease-out, box-shadow 0.3s ease';
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.05, 1.05, 1.05)`;
+      card.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2 + 20}px 50px rgba(0,0,0,0.6)`;
+
+      const glare = card.querySelector('.tilt-glare');
+      if (glare) {
+        glare.style.opacity = '1';
+        glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35) 0%, transparent 65%)`;
+      }
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.6s ease-out, box-shadow 0.6s ease';
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      card.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
+
+      const glare = card.querySelector('.tilt-glare');
+      if (glare) {
+        glare.style.opacity = '0';
+      }
+    });
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init3DTiltAndScrollReveal);
+} else {
+  setTimeout(init3DTiltAndScrollReveal, 100);
+}
+
 

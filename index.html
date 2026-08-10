@@ -18,7 +18,7 @@
   </script>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=v20260810_atmosfera_v15">
+  <link rel="stylesheet" href="index.css?v=v20260810_reveal3d_v16">
 </head>
 <body>
 
@@ -237,7 +237,7 @@
     
     <div class="container">
       <!-- Section Header -->
-      <div style="text-align: center; max-width: 680px; margin: 0 auto 48px auto;">
+      <div class="reveal-3d" style="text-align: center; max-width: 680px; margin: 0 auto 48px auto;">
         <span style="font-size: 0.78rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-rust); display: block; margin-bottom: 8px;">ATMÓSFERA SENSORIAL</span>
         <h2 style="font-family: var(--font-title); font-size: 2.5rem; color: #F5F2EB; margin: 0 0 14px 0; letter-spacing: 0.5px;">El Ritual de Maia Espresso</h2>
         <p style="color: #C5BBB0; font-size: 1rem; line-height: 1.6; margin: 0;">
@@ -249,7 +249,7 @@
       <div class="atmosfera-grid" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch;">
         
         <!-- Left: Cinematic Video Reel Card -->
-        <div class="atmosfera-video-card" style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(229,223,213,0.15); min-height: 440px; display: flex; flex-direction: column; justify-content: flex-end;">
+        <div class="atmosfera-video-card reveal-3d" style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(229,223,213,0.15); min-height: 440px; display: flex; flex-direction: column; justify-content: flex-end;">
           <video autoplay loop muted playsinline style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; filter: brightness(0.85);">
             <source src="assets/01.mp4" type="video/mp4">
             Tu navegador no soporta el formato de vídeo.
@@ -276,35 +276,35 @@
         <!-- Right: Interactive Fluid Gallery Grid (5 High Resolution Photos) -->
         <div class="atmosfera-gallery-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
           
-          <div class="gallery-card" onclick="window.openImageLightbox('assets/02.jpg', 'Café de Especialidad Recién Extraído')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+          <div class="gallery-card reveal-3d" onclick="window.openImageLightbox('assets/02.jpg', 'Café de Especialidad Recién Extraído')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/02.jpg" alt="Café de Especialidad Maia Espresso" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
             <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
               <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Café de Especialidad ☕</span>
             </div>
           </div>
 
-          <div class="gallery-card" onclick="window.openImageLightbox('assets/03.jpg', 'Tostas Artesanales de Masa Madre')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+          <div class="gallery-card reveal-3d" onclick="window.openImageLightbox('assets/03.jpg', 'Tostas Artesanales de Masa Madre')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/03.jpg" alt="Gastronomía Artesanal Maia" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
             <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
               <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Masa Madre Artesanal 🥖</span>
             </div>
           </div>
 
-          <div class="gallery-card" onclick="window.openImageLightbox('assets/04.jpg', 'Matcha Uji Ceremonial')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+          <div class="gallery-card reveal-3d" onclick="window.openImageLightbox('assets/04.jpg', 'Matcha Uji Ceremonial')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/04.jpg" alt="Matcha Uji Maia Espresso" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
             <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
               <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Matcha Uji Ceremonial 🍵</span>
             </div>
           </div>
 
-          <div class="gallery-card" onclick="window.openImageLightbox('assets/05.jpg', 'Dulces y Repostería Recién Horneada')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+          <div class="gallery-card reveal-3d" onclick="window.openImageLightbox('assets/05.jpg', 'Dulces y Repostería Recién Horneada')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/05.jpg" alt="Repostería Casera Maia" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
             <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
               <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Repostería Casera 🥐</span>
             </div>
           </div>
 
-          <div class="gallery-card" onclick="window.openImageLightbox('assets/06.jpg', 'El Espacio Maia en Santa Cruz')" style="grid-column: 1 / -1; position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/7; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+          <div class="gallery-card reveal-3d" onclick="window.openImageLightbox('assets/06.jpg', 'El Espacio Maia en Santa Cruz')" style="grid-column: 1 / -1; position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/7; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/06.jpg" alt="Ambiente Maia Espresso Santa Cruz" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
             <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 16px; opacity: 0.9; transition: opacity 0.3s ease;">
               <div>
@@ -1625,6 +1625,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=v20260810_atmosfera_v15"></script>
+  <script src="app.js?v=v20260810_reveal3d_v16"></script>
 </body>
 </html>
