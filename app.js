@@ -378,16 +378,6 @@ const DEFAULT_PRODUCTS = [
     tags: ['Bebidas Frías']
   },
   {
-    id: 'ice-latte-canela',
-    name: 'Ice Latte Canela',
-    category: 'bebidas-frias',
-    price: 3.80,
-    desc: 'Espresso helado cremoso y refrescante con un toque suave de canela.',
-    image: 'assets/ice_latte_canela.png',
-    icon: '☕',
-    tags: ['Bebidas Frías', 'Best Seller']
-  },
-  {
     id: 'orange-matcha',
     name: 'Iced Orange Matcha',
     category: 'bebidas-frias',
@@ -415,16 +405,6 @@ const DEFAULT_PRODUCTS = [
     desc: 'Matcha Uji frío con leche sobre puré de mango fresco.',
     image: 'assets/iced_mango_matcha.png',
     icon: '🥭',
-    tags: ['Bebidas Frías']
-  },
-  {
-    id: 'cold-coffee-maia',
-    name: 'Cold Coffee Maia',
-    category: 'bebidas-frias',
-    price: 3.60,
-    desc: 'Café helado exclusivo de Maia preparado al momento, despierta y refresca.',
-    image: 'assets/cold_coffee_maia.png',
-    icon: '🧊',
     tags: ['Bebidas Frías']
   },
   {
@@ -476,14 +456,6 @@ function loadActiveProducts() {
     const stored = localStorage.getItem('maia_active_products');
     if (stored) {
       PRODUCTS = JSON.parse(stored);
-      DEFAULT_PRODUCTS.forEach(defItem => {
-        const item = PRODUCTS.find(p => p.id === defItem.id);
-        if (item) {
-          item.image = defItem.image;
-        } else {
-          PRODUCTS.push(defItem);
-        }
-      });
     } else {
       const oldCustom = JSON.parse(localStorage.getItem('maia_custom_products')) || [];
       PRODUCTS = [...JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)), ...oldCustom];
@@ -846,7 +818,7 @@ function initCookieBanner() {
   });
 }
 
-// --- NAVBAR SCROLL EFFECT & ANIMATIONS ---
+// --- NAVBAR SCROLL EFFECT ---
 function initNavbarScroll() {
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -856,106 +828,7 @@ function initNavbarScroll() {
       navbar.classList.remove('scrolled');
     }
   });
-
-  initScrollAnimations();
-  init3DTilt();
-  initLiveStatus();
-  initZoneSelectors();
 }
-
-function init3DTilt() {
-  if (window.innerWidth < 768) return; // Desktop & Tablet only for performance
-
-  // EXCLUDES .daily-menu-card and .reservation-card-wrapper as requested
-  const tiltElements = document.querySelectorAll('.hero-image-wrapper, .philosophy-card');
-  
-  tiltElements.forEach(el => {
-    el.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease';
-    
-    el.addEventListener('mousemove', (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = ((y - centerY) / centerY) * -5;
-      const rotateY = ((x - centerX) / centerX) * 5;
-      
-      el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
-    });
-    
-    el.addEventListener('mouseleave', () => {
-      el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
-  });
-}
-
-function initLiveStatus() {
-  const statusEl = document.getElementById('live-status-text');
-  if (!statusEl) return;
-
-  const now = new Date();
-  const day = now.getDay(); // 0: Sun, 1: Mon, ..., 6: Sat
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const currentTime = hours * 60 + minutes;
-
-  const openTime = 9 * 60 + 30;  // 09:30
-  const closeTime = 17 * 60;      // 17:00
-
-  const isWeekday = day >= 1 && day <= 5;
-  const isOpen = isWeekday && (currentTime >= openTime && currentTime < closeTime);
-
-  if (isOpen) {
-    statusEl.innerText = "ABIERTO AHORA • Atendiendo en Santa Cruz";
-    statusEl.parentElement.style.borderColor = "rgba(46, 204, 113, 0.4)";
-    statusEl.parentElement.style.color = "#2ECC71";
-  } else {
-    statusEl.innerText = "CERRADO AHORA • Abrimos a las 09:30";
-    statusEl.parentElement.style.borderColor = "rgba(231, 76, 60, 0.4)";
-    statusEl.parentElement.style.color = "#E74C3C";
-    const dot = statusEl.parentElement.querySelector('.live-status-dot');
-    if (dot) dot.style.backgroundColor = "#E74C3C";
-  }
-}
-
-function initZoneSelectors() {
-  const zoneCards = document.querySelectorAll('.zone-card');
-  zoneCards.forEach(card => {
-    card.addEventListener('click', () => {
-      zoneCards.forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-    });
-  });
-}
-
-function initScrollAnimations() {
-  const elements = document.querySelectorAll('.philosophy-card, .essence-gallery, .daily-menu-card, .reservation-grid, .editorial-quote-banner, .reservation-card-wrapper');
-  if (!('IntersectionObserver' in window)) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  elements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
-    observer.observe(el);
-  });
-}
-
-// Add CSS rule dynamically for in-view elements
-const styleSheet = document.createElement("style");
-styleSheet.innerText = `.in-view { opacity: 1 !important; transform: translateY(0) !important; }`;
-document.head.appendChild(styleSheet);
 
 function createProductCard(product) {
   const isOutOfStock = outOfStockItems.includes(product.id);
@@ -4181,77 +4054,50 @@ function renderDailyMenuSection() {
 
   section.style.display = 'block';
 
-  const primerosHTML = (dailyMenuConfig.primeros || []).map(item => `
-    <li class="dm-item-row">
-      <span class="dm-dot">•</span>
-      <span class="dm-item-name">${item}</span>
-    </li>
-  `).join('');
+  const itemStyle = 'font-size: 0.92rem; color: #E6E0D8; line-height: 1.35; display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;';
+  const bulletSpan = '<span style="color: var(--accent-rust); font-weight: bold; font-size: 1.1rem; line-height: 1;">•</span>';
 
-  const segundosHTML = (dailyMenuConfig.segundos || []).map(item => `
-    <li class="dm-item-row">
-      <span class="dm-dot">•</span>
-      <span class="dm-item-name">${item}</span>
-    </li>
-  `).join('');
-
-  const postresHTML = (dailyMenuConfig.postresBebidas || []).map(item => `
-    <li class="dm-item-row">
-      <span class="dm-dot">•</span>
-      <span class="dm-item-name">${item}</span>
-    </li>
-  `).join('');
+  const primerosHTML = (dailyMenuConfig.primeros || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
+  const segundosHTML = (dailyMenuConfig.segundos || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
+  const postresHTML = (dailyMenuConfig.postresBebidas || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
 
   container.innerHTML = `
-    <div class="dm-top-bar">
-      <div class="dm-tag-badge">MENÚ DEL DÍA FRESCO</div>
-      <div class="dm-price-pill">${(dailyMenuConfig.price || 12.90).toFixed(2)}€ <span>/ persona</span></div>
-    </div>
-
-    <div class="dm-header">
-      <h2 class="dm-title">${dailyMenuConfig.title || 'Propuesta Culinaria del Día'}</h2>
-      <p class="dm-subtitle">${dailyMenuConfig.subtitle || 'Recetas artesanales elaboradas a diario con ingredientes frescos de mercado.'}</p>
+    <div class="daily-menu-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(245, 242, 235, 0.15); padding-bottom: 24px; margin-bottom: 28px;">
+      <div>
+        <span class="daily-menu-badge" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(184, 80, 50, 0.2); border: 1px solid var(--accent-rust); color: #E88D72; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px;">✨ Selección de Hoy</span>
+        <h2 class="daily-menu-title" style="font-family: var(--font-title); font-size: 2rem; margin: 0 0 6px 0; color: #F5F2EB; line-height: 1.2;">${dailyMenuConfig.title || 'Menú del Día Maia'}</h2>
+        <p class="daily-menu-subtitle" style="font-size: 0.95rem; color: #9E9185; margin: 0; max-width: 600px; line-height: 1.4;">${dailyMenuConfig.subtitle || ''}</p>
+      </div>
+      <div class="daily-menu-price-tag" style="background: linear-gradient(135deg, var(--accent-rust) 0%, #C44528 100%); color: #fff; padding: 12px 24px; border-radius: var(--radius-md); text-align: center; box-shadow: 0 8px 20px rgba(184, 80, 50, 0.3);">
+        <div class="daily-menu-price-amount" style="font-size: 2rem; font-weight: 800; line-height: 1; font-family: var(--font-title);">${(dailyMenuConfig.price || 12.90).toFixed(2)}€</div>
+        <div class="daily-menu-price-lbl" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; margin-top: 2px;">Menú Completo</div>
+      </div>
     </div>
     
-    <div class="dm-courses-grid">
-      <div class="dm-course-card">
-        <div class="dm-course-header">
-          <span class="dm-course-num">01</span>
-          <h3 class="dm-course-title">${dailyMenuConfig.label1 || 'Primeros Platos'}</h3>
-        </div>
-        <ul class="dm-course-list">
-          ${primerosHTML || '<li class="dm-item-row"><span class="dm-item-name">Opciones del día</span></li>'}
+    <div class="daily-menu-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 32px;">
+      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">${dailyMenuConfig.label1 || '🥗 Primeros'}</h3>
+        <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+          ${primerosHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
-
-      <div class="dm-course-card">
-        <div class="dm-course-header">
-          <span class="dm-course-num">02</span>
-          <h3 class="dm-course-title">${dailyMenuConfig.label2 || 'Segundos Platos'}</h3>
-        </div>
-        <ul class="dm-course-list">
-          ${segundosHTML || '<li class="dm-item-row"><span class="dm-item-name">Opciones del día</span></li>'}
+      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">${dailyMenuConfig.label2 || '🍳 Segundos'}</h3>
+        <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+          ${segundosHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
-
-      <div class="dm-course-card">
-        <div class="dm-course-header">
-          <span class="dm-course-num">03</span>
-          <h3 class="dm-course-title">${dailyMenuConfig.label3 || 'Postre o Bebida'}</h3>
-        </div>
-        <ul class="dm-course-list">
-          ${postresHTML || '<li class="dm-item-row"><span class="dm-item-name">Opciones del día</span></li>'}
+      <div class="daily-menu-col" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);">
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.1rem; margin: 0 0 14px 0; color: #DCAE8A; display: flex; align-items: center; gap: 8px;">${dailyMenuConfig.label3 || '🍰 Postre o Bebida'}</h3>
+        <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+          ${postresHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
     </div>
 
-    <div class="dm-footer">
-      <div class="dm-footer-info">
-        <span class="dm-info-icon">🍞</span>
-        <span>Incluye pan artesanal de masa madre y servicio en mesa</span>
-      </div>
-      <button class="dm-select-btn" onclick="window.openDailyMenuSelector()">
-        Configurar y Pedir Menú del Día →
+    <div class="daily-menu-footer" style="display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid rgba(245, 242, 235, 0.15); padding-top: 24px;">
+      <button class="btn btn-primary" onclick="window.openDailyMenuSelector()" style="padding: 12px 28px; font-size: 0.95rem; font-weight: bold; display: flex; align-items: center; gap: 8px; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer;">
+        🍽️ Elegir y Pedir Menú del Día (${(dailyMenuConfig.price || 12.90).toFixed(2)}€)
       </button>
     </div>
   `;
