@@ -18,7 +18,7 @@
   </script>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=v20260810_allergens_v13">
+  <link rel="stylesheet" href="index.css?v=v20260810_admin_allergens_v14">
 </head>
 <body>
 
@@ -1250,6 +1250,27 @@
             <label for="new-prod-desc" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Descripción</label>
             <textarea id="new-prod-desc" rows="3" required placeholder="Ej: Detalle de los ingredientes o modo de preparación." style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem; font-family: inherit; resize: none;"></textarea>
           </div>
+
+          <!-- Allergen Checkboxes for Admin/Kitchen -->
+          <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;">
+            <label style="font-size: 0.85rem; font-weight: 600; color: #E5DFD5;">⚠️ Alérgenos Declarados (Reglamento UE 1169/2011)</label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 6px; background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 12px; max-height: 160px; overflow-y: auto;">
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="gluten"> 🌾 Gluten</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="crustaceos"> 🦞 Crustáceos</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="huevos"> 🥚 Huevos</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="pescado"> 🐟 Pescado</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="cacahuetes"> 🥜 Cacahuetes</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="soja"> 🫘 Soja</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="lacteos"> 🥛 Lácteos</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="frutos-cascara"> 🌰 Frutos Cáscara</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="apio"> 🥬 Apio</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="mostaza"> 🟡 Mostaza</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="sesamo"> 🌾 Sésamo</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="sulfitos"> 🍷 Sulfitos</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="altramuces"> 🪻 Altramuces</label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #F5F2EB; cursor: pointer;"><input type="checkbox" name="admin-allergen" value="moluscos"> 🦪 Moluscos</label>
+            </div>
+          </div>
           
           <div style="border-top: 1px solid #3D3532; padding-top: 16px; display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px;">
             <button type="button" onclick="closeCreateProductModal()" class="btn" style="padding: 10px 20px; font-size: 0.85rem; background-color: transparent; border: 1px solid #5C524A; color: #F5F2EB; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">Cancelar</button>
@@ -1505,6 +1526,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=v20260810_allergens_v13"></script>
+  <script src="app.js?v=v20260810_admin_allergens_v14"></script>
 </body>
 </html>

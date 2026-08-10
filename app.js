@@ -1013,7 +1013,7 @@ function createProductCard(product) {
   return card;
 }
 
-function renderMenu(categoryFilter, showAll = true) {
+function renderMenu(categoryFilter, showAll = false) {
   const menuGrid = document.getElementById('menu-grid');
   const showMoreContainer = document.getElementById('menu-show-more-container');
   const showMoreBtn = document.getElementById('btn-menu-show-more');
@@ -1035,9 +1035,9 @@ function renderMenu(categoryFilter, showAll = true) {
     ? sortedProducts 
     : PRODUCTS.filter(p => p.category === categoryFilter);
 
-  // Show all products by default so full menu is displayed
-  const shouldLimit = filteredProducts.length > 20 && !showAll;
-  const itemsToRender = shouldLimit ? filteredProducts.slice(0, 20) : filteredProducts;
+  // Limit to 6 items by default so page isn't endless, expand when showAll is true
+  const shouldLimit = filteredProducts.length > 6 && !showAll;
+  const itemsToRender = shouldLimit ? filteredProducts.slice(0, 6) : filteredProducts;
 
   const categoriesNames = {
     'bocadillos': 'Bocadillos & Pulgas 🥖',
@@ -3044,6 +3044,11 @@ window.editProduct = function(productId) {
     document.getElementById('new-prod-desc').value = product.desc || '';
     document.getElementById('new-prod-file').value = '';
 
+    const prodAllergens = product.allergens || [];
+    document.querySelectorAll('input[name="admin-allergen"]').forEach(cb => {
+      cb.checked = prodAllergens.includes(cb.value);
+    });
+
     const title = modal.querySelector('h3');
     if (title) title.textContent = `✏️ Editar Producto: ${product.name}`;
     const submitBtn = modal.querySelector('button[type="submit"]');
@@ -3155,6 +3160,8 @@ window.saveCustomProduct = function(event) {
             finalImage = imgUrl === '' ? '' : originalImage;
           }
 
+          const selectedAllergens = Array.from(document.querySelectorAll('input[name="admin-allergen"]:checked')).map(cb => cb.value);
+
           activeList[idx] = {
             ...activeList[idx],
             name: name,
@@ -3163,10 +3170,12 @@ window.saveCustomProduct = function(event) {
             desc: desc,
             image: finalImage,
             icon: icon,
-            tags: tag ? [tag] : []
+            tags: tag ? [tag] : [],
+            allergens: selectedAllergens
           };
         }
       } else {
+        const selectedAllergens = Array.from(document.querySelectorAll('input[name="admin-allergen"]:checked')).map(cb => cb.value);
         const newProduct = {
           id: 'custom-' + Date.now(),
           name: name,
@@ -3175,7 +3184,8 @@ window.saveCustomProduct = function(event) {
           desc: desc,
           image: imageContent || imgUrl || '',
           icon: icon,
-          tags: tag ? [tag] : []
+          tags: tag ? [tag] : [],
+          allergens: selectedAllergens
         };
         activeList.push(newProduct);
       }
