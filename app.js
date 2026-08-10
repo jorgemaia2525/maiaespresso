@@ -818,7 +818,7 @@ function initCookieBanner() {
   });
 }
 
-// --- NAVBAR SCROLL EFFECT ---
+// --- NAVBAR SCROLL EFFECT & ANIMATIONS ---
 function initNavbarScroll() {
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -828,7 +828,35 @@ function initNavbarScroll() {
       navbar.classList.remove('scrolled');
     }
   });
+
+  initScrollAnimations();
 }
+
+function initScrollAnimations() {
+  const elements = document.querySelectorAll('.philosophy-card, .essence-gallery, .daily-menu-card, .reservation-grid, .editorial-quote-banner');
+  if (!('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  elements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+    observer.observe(el);
+  });
+}
+
+// Add CSS rule dynamically for in-view elements
+const styleSheet = document.createElement("style");
+styleSheet.innerText = `.in-view { opacity: 1 !important; transform: translateY(0) !important; }`;
+document.head.appendChild(styleSheet);
 
 function createProductCard(product) {
   const isOutOfStock = outOfStockItems.includes(product.id);

@@ -66,28 +66,64 @@
 
   <!-- --- HERO SECTION --- -->
   <section class="hero" id="inicio">
+    <div class="hero-bg-glow"></div>
     <div class="container hero-grid">
       <div class="hero-content">
         <div class="hero-badge">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-          </svg>
-          Cafetería de Especialidad
+          <span class="pulse-dot"></span>
+          Cafetería & Gastro de Especialidad
         </div>
         <h1 class="hero-title">Buen café, buena comida,<br><span>buenos momentos.</span></h1>
-        <p class="hero-desc">Tu cafetería de especialidad en Santa Cruz de Tenerife. Café recién tostado, tostadas de masa madre, bocadillos de pata asada canaria y opciones veganas en un espacio donde sentirte a gusto.</p>
+        <p class="hero-desc">Tu rincón acogedor en Santa Cruz de Tenerife. Café recién molido de finca, tostadas de masa madre artesanal, bocadillos de pata asada canaria y repostería hecha con mimo.</p>
         <div class="hero-buttons">
-          <a href="#menu-del-dia" class="btn btn-primary">Menú del Día</a>
+          <a href="#menu-del-dia" class="btn btn-primary btn-glow">
+            <span>🍽️ Menú del Día</span>
+          </a>
           <a href="#menu" class="btn btn-secondary">Ver la Carta</a>
         </div>
+        
+        <!-- Trust Metrics Pills -->
+        <div class="hero-trust-bar">
+          <div class="trust-pill">
+            <span class="trust-star">★ 4.9</span>
+            <span>Google Reviews</span>
+          </div>
+          <div class="trust-divider">•</div>
+          <div class="trust-pill">
+            <span>☕ 100% Especialidad</span>
+          </div>
+          <div class="trust-divider">•</div>
+          <div class="trust-pill">
+            <span>🐾 Pet Friendly</span>
+          </div>
+        </div>
       </div>
+      
       <div class="hero-image-container">
         <div class="hero-image-wrapper">
           <img src="assets/hero_bg.jpg" alt="Carta Maia Espresso" class="hero-img" id="hero-img">
+          
+          <div class="hero-floating-card">
+            <div class="hfc-icon">☕</div>
+            <div>
+              <div class="hfc-title">Café de Origen</div>
+              <div class="hfc-sub">Tueste fresco diario</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- --- EDITORIAL BANNER QUOTE --- -->
+  <div class="editorial-quote-banner">
+    <div class="container">
+      <blockquote class="editorial-quote">
+        "Una propuesta donde el tiempo se detiene, el café tiene origen y cada bocado se prepara con calma y cariño."
+      </blockquote>
+      <div class="editorial-author">— MAIA ESPRESSO FOOD • SANTA CRUZ DE TENERIFE</div>
+    </div>
+  </div>
 
   <!-- --- ESSENCE / PHILOSOPHY SECTION --- -->
   <section class="section philosophy" id="filosofia">
@@ -150,6 +186,9 @@
         <div class="essence-images-container">
           <img src="assets/essence_interior.jpg" alt="Interior acogedor de Maia Espresso" class="essence-img-interior">
           <img src="assets/essence_coffee.png" alt="Café de especialidad en Maia Espresso" class="essence-img-coffee">
+          <div class="essence-badge-corner">
+            <span>🌾 Masa Madre</span>
+          </div>
         </div>
         <!-- Right: Description -->
         <div style="display: flex; flex-direction: column; gap: 20px;">
