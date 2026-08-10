@@ -55,7 +55,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 2.60,
     desc: 'Tosta de pan de masa madre artesanal de centeno, aceite de oliva virgen extra y tumaca natural.',
-    image: 'assets/toast_tumaca.png',
+    image: '',
     icon: '🍞',
     tags: ['Clásicos de la Mañana', 'Vegano']
   },
@@ -65,7 +65,7 @@ const DEFAULT_PRODUCTS = [
     category: 'dulces',
     price: 2.90,
     desc: 'Croissant recién horneado servido con mermelada de frambuesa.',
-    image: 'assets/croissant_mermelada.png',
+    image: '',
     icon: '🥐',
     tags: ['Clásicos de la Mañana']
   },
@@ -75,7 +75,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 3.50,
     desc: 'Pan brioche tostado con mantequilla, jamón york y queso emmental fundido.',
-    image: 'assets/mixto_maia.png',
+    image: '',
     icon: '🥪',
     tags: ['Clásicos de la Mañana']
   },
@@ -85,7 +85,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 5.50,
     desc: 'Pan brioche con huevo revuelto cremoso, bacon crujiente, rúcula fresca y mayonesa japonesa.',
-    image: 'assets/egg_bacon_brioche.png',
+    image: '',
     icon: '🍔',
     tags: ['Clásicos de la Mañana', 'Recomendado']
   },
@@ -95,7 +95,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 7.90,
     desc: 'Tosta de salmón ahumado, aguacate, huevo poché y aliño suave de chalota con wasabi.',
-    image: 'assets/toast_salmon.png',
+    image: '',
     icon: '🥑',
     tags: ['Clásicos de la Mañana', 'Premium']
   },
@@ -105,7 +105,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 6.90,
     desc: 'Tortilla francesa jugosa con cebolla pochada y ensalada de tomate al lado.',
-    image: 'assets/tortilla_cremosa.png',
+    image: '',
     icon: '🍳',
     tags: ['Clásicos de la Mañana']
   },
@@ -115,7 +115,7 @@ const DEFAULT_PRODUCTS = [
     category: 'dulces',
     price: 5.50,
     desc: 'Yogurt griego con muesli casero y fruta fresca troceada.',
-    image: 'assets/yogurt.png',
+    image: '',
     icon: '🥣',
     tags: ['Clásicos de la Mañana', 'Saludable']
   },
@@ -127,7 +127,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 4.90,
     desc: 'Jamón ibérico con queso manchego y tumaca en pan de masa madre. (Disponible en pulga por 2,90€).',
-    image: 'assets/toast_classic.png',
+    image: '',
     icon: '🥪',
     tags: ['Bocadillos & Pulgas']
   },
@@ -137,7 +137,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 5.80,
     desc: 'Tiras de roast beef, queso parmesano, rúcula fresca y mayonesa de trufa en pan crujiente. (Pulga por 3,20€).',
-    image: 'assets/toast_roastbeef.png',
+    image: '',
     icon: '🥩',
     tags: ['Bocadillos & Pulgas', 'Premium']
   },
@@ -147,7 +147,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 5.50,
     desc: 'Pan de semillas, pollo desmenuzado, queso brie fundido y salsa casera de miel y mostaza. (Pulga por 3,10€).',
-    image: 'assets/toast_pollo_miel.png',
+    image: '',
     icon: '🥖',
     tags: ['Bocadillos & Pulgas']
   },
@@ -157,7 +157,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 5.10,
     desc: 'Pata asada al estilo canario, queso ahumado y mojo rojo de la casa. (Pulga por 3,00€).',
-    image: 'assets/toast_pata_asada.png',
+    image: '',
     icon: '🥓',
     tags: ['Bocadillos & Pulgas', 'Especialidad']
   },
@@ -167,7 +167,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bocadillos',
     price: 5.80,
     desc: 'Ternera mechada jugosa, queso emmental y pimientos del piquillo. (Pulga por 3,20€).',
-    image: 'assets/toast_mechada.png',
+    image: '',
     icon: '🍖',
     tags: ['Bocadillos & Pulgas']
   },
@@ -179,7 +179,7 @@ const DEFAULT_PRODUCTS = [
     category: 'dulces',
     price: 1.60,
     desc: 'Donut tierno con glaseado clásico de azúcar.',
-    image: 'assets/donut.png',
+    image: '',
     icon: '🍩',
     tags: ['Además...']
   },
@@ -189,7 +189,7 @@ const DEFAULT_PRODUCTS = [
     category: 'dulces',
     price: 2.40,
     desc: 'Bizcocho Plumcake casero con receta cambiante del día.',
-    image: 'assets/plumcake.png',
+    image: '',
     icon: '🍰',
     tags: ['Además...']
   },
@@ -199,7 +199,7 @@ const DEFAULT_PRODUCTS = [
     category: 'dulces',
     price: 2.20,
     desc: 'Croissant clásico hojaldrado elaborado con masa madre natural.',
-    image: 'assets/croissant.png',
+    image: '',
     icon: '🥐',
     tags: ['Además...']
   },
@@ -209,7 +209,7 @@ const DEFAULT_PRODUCTS = [
     category: 'dulces',
     price: 3.50,
     desc: 'Galletas caseras hechas a diario con trozos de chocolate.',
-    image: 'assets/cookies.png',
+    image: '',
     icon: '🍪',
     tags: ['Además...', 'Casero']
   },
@@ -221,7 +221,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bebidas-calientes',
     price: 1.40,
     desc: 'Espresso con grano 100% arábica de tostadero de especialidad.',
-    image: 'assets/espresso.png',
+    image: '',
     icon: '☕',
     tags: ['Bebidas Calientes']
   },
@@ -231,7 +231,7 @@ const DEFAULT_PRODUCTS = [
     category: 'bebidas-calientes',
     price: 1.60,
     desc: 'Espresso con un toque de leche emulsionada.',
-    image: 'assets/cortado.png',
+    image: '',
     icon: '🥛',
     tags: ['Bebidas Calientes']
   },
@@ -241,11 +241,6 @@ const DEFAULT_PRODUCTS = [
     category: 'bebidas-calientes',
     price: 1.60,
     desc: 'Espresso doble rebajado con agua caliente para un trago largo.',
-    image: 'assets/americano.png',
-    icon: '☕',
-    tags: ['Bebidas Calientes']
-  },
-  {
     id: 'barraquito',
     name: 'Barraquito',
     category: 'bebidas-calientes',
@@ -473,22 +468,9 @@ let PRODUCTS = [];
 
 function loadActiveProducts() {
   try {
-    const stored = localStorage.getItem('maia_active_products');
-    if (stored) {
-      PRODUCTS = JSON.parse(stored);
-      DEFAULT_PRODUCTS.forEach(defItem => {
-        const item = PRODUCTS.find(p => p.id === defItem.id);
-        if (item) {
-          item.image = defItem.image;
-        } else {
-          PRODUCTS.push(defItem);
-        }
-      });
-    } else {
-      const oldCustom = JSON.parse(localStorage.getItem('maia_custom_products')) || [];
-      PRODUCTS = [...JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)), ...oldCustom];
-      localStorage.setItem('maia_active_products', JSON.stringify(PRODUCTS));
-    }
+    const oldCustom = (JSON.parse(localStorage.getItem('maia_custom_products')) || []).filter(c => !DEFAULT_PRODUCTS.some(d => d.id === c.id));
+    PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)).concat(oldCustom);
+    localStorage.setItem('maia_active_products', JSON.stringify(PRODUCTS));
   } catch(e) {
     console.error('Error loading stored products, resetting to default:', e);
     PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
