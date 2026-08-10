@@ -4181,62 +4181,77 @@ function renderDailyMenuSection() {
 
   section.style.display = 'block';
 
-  const itemStyle = 'font-size: 0.95rem; color: #F5F2EB; line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; background: rgba(255,255,255,0.04); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); transition: all 0.25s ease;';
-  const bulletSpan = '<span style="color: var(--accent-rust); font-weight: bold; font-size: 1.1rem; line-height: 1.1;">✨</span>';
+  const primerosHTML = (dailyMenuConfig.primeros || []).map(item => `
+    <li class="dm-item-row">
+      <span class="dm-dot">•</span>
+      <span class="dm-item-name">${item}</span>
+    </li>
+  `).join('');
 
-  const primerosHTML = (dailyMenuConfig.primeros || []).map(item => `<li class="dm-item" style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
-  const segundosHTML = (dailyMenuConfig.segundos || []).map(item => `<li class="dm-item" style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
-  const postresHTML = (dailyMenuConfig.postresBebidas || []).map(item => `<li class="dm-item" style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
+  const segundosHTML = (dailyMenuConfig.segundos || []).map(item => `
+    <li class="dm-item-row">
+      <span class="dm-dot">•</span>
+      <span class="dm-item-name">${item}</span>
+    </li>
+  `).join('');
+
+  const postresHTML = (dailyMenuConfig.postresBebidas || []).map(item => `
+    <li class="dm-item-row">
+      <span class="dm-dot">•</span>
+      <span class="dm-item-name">${item}</span>
+    </li>
+  `).join('');
 
   container.innerHTML = `
-    <div class="daily-menu-header">
-      <div class="dm-header-info">
-        <span class="daily-menu-badge">👨‍🍳 Menú del Día Recién Elaborado</span>
-        <h2 class="daily-menu-title">${dailyMenuConfig.title || 'Menú del Día Maia'}</h2>
-        <p class="daily-menu-subtitle">${dailyMenuConfig.subtitle || 'Ingredientes frescos de temporada preparados a diario por nuestro equipo de cocina en Santa Cruz.'}</p>
-      </div>
-      <div class="daily-menu-price-tag">
-        <div class="daily-menu-price-amount">${(dailyMenuConfig.price || 12.90).toFixed(2)}€</div>
-        <div class="daily-menu-price-lbl">Menú Completo</div>
-      </div>
+    <div class="dm-top-bar">
+      <div class="dm-tag-badge">MENÚ DEL DÍA FRESCO</div>
+      <div class="dm-price-pill">${(dailyMenuConfig.price || 12.90).toFixed(2)}€ <span>/ persona</span></div>
+    </div>
+
+    <div class="dm-header">
+      <h2 class="dm-title">${dailyMenuConfig.title || 'Propuesta Culinaria del Día'}</h2>
+      <p class="dm-subtitle">${dailyMenuConfig.subtitle || 'Recetas artesanales elaboradas a diario con ingredientes frescos de mercado.'}</p>
     </div>
     
-    <div class="daily-menu-grid">
-      <div class="daily-menu-col">
-        <h3 class="daily-menu-col-title">
-          <span class="dm-step-badge">1º</span>
-          ${dailyMenuConfig.label1 || 'Primeros Platos'}
-        </h3>
-        <ul class="daily-menu-list">
-          ${primerosHTML || `<li style="${itemStyle}">Opciones frescas del día</li>`}
+    <div class="dm-courses-grid">
+      <div class="dm-course-card">
+        <div class="dm-course-header">
+          <span class="dm-course-num">01</span>
+          <h3 class="dm-course-title">${dailyMenuConfig.label1 || 'Primeros Platos'}</h3>
+        </div>
+        <ul class="dm-course-list">
+          ${primerosHTML || '<li class="dm-item-row"><span class="dm-item-name">Opciones del día</span></li>'}
         </ul>
       </div>
-      <div class="daily-menu-col">
-        <h3 class="daily-menu-col-title">
-          <span class="dm-step-badge">2º</span>
-          ${dailyMenuConfig.label2 || 'Segundos Platos'}
-        </h3>
-        <ul class="daily-menu-list">
-          ${segundosHTML || `<li style="${itemStyle}">Opciones de cocina del día</li>`}
+
+      <div class="dm-course-card">
+        <div class="dm-course-header">
+          <span class="dm-course-num">02</span>
+          <h3 class="dm-course-title">${dailyMenuConfig.label2 || 'Segundos Platos'}</h3>
+        </div>
+        <ul class="dm-course-list">
+          ${segundosHTML || '<li class="dm-item-row"><span class="dm-item-name">Opciones del día</span></li>'}
         </ul>
       </div>
-      <div class="daily-menu-col">
-        <h3 class="daily-menu-col-title">
-          <span class="dm-step-badge">3º</span>
-          ${dailyMenuConfig.label3 || 'Postre o Bebida'}
-        </h3>
-        <ul class="daily-menu-list">
-          ${postresHTML || `<li style="${itemStyle}">Opciones de cierre dulce o bebida</li>`}
+
+      <div class="dm-course-card">
+        <div class="dm-course-header">
+          <span class="dm-course-num">03</span>
+          <h3 class="dm-course-title">${dailyMenuConfig.label3 || 'Postre o Bebida'}</h3>
+        </div>
+        <ul class="dm-course-list">
+          ${postresHTML || '<li class="dm-item-row"><span class="dm-item-name">Opciones del día</span></li>'}
         </ul>
       </div>
     </div>
 
-    <div class="daily-menu-footer">
-      <div class="dm-footer-note">
-        <span class="dm-live-dot"></span> Servicio ininterrumpido en local y terraza • Incluye pan artesanal
+    <div class="dm-footer">
+      <div class="dm-footer-info">
+        <span class="dm-info-icon">🍞</span>
+        <span>Incluye pan artesanal de masa madre y servicio en mesa</span>
       </div>
-      <button class="btn btn-primary btn-glow dm-action-btn" onclick="window.openDailyMenuSelector()">
-        ✨ Elegir tu Menú del Día (${(dailyMenuConfig.price || 12.90).toFixed(2)}€)
+      <button class="dm-select-btn" onclick="window.openDailyMenuSelector()">
+        Configurar y Pedir Menú del Día →
       </button>
     </div>
   `;
