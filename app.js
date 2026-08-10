@@ -835,6 +835,35 @@ function initNavbarScroll() {
   initZoneSelectors();
 }
 
+function init3DTilt() {
+  if (window.innerWidth < 768) return; // Desktop & Tablet only for performance
+
+  // EXCLUDES .daily-menu-card and .reservation-card-wrapper as requested
+  const tiltElements = document.querySelectorAll('.hero-image-wrapper, .philosophy-card');
+  
+  tiltElements.forEach(el => {
+    el.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease';
+    
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
+      
+      el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    });
+  });
+}
+
 function initLiveStatus() {
   const statusEl = document.getElementById('live-status-text');
   if (!statusEl) return;
@@ -892,34 +921,6 @@ function initScrollAnimations() {
     el.style.transform = 'translateY(24px)';
     el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
     observer.observe(el);
-  });
-}
-
-function init3DTilt() {
-  if (window.innerWidth < 768) return; // Desktop & Tablet only for performance
-
-  const tiltElements = document.querySelectorAll('.hero-image-wrapper, .daily-menu-card, .philosophy-card, .reservation-card-wrapper');
-  
-  tiltElements.forEach(el => {
-    el.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease';
-    
-    el.addEventListener('mousemove', (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = ((y - centerY) / centerY) * -5;
-      const rotateY = ((x - centerX) / centerX) * 5;
-      
-      el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
-    });
-    
-    el.addEventListener('mouseleave', () => {
-      el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
   });
 }
 
