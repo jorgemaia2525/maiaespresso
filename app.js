@@ -830,6 +830,7 @@ function initNavbarScroll() {
   });
 
   initScrollAnimations();
+  init3DTilt();
 }
 
 function initScrollAnimations() {
@@ -850,6 +851,34 @@ function initScrollAnimations() {
     el.style.transform = 'translateY(24px)';
     el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
     observer.observe(el);
+  });
+}
+
+function init3DTilt() {
+  if (window.innerWidth < 768) return; // Desktop & Tablet only for performance
+
+  const tiltElements = document.querySelectorAll('.hero-image-wrapper, .daily-menu-card, .philosophy-card');
+  
+  tiltElements.forEach(el => {
+    el.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease';
+    
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -6; // max 6deg
+      const rotateY = ((x - centerX) / centerX) * 6;  // max 6deg
+      
+      el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    });
   });
 }
 

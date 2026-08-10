@@ -503,6 +503,89 @@ button, input, select, textarea {
   color: var(--text-secondary);
 }
 
+/* --- INFINITE MARQUEE TICKER BANNER --- */
+.marquee-ticker {
+  background: linear-gradient(90deg, #1A1715 0%, #29221F 50%, #1A1715 100%);
+  color: #DCAE8A;
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid rgba(220, 174, 138, 0.2);
+  border-bottom: 1px solid rgba(220, 174, 138, 0.2);
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 28px;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track span {
+  display: inline-flex;
+  align-items: center;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* --- FLOATING QUICK RESERVATION BUTTON --- */
+.floating-reserva-btn {
+  position: fixed;
+  bottom: 84px;
+  right: 24px;
+  z-index: 9999;
+  background: linear-gradient(135deg, var(--accent-rust) 0%, #9E4025 100%);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  box-shadow: 0 10px 25px rgba(184, 80, 50, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1.5px solid rgba(255,255,255,0.3);
+}
+
+.floating-reserva-btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 16px 32px rgba(184, 80, 50, 0.6);
+  color: #fff;
+}
+
+.frb-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2ECC71;
+  box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+  animation: frbPulse 2s infinite;
+}
+
+@keyframes frbPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(46, 204, 113, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+
+@media (max-width: 768px) {
+  .floating-reserva-btn {
+    bottom: 76px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+  }
+}
+
 /* --- EDITORIAL BANNER QUOTE --- */
 .editorial-quote-banner {
   background-color: #1E1B18;
