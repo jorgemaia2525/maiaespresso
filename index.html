@@ -18,7 +18,7 @@
   </script>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=v20260810_total_fix_v10">
+  <link rel="stylesheet" href="index.css?v=v20260810_qr_fix_v11">
 </head>
 <body>
 
@@ -822,16 +822,16 @@
       <span onclick="window.closeNoQrModal()" style="position: absolute; top: 12px; right: 16px; font-size: 1.8rem; cursor: pointer; color: #7A6F66; line-height: 1;">&times;</span>
       
       <div style="width: 52px; height: 52px; background-color: #F0EAE1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto; font-size: 1.5rem; border: 2px solid #D8CEBE;">
-        🍽️
+        📷
       </div>
       
-      <h3 style="font-family: var(--font-title); font-size: 1.25rem; color: #1A1715; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">Selecciona tu Mesa</h3>
+      <h3 style="font-family: var(--font-title); font-size: 1.25rem; color: #1A1715; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">Escanea el QR de tu Mesa</h3>
       
-      <p style="font-size: 0.88rem; color: #5C524A; line-height: 1.4; margin-bottom: 16px;">
-        Selecciona el número de mesa donde estás sentado para marchar tu pedido directo a cocina:
+      <p style="font-size: 0.88rem; color: #5C524A; line-height: 1.45; margin-bottom: 18px;">
+        Para marchar tu pedido directo a cocina, escanea el código QR ubicado en tu mesa o selecciona tu mesa a continuación:
       </p>
 
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px;">
+      <div id="manual-table-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px;">
         <button onclick="window.setMesaFromModal(1)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 1</button>
         <button onclick="window.setMesaFromModal(2)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 2</button>
         <button onclick="window.setMesaFromModal(3)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 3</button>
@@ -842,8 +842,12 @@
         <button onclick="window.setMesaFromModal(8)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 8</button>
       </div>
 
-      <button onclick="window.setMesaFromModal('Barra / Llevar')" style="width: 100%; padding: 12px; background: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.92rem; cursor: pointer;">
-        🛍️ Para Llevar / Pedido en Barra
+      <button onclick="window.setMesaFromModal('Barra / Llevar')" style="width: 100%; padding: 12px; background: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.92rem; cursor: pointer; margin-bottom: 8px;">
+        🛍️ Pedido Para Llevar / En Barra
+      </button>
+
+      <button onclick="window.closeNoQrModal()" style="width: 100%; padding: 8px; background: transparent; color: #7A6F66; border: none; font-size: 0.82rem; cursor: pointer;">
+        Cerrar y seguir viendo la carta
       </button>
     </div>
   </div>
@@ -1367,6 +1371,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=v20260810_total_fix_v10"></script>
+  <script src="app.js?v=v20260810_qr_fix_v11"></script>
 </body>
 </html>
