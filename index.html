@@ -18,7 +18,7 @@
   </script>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=v20260810_hero_parallax_v18">
+  <link rel="stylesheet" href="index.css?v=v20260810_dividers_v19">
 </head>
 <body>
 
@@ -230,6 +230,26 @@
     </div>
   </section>
 
+  <!-- --- DIVIDER 1: ANIMATED MARQUEE TICKER BAND --- -->
+  <div class="marquee-divider-wrapper">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span>☕ CAFÉ DE ESPECIALIDAD</span><span class="marquee-dot">•</span>
+        <span>🥖 MASA MADRE ARTESANAL</span><span class="marquee-dot">•</span>
+        <span>🍵 MATCHA UJI CEREMONIAL</span><span class="marquee-dot">•</span>
+        <span>🥓 PATA ASADA CANARIA</span><span class="marquee-dot">•</span>
+        <span>📍 SANTA CRUZ DE TENERIFE</span><span class="marquee-dot">•</span>
+        <span>✨ TU RINCÓN EN LAS ISLAS</span><span class="marquee-dot">•</span>
+        <span>☕ CAFÉ DE ESPECIALIDAD</span><span class="marquee-dot">•</span>
+        <span>🥖 MASA MADRE ARTESANAL</span><span class="marquee-dot">•</span>
+        <span>🍵 MATCHA UJI CEREMONIAL</span><span class="marquee-dot">•</span>
+        <span>🥓 PATA ASADA CANARIA</span><span class="marquee-dot">•</span>
+        <span>📍 SANTA CRUZ DE TENERIFE</span><span class="marquee-dot">•</span>
+        <span>✨ TU RINCÓN EN LAS ISLAS</span><span class="marquee-dot">•</span>
+      </div>
+    </div>
+  </div>
+
   <!-- --- ATMÓSFERA & EXPERIENCIA MAIA (CINEMATIC SHOWCASE) --- -->
   <section class="section atmosfera-section" id="atmosfera" style="background-color: #1E1B18; color: #F5F2EB; padding: 80px 0; overflow: hidden; position: relative;">
     <div style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(184,80,50,0.18) 0%, transparent 70%); pointer-events: none;"></div>
@@ -320,6 +340,16 @@
     </div>
   </section>
 
+  <!-- --- DIVIDER 2: FLUID LIQUID SVG WAVE WITH ANIMATED GLOW PARTICLES --- -->
+  <div class="wave-divider-wrapper">
+    <svg class="wave-svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path fill="#1E1B18" fill-opacity="1" d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,58.7C840,43,960,21,1080,21.3C1200,21,1320,43,1380,53.3L1440,64L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+    </svg>
+    <div class="wave-pulse-orb orb-1"></div>
+    <div class="wave-pulse-orb orb-2"></div>
+    <div class="wave-pulse-orb orb-3"></div>
+  </div>
+
   <!-- Lightbox Modal for Fullscreen Photo Viewing -->
   <div id="image-lightbox-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 8, 7, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000030; justify-content: center; align-items: center; padding: 24px; box-sizing: border-box;" onclick="if(event.target === this) window.closeImageLightbox()">
     <div style="position: relative; max-width: 900px; width: 100%; text-align: center;">
@@ -330,13 +360,22 @@
   </div>
 
   <!-- --- MENU DEL DIA SECTION --- -->
-  <section class="section daily-menu-section" id="menu-del-dia">
+  <section class="section daily-menu-section scroll-reveal" id="menu-del-dia">
     <div class="container">
       <div class="daily-menu-card" id="daily-menu-card">
         <!-- Injected dynamically by app.js -->
       </div>
     </div>
   </section>
+
+  <!-- --- DIVIDER 3: MINIMALIST PULSING COFFEE BEAN ORB --- -->
+  <div class="coffee-bean-divider">
+    <div class="divider-line"></div>
+    <div class="divider-icon-box">
+      <span class="divider-icon">☕</span>
+    </div>
+    <div class="divider-line"></div>
+  </div>
 
   <!-- --- MENU / CARTA SECTION --- -->
   <section class="section menu-section" id="menu">
@@ -1625,6 +1664,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=v20260810_hero_parallax_v18"></script>
+  <script src="app.js?v=v20260810_dividers_v19"></script>
 </body>
 </html>

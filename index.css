@@ -3326,6 +3326,120 @@ textarea.form-control {
   }
 }
 
+/* --- ANIMATED SECTION DIVIDERS --- */
+
+/* Divider 1: Infinite Marquee Ribbon */
+.marquee-divider-wrapper {
+  background: linear-gradient(90deg, #1E1B18 0%, #322824 50%, #1E1B18 100%);
+  padding: 16px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(184, 80, 50, 0.25);
+  border-bottom: 1px solid rgba(184, 80, 50, 0.25);
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 26s linear infinite;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #E2B38A;
+  text-transform: uppercase;
+}
+
+.marquee-dot {
+  color: var(--accent-rust);
+  font-size: 1rem;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Divider 2: Wave Liquid SVG */
+.wave-divider-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background-color: var(--bg-primary);
+  margin-top: -1px;
+}
+
+.wave-svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 65px;
+}
+
+.wave-pulse-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184, 80, 50, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+  animation: floatOrb 4s ease-in-out infinite alternate;
+}
+
+.orb-1 { top: 10px; left: 15%; width: 45px; height: 45px; animation-delay: 0s; }
+.orb-2 { top: 20px; left: 55%; width: 65px; height: 65px; animation-delay: 1.2s; }
+.orb-3 { top: 5px; left: 85%; width: 38px; height: 38px; animation-delay: 2.4s; }
+
+@keyframes floatOrb {
+  0% { transform: translateY(0) scale(0.9); opacity: 0.4; }
+  100% { transform: translateY(-14px) scale(1.25); opacity: 0.85; }
+}
+
+/* Divider 3: Pulsing Coffee Icon Line */
+.coffee-bean-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 56px auto;
+  max-width: 550px;
+  padding: 0 20px;
+}
+
+.divider-line {
+  flex-grow: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(184, 80, 50, 0.35) 50%, transparent 100%);
+}
+
+.divider-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #F5F2EB;
+  border: 1.5px solid rgba(184, 80, 50, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(184, 80, 50, 0.2);
+  animation: pulseIcon 2.5s ease-in-out infinite;
+}
+
+.divider-icon {
+  font-size: 1.15rem;
+}
+
+@keyframes pulseIcon {
+  0% { transform: scale(1); box-shadow: 0 4px 18px rgba(184, 80, 50, 0.2); }
+  50% { transform: scale(1.14); box-shadow: 0 8px 24px rgba(184, 80, 50, 0.4); }
+  100% { transform: scale(1); box-shadow: 0 4px 18px rgba(184, 80, 50, 0.2); }
+}
+
 /* --- ATMOSPHERE SHOWCASE SECTION STYLES --- */
 .atmosfera-section {
   perspective: 1200px;
