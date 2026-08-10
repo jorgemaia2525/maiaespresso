@@ -39,7 +39,6 @@
             <li><a href="#filosofia">Esencia</a></li>
             <li><a href="#menu-del-dia">Menú del Día</a></li>
             <li><a href="#menu">Carta</a></li>
-            <li><a href="#brunch">Arma tu Brunch</a></li>
             <li><a href="#reserva">Reserva</a></li>
         </ul>
       </nav>
@@ -60,7 +59,7 @@
           </svg>
           <span class="cart-count" id="cart-count">0</span>
         </button>
-        <a href="#brunch" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.85rem;">Armar Brunch</a>
+        <a href="#menu-del-dia" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.85rem;">Menú del Día</a>
       </div>
     </div>
   </header>
@@ -78,8 +77,8 @@
         <h1 class="hero-title">Buen café, buena comida,<br><span>buenos momentos.</span></h1>
         <p class="hero-desc">Tu cafetería de especialidad en Santa Cruz de Tenerife. Café recién tostado, tostadas de masa madre, bocadillos de pata asada canaria y opciones veganas en un espacio donde sentirte a gusto.</p>
         <div class="hero-buttons">
-          <a href="#menu" class="btn btn-primary">Ver la Carta</a>
-          <a href="#brunch" class="btn btn-secondary">Crear mi Tostada</a>
+          <a href="#menu-del-dia" class="btn btn-primary">Menú del Día</a>
+          <a href="#menu" class="btn btn-secondary">Ver la Carta</a>
         </div>
       </div>
       <div class="hero-image-container">
@@ -220,123 +219,7 @@
     </div>
   </section>
 
-  <!-- --- INTERACTIVE BRUNCH BUILDER --- -->
-  <section class="section brunch-section" id="brunch">
-    <div class="container">
-      <h2 class="section-title">Reserva y Arma tu Brunch</h2>
-      <p class="section-subtitle">Crea tu tostada ideal paso a paso con los ingredientes que prefieras, añade tu bebida favorita y reserva mesa.</p>
-      
-      <!-- Brunch Booking Info Banner -->
-      <div class="qr-info-banner brunch-banner">
-        <div class="qr-info-icon">🥞</div>
-        <div class="qr-info-text" style="font-weight: 600;">
-          <strong>Brunch por QR:</strong> Escanea el QR de tu mesa para montar y pedir tu brunch al momento.
-        </div>
-      </div>
-      
-      <div class="brunch-creator-card">
-        <div class="brunch-grid">
-          <!-- Left Column: Creator Panel -->
-          <div class="brunch-creator">
-            
-            <!-- Step Indicators -->
-            <div class="brunch-steps">
-              <div class="brunch-step-indicator active" data-step="1">1</div>
-              <div class="brunch-step-indicator" data-step="2">2</div>
-              <div class="brunch-step-indicator" data-step="3">3</div>
-              <div class="brunch-step-indicator" data-step="4">4</div>
-            </div>
-            
-            <!-- Step 1: Base bread -->
-            <div class="brunch-panel active" id="panel-step-1">
-              <h3>Paso 1: Elige tu base de pan</h3>
-              <p class="brunch-panel-desc">Elige la base de pan de masa madre recién horneado.</p>
-              <div class="option-grid" id="brunch-grid-base">
-                <!-- Injected dynamically -->
-              </div>
-            </div>
-            
-            <!-- Step 2: Untables & Proteins -->
-            <div class="brunch-panel" id="panel-step-2">
-              <h3>Paso 2: Base Untable & Proteína</h3>
-              <p class="brunch-panel-desc">Selecciona la crema untable y el ingrediente principal.</p>
-              <div class="option-grid" id="brunch-grid-protein">
-                <!-- Injected dynamically -->
-              </div>
-            </div>
-            
-            <!-- Step 3: Sauces & Toppings -->
-            <div class="brunch-panel" id="panel-step-3">
-              <h3>Paso 3: Salsas y Toppings</h3>
-              <p class="brunch-panel-desc">Dale el toque final con nuestras salsas caseras y extras.</p>
-              <div class="option-grid" id="brunch-grid-sauce">
-                <!-- Injected dynamically -->
-              </div>
-            </div>
-            
-            <!-- Step 4: Drink -->
-            <div class="brunch-panel" id="panel-step-4">
-              <h3>Paso 4: Elige tu bebida</h3>
-              <p class="brunch-panel-desc">Acompaña tu tostada con un café, zumo natural o matcha.</p>
-              <div class="option-grid" id="brunch-grid-drink">
-                <!-- Injected dynamically -->
-              </div>
-            </div>
-            
-            <!-- Navigation controls -->
-            <div class="brunch-nav">
-              <button class="btn btn-secondary" id="brunch-prev-btn" disabled>Atrás</button>
-              <button class="btn btn-primary" id="brunch-next-btn">Siguiente</button>
-            </div>
-            
-          </div>
-          
-          <!-- Right Column: Visual Summary Preview -->
-          <div class="brunch-preview">
-            <h4>Tu Creación</h4>
-            
-            <!-- Sandwich Stack visual representation -->
-            <div class="sandwich-visualizer" id="sandwich-visualizer">
-              <!-- JS will dynamically stack divs with layer classes here -->
-              <div class="sandwich-layer layer-bread-top" id="vis-bread-top">Masa Madre</div>
-              <div class="sandwich-layer layer-bread-bottom" id="vis-bread-bottom">Masa Madre</div>
-            </div>
-            
-            <ul class="brunch-summary-list" id="brunch-summary-list">
-              <li class="brunch-summary-item" data-summary="base">
-                <span>Pan base:</span>
-                <span class="val">-</span>
-              </li>
-              <li class="brunch-summary-item" data-summary="protein">
-                <span>Ingrediente principal:</span>
-                <span class="val">-</span>
-              </li>
-              <li class="brunch-summary-item" data-summary="sauce">
-                <span>Salsa / Topping:</span>
-                <span class="val">-</span>
-              </li>
-              <li class="brunch-summary-item" data-summary="drink">
-                <span>Bebida:</span>
-                <span class="val">-</span>
-              </li>
-            </ul>
-            
-            <div class="brunch-total">
-              <span class="brunch-total-label">Total Brunch:</span>
-              <span class="brunch-total-price" id="brunch-total-price">0.00€</span>
-            </div>
-            
-            <button class="btn btn-primary" id="btn-add-brunch-cart" style="width: 100%;" disabled>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12h14"></path>
-              </svg>
-              Añadir Brunch a Reservas
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- --- REVIEWS SECTION --- -->
   <section class="section reviews-section" id="opiniones">
@@ -596,10 +479,7 @@
             <textarea id="notes" class="form-control" placeholder="¿Algo que debamos saber de antemano?"></textarea>
           </div>
           
-          <!-- Si han armado un brunch, se mostrará un aviso de que se incluye -->
-          <div id="booking-brunch-alert" style="display: none; background: rgba(95, 111, 82, 0.1); border: 1.5px solid var(--accent-olive); padding: 12px 18px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.9rem; color: var(--accent-olive); font-weight: 500;">
-            ✓ Reservarás la mesa junto con tu brunch personalizado.
-          </div>
+
           
           <button type="submit" class="btn btn-primary" style="width: 100%;">Confirmar mi Reserva</button>
         </form>
@@ -641,8 +521,8 @@
         <ul>
           <li><a href="#inicio">Inicio</a></li>
           <li><a href="#filosofia">Nuestra Esencia</a></li>
+          <li><a href="#menu-del-dia">Menú del Día</a></li>
           <li><a href="#menu">La Carta</a></li>
-          <li><a href="#brunch">Arma tu Brunch</a></li>
           <li><a href="#reserva">Reservar Mesa</a></li>
         </ul>
       </div>
@@ -683,9 +563,9 @@
       <span class="mobile-nav-icon">📖</span>
       <span>Carta</span>
     </a>
-    <a href="#brunch" class="mobile-nav-item">
-      <span class="mobile-nav-icon">🥞</span>
-      <span>Brunch</span>
+    <a href="#menu-del-dia" class="mobile-nav-item">
+      <span class="mobile-nav-icon">🍽️</span>
+      <span>Menú</span>
     </a>
     <a href="#reserva" class="mobile-nav-item">
       <span class="mobile-nav-icon">📅</span>
@@ -1001,11 +881,7 @@
             <!-- Injected dynamically -->
           </div>
           
-          <!-- Section: Brunch Ingredients -->
-          <h4 style="font-family: var(--font-title); color: var(--accent-rust); margin-top: 0; margin-bottom: 12px; font-size: 1rem; border-bottom: 1px dashed #3D3532; padding-bottom: 4px;">Ingredientes de Brunch</h4>
-          <div id="stock-brunch-list" style="display: flex; flex-direction: column; gap: 8px;">
-            <!-- Injected dynamically -->
-          </div>
+
         </div>
         
         <div style="border-top: 1px solid #3D3532; padding-top: 16px; text-align: right;">
@@ -1025,11 +901,10 @@
         <form id="create-product-form" onsubmit="saveCustomProduct(event)" style="display: flex; flex-direction: column; gap: 16px;">
           <input type="hidden" id="edit-prod-id" value="">
           
-          <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <div class="kds-form-group" style="display: flex; flex-direction: column; gap: 6px; display: none;">
             <label for="new-prod-type" style="font-size: 0.85rem; font-weight: 600; color: var(--text-light);">Tipo de Item</label>
-            <select id="new-prod-type" onchange="toggleFormItemType()" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem; cursor: pointer;">
-              <option value="carta">Producto de la Carta</option>
-              <option value="brunch">Ingrediente de Brunch</option>
+            <select id="new-prod-type" style="background-color: #1E1B18; border: 1px solid #4A3E3B; border-radius: var(--radius-sm); padding: 10px 14px; color: #F5F2EB; font-size: 0.9rem; cursor: pointer;">
+              <option value="carta" selected>Producto de la Carta</option>
             </select>
           </div>
 

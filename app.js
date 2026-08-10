@@ -2193,6 +2193,7 @@ function renderKdsOrders() {
       grouped[timeKey].forEach(item => {
         const isServed = item.status === 'served' || order.status === 'served';
         const isPreparing = item.status === 'preparing';
+        const isDailyMenu = item.category === 'menu-dia' || (item.id && String(item.id).startsWith('daily-menu-'));
         
         let nameStyle = '';
         let statusTag = '';
@@ -2206,13 +2207,29 @@ function renderKdsOrders() {
           statusTag = '<span style="font-size: 0.7rem; background-color: #5C524A; color: #F5F2EB; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 6px;">NUEVO</span>';
         }
 
+        if (isDailyMenu) {
+          statusTag = '<span style="font-size: 0.7rem; background: linear-gradient(135deg, #B85032 0%, #DCAE8A 100%); color: #fff; padding: 2px 8px; border-radius: 12px; font-weight: bold; margin-left: 6px; box-shadow: 0 2px 6px rgba(184,80,50,0.4);">🍽️ MENÚ DÍA</span> ' + statusTag;
+        }
+
+        let descHTML = '';
+        if (item.desc) {
+          if (isDailyMenu && item.desc.includes('|')) {
+            const parts = item.desc.split('|').map(p => p.trim());
+            descHTML = `<div style="font-size: 0.8rem; color: #DCAE8A; margin-left: 20px; margin-top: 4px; background: rgba(184,80,50,0.12); border-left: 3px solid var(--accent-rust); padding: 4px 8px; border-radius: 4px; line-height: 1.4;">
+              ${parts.map(p => `<div>• ${p}</div>`).join('')}
+            </div>`;
+          } else {
+            descHTML = `<div style="font-size: 0.75rem; color: #9E9185; margin-left: 32px; margin-top: 2px; font-style: italic; line-height: 1.2;">(${item.desc})</div>`;
+          }
+        }
+
         itemsHTML += `
-          <li style="display: flex; flex-direction: column; margin-bottom: 6px; padding-bottom: 4px;">
+          <li style="display: flex; flex-direction: column; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dashed rgba(255,255,255,0.06);">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="${nameStyle}"><span class="kds-item-qty">${item.qty}x</span> ${item.icon || '🍳'} ${item.name}</span>
-              ${statusTag}
+              <span style="${nameStyle}; font-weight: ${isDailyMenu ? 'bold' : 'normal'};"><span class="kds-item-qty">${item.qty}x</span> ${item.icon || '🍳'} ${item.name}</span>
+              <div style="display: flex; gap: 4px; align-items: center;">${statusTag}</div>
             </div>
-            ${item.desc ? `<div style="font-size: 0.75rem; color: #9E9185; margin-left: 32px; margin-top: 2px; font-style: italic; line-height: 1.2;">(${item.desc})</div>` : ''}
+            ${descHTML}
           </li>
         `;
       });
