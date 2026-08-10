@@ -18,7 +18,7 @@
   </script>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=v20260810_admin_allergens_v14">
+  <link rel="stylesheet" href="index.css?v=v20260810_atmosfera_v15">
 </head>
 <body>
 
@@ -37,6 +37,7 @@
           <ul class="nav-links">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#filosofia">Esencia</a></li>
+            <li><a href="#atmosfera">Atmósfera</a></li>
             <li><a href="#menu-del-dia">Menú del Día</a></li>
             <li><a href="#menu">Carta</a></li>
             <li><a href="javascript:void(0)" onclick="window.openAllergensModal()">⚠️ Alérgenos</a></li>
@@ -225,10 +226,108 @@
               <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary);">Trabajamos con tostadores que seleccionan granos directamente de fincas locales e internacionales.</p>
             </div>
           </div>
-        </div>
       </div>
     </div>
+  </section>
 
+  <!-- --- ATMÓSFERA & EXPERIENCIA MAIA (CINEMATIC SHOWCASE) --- -->
+  <section class="section atmosfera-section" id="atmosfera" style="background-color: #1E1B18; color: #F5F2EB; padding: 80px 0; overflow: hidden; position: relative;">
+    <div style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(184,80,50,0.18) 0%, transparent 70%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(226,179,138,0.12) 0%, transparent 70%); pointer-events: none;"></div>
+    
+    <div class="container">
+      <!-- Section Header -->
+      <div style="text-align: center; max-width: 680px; margin: 0 auto 48px auto;">
+        <span style="font-size: 0.78rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-rust); display: block; margin-bottom: 8px;">ATMÓSFERA SENSORIAL</span>
+        <h2 style="font-family: var(--font-title); font-size: 2.5rem; color: #F5F2EB; margin: 0 0 14px 0; letter-spacing: 0.5px;">El Ritual de Maia Espresso</h2>
+        <p style="color: #C5BBB0; font-size: 1rem; line-height: 1.6; margin: 0;">
+          Momentos en nuestro espacio. Donde la pasión por el café de especialidad y la gastronomía artesanal se encuentran.
+        </p>
+      </div>
+
+      <!-- Main Showcase Grid (Hero Video Reel + Interactive Image Carousel / Masonry) -->
+      <div class="atmosfera-grid" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch;">
+        
+        <!-- Left: Cinematic Video Reel Card -->
+        <div class="atmosfera-video-card" style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(229,223,213,0.15); min-height: 440px; display: flex; flex-direction: column; justify-content: flex-end;">
+          <video autoplay loop muted playsinline style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; filter: brightness(0.85);">
+            <source src="assets/01.mp4" type="video/mp4">
+            Tu navegador no soporta el formato de vídeo.
+          </video>
+          <!-- Subtle Dark Gradient Overlay -->
+          <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(24,21,19,0.92) 0%, rgba(24,21,19,0.2) 60%, transparent 100%);"></div>
+          
+          <!-- Floating Live Badge -->
+          <div style="position: absolute; top: 20px; left: 20px; z-index: 2; background: rgba(30,27,24,0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; gap: 8px;">
+            <span style="width: 8px; height: 8px; background-color: #B85032; border-radius: 50%; display: inline-block; animation: pulseGlow 1.8s infinite;"></span>
+            <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F5F2EB;">EN DIRECTO EN MAIA</span>
+          </div>
+
+          <!-- Video Content Caption -->
+          <div style="position: relative; z-index: 2; padding: 32px 28px;">
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-rust); text-transform: uppercase; letter-spacing: 1.5px;">ESPECIALIDAD & RITUAL</span>
+            <h3 style="font-family: var(--font-title); font-size: 1.75rem; color: #F5F2EB; margin: 4px 0 8px 0;">Tostado & Extracción de Autor</h3>
+            <p style="font-size: 0.9rem; color: #D4C9BC; margin: 0; line-height: 1.5; max-width: 480px;">
+              Cada taza se prepara con precisión artesanal para revelar notas sensoriales únicas.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Fluid Gallery Grid (5 High Resolution Photos) -->
+        <div class="atmosfera-gallery-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+          
+          <div class="gallery-card" onclick="window.openImageLightbox('assets/02.jpg', 'Café de Especialidad Recién Extraído')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <img src="assets/02.jpg" alt="Café de Especialidad Maia Espresso" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Café de Especialidad ☕</span>
+            </div>
+          </div>
+
+          <div class="gallery-card" onclick="window.openImageLightbox('assets/03.jpg', 'Tostas Artesanales de Masa Madre')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <img src="assets/03.jpg" alt="Gastronomía Artesanal Maia" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Masa Madre Artesanal 🥖</span>
+            </div>
+          </div>
+
+          <div class="gallery-card" onclick="window.openImageLightbox('assets/04.jpg', 'Matcha Uji Ceremonial')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <img src="assets/04.jpg" alt="Matcha Uji Maia Espresso" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Matcha Uji Ceremonial 🍵</span>
+            </div>
+          </div>
+
+          <div class="gallery-card" onclick="window.openImageLightbox('assets/05.jpg', 'Dulces y Repostería Recién Horneada')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <img src="assets/05.jpg" alt="Repostería Casera Maia" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Repostería Casera 🥐</span>
+            </div>
+          </div>
+
+          <div class="gallery-card" onclick="window.openImageLightbox('assets/06.jpg', 'El Espacio Maia en Santa Cruz')" style="grid-column: 1 / -1; position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/7; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+            <img src="assets/06.jpg" alt="Ambiente Maia Espresso Santa Cruz" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
+            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 16px; opacity: 0.9; transition: opacity 0.3s ease;">
+              <div>
+                <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-rust); display: block;">SANTA CRUZ DE TENERIFE</span>
+                <span style="font-size: 1rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Tu rincón preferido de encuentro ✨</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal for Fullscreen Photo Viewing -->
+  <div id="image-lightbox-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 8, 7, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000030; justify-content: center; align-items: center; padding: 24px; box-sizing: border-box;" onclick="if(event.target === this) window.closeImageLightbox()">
+    <div style="position: relative; max-width: 900px; width: 100%; text-align: center;">
+      <span onclick="window.closeImageLightbox()" style="position: absolute; top: -45px; right: 0; font-size: 2.2rem; cursor: pointer; color: #F5F2EB; line-height: 1;">&times;</span>
+      <img id="lightbox-img" src="" alt="" style="max-width: 100%; max-height: 80vh; border-radius: 16px; box-shadow: 0 25px 60px rgba(0,0,0,0.8); border: 2px solid rgba(255,255,255,0.15); object-fit: contain;">
+      <p id="lightbox-caption" style="color: #E2B38A; font-family: var(--font-title); font-size: 1.2rem; margin: 16px 0 0 0; text-shadow: 0 2px 8px rgba(0,0,0,0.5);"></p>
+    </div>
+  </div>
 
   <!-- --- MENU DEL DIA SECTION --- -->
   <section class="section daily-menu-section" id="menu-del-dia">
@@ -1526,6 +1625,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=v20260810_admin_allergens_v14"></script>
+  <script src="app.js?v=v20260810_atmosfera_v15"></script>
 </body>
 </html>

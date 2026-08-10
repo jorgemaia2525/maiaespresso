@@ -4635,3 +4635,22 @@ window.saveDailyMenuConfig = function() {
   showToast('✨ Menú del Día guardado y publicado');
 };
 
+window.openImageLightbox = function(src, caption) {
+  const modal = document.getElementById('image-lightbox-modal');
+  const img = document.getElementById('lightbox-img');
+  const cap = document.getElementById('lightbox-caption');
+
+  if (!modal || !img) return;
+
+  img.src = src;
+  if (cap) cap.textContent = caption || '';
+
+  modal.style.display = 'flex';
+};
+
+window.closeImageLightbox = function() {
+  const modal = document.getElementById('image-lightbox-modal');
+  if (modal) modal.style.display = 'none';
+};
+
+
