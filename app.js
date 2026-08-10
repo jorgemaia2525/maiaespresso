@@ -363,9 +363,9 @@ const DEFAULT_PRODUCTS = [
     category: 'bebidas-frias',
     price: 4.10,
     desc: 'Té verde matcha Uji ceremonial con leche fría y hielo.',
-    image: 'assets/iced_matcha.png',
+    image: 'https://scontent-bru2-1.cdninstagram.com/v/t51.82787-15/703861857_17881565304577164_2132780130239547537_n.jpg?stp=c224.0.673.673a_dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=eZI9Fk0TRA0Q7kNvwHEgPyz&_nc_oc=AdpryKnZvtrZyZpAouL68w0n1yyoPkHXghp9-jAcq7nPbCAWjzNXFfkxFKGPrt1Rn8U&_nc_zt=23&_nc_ht=scontent-bru2-1.cdninstagram.com&_nc_gid=1mPpPZZAvx-2GCHaDUZa8w&_nc_ss=7b60f&oh=00_AQGCwOh8VQQaN90Ev4oHXXrfkviv3WBwkTKva9LQsUhf9Q&oe=6A8003CE',
     icon: '🍵',
-    tags: ['Bebidas Frías']
+    tags: ['Bebidas Frías', 'Fotos Reales']
   },
   {
     id: 'iced-chai',
@@ -376,6 +376,16 @@ const DEFAULT_PRODUCTS = [
     image: 'assets/iced_chai.png',
     icon: '🍂',
     tags: ['Bebidas Frías']
+  },
+  {
+    id: 'ice-latte-canela',
+    name: 'Ice Latte Canela',
+    category: 'bebidas-frias',
+    price: 3.80,
+    desc: 'Espresso helado cremoso y refrescante con un toque suave de canela.',
+    image: 'https://scontent-atl3-1.cdninstagram.com/v/t51.82787-15/703222533_17881387455577164_3977059023091209976_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=103&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=1z8Qm0gAgpMQ7kNvwHx7SMb&_nc_oc=Adppk7Qi3nkowdApit0HAtKdZ-UZprxTI9Gh0Uk8iAuZnswdMH8pX_9V1bDIVuX04T4&_nc_zt=23&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_gid=bzH5g7ePmJ8Y9NDIkGDHkQ&_nc_ss=7b60f&oh=00_AQHRhjjTCvCPC4BnEjSCD0u8ZPjtJYaj9xepwgu5YOOCqw&oe=6A80152D',
+    icon: '☕',
+    tags: ['Bebidas Frías', 'Best Seller', 'Fotos Reales']
   },
   {
     id: 'orange-matcha',
@@ -406,6 +416,16 @@ const DEFAULT_PRODUCTS = [
     image: 'assets/iced_mango_matcha.png',
     icon: '🥭',
     tags: ['Bebidas Frías']
+  },
+  {
+    id: 'cold-coffee-maia',
+    name: 'Cold Coffee Maia',
+    category: 'bebidas-frias',
+    price: 3.60,
+    desc: 'Café helado exclusivo de Maia preparado al momento, despierta y refresca.',
+    image: 'https://scontent-atl3-2.cdninstagram.com/v/t51.71878-15/588606611_1371290357708836_5397517230154806586_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=ssU-ZjXT2QIQ7kNvwFOhmkI&_nc_oc=AdoFdVo_XJ_SWSFpoAMmEsXAEp0CIEPbSczlOFFLUNxu2Jvtk-044-MRXBJKzRxjWI0&_nc_zt=23&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_gid=KuG5JwhGDCPKnxM1eGhMxg&_nc_ss=7b60f&oh=00_AQFpekujOcXTwc24aTq-nXZts2Ocj70FmGObQ9b6wiJB5w&oe=6A7FE6A2',
+    icon: '🧊',
+    tags: ['Bebidas Frías', 'Fotos Reales']
   },
   {
     id: 'te-frio',
@@ -456,6 +476,14 @@ function loadActiveProducts() {
     const stored = localStorage.getItem('maia_active_products');
     if (stored) {
       PRODUCTS = JSON.parse(stored);
+      DEFAULT_PRODUCTS.forEach(defItem => {
+        const item = PRODUCTS.find(p => p.id === defItem.id);
+        if (item && defItem.image && defItem.image.startsWith('http')) {
+          item.image = defItem.image;
+        } else if (!item) {
+          PRODUCTS.push(defItem);
+        }
+      });
     } else {
       const oldCustom = JSON.parse(localStorage.getItem('maia_custom_products')) || [];
       PRODUCTS = [...JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)), ...oldCustom];
