@@ -378,6 +378,16 @@ const DEFAULT_PRODUCTS = [
     tags: ['Bebidas Frías']
   },
   {
+    id: 'ice-latte-canela',
+    name: 'Ice Latte Canela',
+    category: 'bebidas-frias',
+    price: 3.80,
+    desc: 'Espresso helado cremoso y refrescante con un toque suave de canela.',
+    image: 'assets/ice_latte_canela.png',
+    icon: '☕',
+    tags: ['Bebidas Frías', 'Best Seller']
+  },
+  {
     id: 'orange-matcha',
     name: 'Iced Orange Matcha',
     category: 'bebidas-frias',
@@ -405,6 +415,16 @@ const DEFAULT_PRODUCTS = [
     desc: 'Matcha Uji frío con leche sobre puré de mango fresco.',
     image: 'assets/iced_mango_matcha.png',
     icon: '🥭',
+    tags: ['Bebidas Frías']
+  },
+  {
+    id: 'cold-coffee-maia',
+    name: 'Cold Coffee Maia',
+    category: 'bebidas-frias',
+    price: 3.60,
+    desc: 'Café helado exclusivo de Maia preparado al momento, despierta y refresca.',
+    image: 'assets/cold_coffee_maia.png',
+    icon: '🧊',
     tags: ['Bebidas Frías']
   },
   {
@@ -456,6 +476,14 @@ function loadActiveProducts() {
     const stored = localStorage.getItem('maia_active_products');
     if (stored) {
       PRODUCTS = JSON.parse(stored);
+      DEFAULT_PRODUCTS.forEach(defItem => {
+        const item = PRODUCTS.find(p => p.id === defItem.id);
+        if (item) {
+          item.image = defItem.image;
+        } else {
+          PRODUCTS.push(defItem);
+        }
+      });
     } else {
       const oldCustom = JSON.parse(localStorage.getItem('maia_custom_products')) || [];
       PRODUCTS = [...JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)), ...oldCustom];
@@ -818,7 +846,7 @@ function initCookieBanner() {
   });
 }
 
-// --- NAVBAR SCROLL EFFECT ---
+// --- NAVBAR SCROLL EFFECT & ANIMATIONS ---
 function initNavbarScroll() {
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -828,7 +856,106 @@ function initNavbarScroll() {
       navbar.classList.remove('scrolled');
     }
   });
+
+  initScrollAnimations();
+  init3DTilt();
+  initLiveStatus();
+  initZoneSelectors();
 }
+
+function init3DTilt() {
+  if (window.innerWidth < 768) return; // Desktop & Tablet only for performance
+
+  // EXCLUDES .daily-menu-card and .reservation-card-wrapper as requested
+  const tiltElements = document.querySelectorAll('.hero-image-wrapper, .philosophy-card');
+  
+  tiltElements.forEach(el => {
+    el.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease';
+    
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
+      
+      el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    });
+  });
+}
+
+function initLiveStatus() {
+  const statusEl = document.getElementById('live-status-text');
+  if (!statusEl) return;
+
+  const now = new Date();
+  const day = now.getDay(); // 0: Sun, 1: Mon, ..., 6: Sat
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const currentTime = hours * 60 + minutes;
+
+  const openTime = 9 * 60 + 30;  // 09:30
+  const closeTime = 17 * 60;      // 17:00
+
+  const isWeekday = day >= 1 && day <= 5;
+  const isOpen = isWeekday && (currentTime >= openTime && currentTime < closeTime);
+
+  if (isOpen) {
+    statusEl.innerText = "ABIERTO AHORA • Atendiendo en Santa Cruz";
+    statusEl.parentElement.style.borderColor = "rgba(46, 204, 113, 0.4)";
+    statusEl.parentElement.style.color = "#2ECC71";
+  } else {
+    statusEl.innerText = "CERRADO AHORA • Abrimos a las 09:30";
+    statusEl.parentElement.style.borderColor = "rgba(231, 76, 60, 0.4)";
+    statusEl.parentElement.style.color = "#E74C3C";
+    const dot = statusEl.parentElement.querySelector('.live-status-dot');
+    if (dot) dot.style.backgroundColor = "#E74C3C";
+  }
+}
+
+function initZoneSelectors() {
+  const zoneCards = document.querySelectorAll('.zone-card');
+  zoneCards.forEach(card => {
+    card.addEventListener('click', () => {
+      zoneCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+  });
+}
+
+function initScrollAnimations() {
+  const elements = document.querySelectorAll('.philosophy-card, .essence-gallery, .daily-menu-card, .reservation-grid, .editorial-quote-banner, .reservation-card-wrapper');
+  if (!('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  elements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+    observer.observe(el);
+  });
+}
+
+// Add CSS rule dynamically for in-view elements
+const styleSheet = document.createElement("style");
+styleSheet.innerText = `.in-view { opacity: 1 !important; transform: translateY(0) !important; }`;
+document.head.appendChild(styleSheet);
 
 function createProductCard(product) {
   const isOutOfStock = outOfStockItems.includes(product.id);
