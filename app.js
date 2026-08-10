@@ -970,10 +970,10 @@ function createProductCard(product) {
   }).join('');
 
   card.innerHTML = `
-    <div class="menu-card-img-wrapper">
-      <div class="menu-card-img-placeholder">${product.icon}</div>
+    <div class="menu-card-img-wrapper" style="position: relative; aspect-ratio: 4 / 3; background: linear-gradient(135deg, #2D2522 0%, #1E1B18 100%) !important; overflow: hidden; border-bottom: 2px solid rgba(184, 80, 50, 0.25);">
+      <div class="menu-card-img-placeholder" style="width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(184, 80, 50, 0.35) 0%, rgba(30, 27, 24, 0.95) 75%), linear-gradient(135deg, #332B28 0%, #1E1B18 100%) !important; display: flex; align-items: center; justify-content: center; color: #F5F2EB !important; font-size: 3.6rem !important; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));">${product.icon}</div>
       ${product.image ? `<img src="${product.image}" alt="${product.name}" class="menu-card-img" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">` : ''}
-      <span class="menu-card-badge">${product.category.replace('-', ' ')}</span>
+      <span class="menu-card-badge" style="position: absolute; top: 14px; right: 14px; background: rgba(255, 255, 255, 0.96) !important; color: #B85032 !important; font-weight: 800; font-size: 0.72rem; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(184, 80, 50, 0.3); box-shadow: 0 4px 12px rgba(0,0,0,0.25); text-transform: uppercase; letter-spacing: 1px; z-index: 2;">${product.category.replace('-', ' ')}</span>
     </div>
     <div class="menu-card-content">
       <div class="menu-card-header">
@@ -1004,7 +1004,7 @@ function createProductCard(product) {
   return card;
 }
 
-function renderMenu(categoryFilter, showAll = false) {
+function renderMenu(categoryFilter, showAll = true) {
   const menuGrid = document.getElementById('menu-grid');
   const showMoreContainer = document.getElementById('menu-show-more-container');
   const showMoreBtn = document.getElementById('btn-menu-show-more');
@@ -1026,9 +1026,9 @@ function renderMenu(categoryFilter, showAll = false) {
     ? sortedProducts 
     : PRODUCTS.filter(p => p.category === categoryFilter);
 
-  // Limit to 6 items if showAll is false and total products exceed 6
-  const shouldLimit = filteredProducts.length > 6 && !showAll;
-  const itemsToRender = shouldLimit ? filteredProducts.slice(0, 6) : filteredProducts;
+  // Show all products by default so full menu is displayed
+  const shouldLimit = filteredProducts.length > 20 && !showAll;
+  const itemsToRender = shouldLimit ? filteredProducts.slice(0, 20) : filteredProducts;
 
   const categoriesNames = {
     'bocadillos': 'Bocadillos & Pulgas 🥖',
