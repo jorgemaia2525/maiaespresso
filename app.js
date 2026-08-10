@@ -1107,7 +1107,8 @@ function updateCartUI() {
     checkoutBtn.disabled = true;
     
     // Hide reservation alert
-    document.getElementById('booking-brunch-alert').style.display = 'none';
+    const bookingAlertEmpty = document.getElementById('booking-brunch-alert');
+    if (bookingAlertEmpty) bookingAlertEmpty.style.display = 'none';
     renderLiveTableOrderInCart();
     return;
   }
@@ -1148,10 +1149,8 @@ function updateCartUI() {
 
   // Display booking alert if custom brunch is in the cart
   const bookingAlert = document.getElementById('booking-brunch-alert');
-  if (hasBrunch) {
-    bookingAlert.style.display = 'block';
-  } else {
-    bookingAlert.style.display = 'none';
+  if (bookingAlert) {
+    bookingAlert.style.display = hasBrunch ? 'block' : 'none';
   }
 
   renderLiveTableOrderInCart();
