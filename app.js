@@ -1162,6 +1162,142 @@ function initCartDrawer() {
   });
 }
 
+window.setMesaFromModal = function(mesaVal) {
+  mesaNumber = mesaVal;
+  localStorage.setItem('maia_qr_mesa', mesaVal);
+
+  const badge = document.getElementById('mesa-badge');
+  if (badge) {
+    badge.style.display = 'inline-block';
+    badge.innerHTML = `Mesa ${mesaVal} <span style="margin-left: 4px; font-size: 0.75rem; background: rgba(0,0,0,0.25); padding: 0 4px; border-radius: 4px; font-weight: bold;">✕</span>`;
+  }
+
+  const checkoutBtn = document.getElementById('btn-checkout');
+  if (checkoutBtn) {
+    checkoutBtn.textContent = `Enviar Pedido (${typeof mesaVal === 'number' ? 'Mesa ' + mesaVal : mesaVal})`;
+  }
+
+  window.closeNoQrModal();
+  showToast(`✨ ¡Mesa configurada: ${typeof mesaVal === 'number' ? 'Mesa ' + mesaVal : mesaVal}!`);
+};
+
+window.PRODUCT_VARIANTS = {
+  'bocadillo-classic': {
+    title: 'El Clásico (Ibérico)',
+    subtitle: 'Elige el formato que prefieras:',
+    options: [
+      { id: 'bocadillo-classic-pulguita', name: 'El Clásico (Ibérico) - Pulguita 🥖', price: 2.90, desc: 'Formato individual' },
+      { id: 'bocadillo-classic-entero', name: 'El Clásico (Ibérico) - Bocadillo Entero 🥖', price: 4.90, desc: 'Formato ración completa' }
+    ]
+  },
+  'bocadillo-chef': {
+    title: 'Bocadillo Del Chef',
+    subtitle: 'Elige el formato que prefieras:',
+    options: [
+      { id: 'bocadillo-chef-pulguita', name: 'Bocadillo Del Chef - Pulguita 🥩', price: 3.20, desc: 'Formato individual' },
+      { id: 'bocadillo-chef-entero', name: 'Bocadillo Del Chef - Entero 🥩', price: 5.80, desc: 'Formato ración completa' }
+    ]
+  },
+  'bocadillo-pollomiel': {
+    title: 'Bocadillo Pollo Miel',
+    subtitle: 'Elige el formato que prefieras:',
+    options: [
+      { id: 'bocadillo-pollomiel-pulguita', name: 'Bocadillo Pollo Miel - Pulguita 🥖', price: 3.10, desc: 'Formato individual' },
+      { id: 'bocadillo-pollomiel-entero', name: 'Bocadillo Pollo Miel - Entero 🥖', price: 5.50, desc: 'Formato ración completa' }
+    ]
+  },
+  'bocadillo-islas': {
+    title: 'Guiño a las Islas (Pata Asada)',
+    subtitle: 'Elige el formato que prefieras:',
+    options: [
+      { id: 'bocadillo-islas-pulguita', name: 'Guiño a las Islas - Pulguita 🍖', price: 3.00, desc: 'Formato individual' },
+      { id: 'bocadillo-islas-entero', name: 'Guiño a las Islas - Entero 🍖', price: 5.10, desc: 'Formato ración completa' }
+    ]
+  },
+  'bocadillo-mechada': {
+    title: 'Bocadillo Carne Mechada',
+    subtitle: 'Elige el formato que prefieras:',
+    options: [
+      { id: 'bocadillo-mechada-pulguita', name: 'Carne Mechada - Pulguita 🥖', price: 3.20, desc: 'Formato individual' },
+      { id: 'bocadillo-mechada-entero', name: 'Carne Mechada - Entero 🥖', price: 5.80, desc: 'Formato ración completa' }
+    ]
+  },
+  'zumo-naranja': {
+    title: 'Zumo Natural de Naranja',
+    subtitle: 'Elige el formato que prefieras:',
+    options: [
+      { id: 'zumo-naranja-peq', name: 'Zumo Naranja - Copa Pequeña 🍊', price: 2.40, desc: '250ml recién exprimido' },
+      { id: 'zumo-naranja-grande', name: 'Zumo Naranja - Jarra Grande 🍊', price: 3.60, desc: '400ml recién exprimido' }
+    ]
+  }
+};
+
+window.openProductVariantModal = function(productId) {
+  const variantData = window.PRODUCT_VARIANTS[productId];
+  if (!variantData) return false;
+
+  const backdrop = document.getElementById('product-variant-modal-backdrop');
+  const titleEl = document.getElementById('variant-modal-title');
+  const subtitleEl = document.getElementById('variant-modal-subtitle');
+  const listEl = document.getElementById('variant-options-list');
+
+  if (!backdrop || !listEl) return false;
+
+  if (titleEl) titleEl.textContent = variantData.title;
+  if (subtitleEl) subtitleEl.textContent = variantData.subtitle;
+
+  listEl.innerHTML = variantData.options.map((opt, idx) => `
+    <div onclick="window.selectVariantOption('${productId}', ${idx})" style="background-color: #FFFFFF; border: 2px solid #E5DFD5; border-radius: 12px; padding: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.03);" onmouseover="this.style.borderColor='var(--accent-rust)'; this.style.backgroundColor='#FFFDF9';" onmouseout="this.style.borderColor='#E5DFD5'; this.style.backgroundColor='#FFFFFF';">
+      <div>
+        <div style="font-weight: 700; font-size: 0.98rem; color: #1A1715; margin-bottom: 2px;">${opt.name}</div>
+        <div style="font-size: 0.82rem; color: #7A6F66;">${opt.desc}</div>
+      </div>
+      <div style="font-family: var(--font-title); font-size: 1.25rem; font-weight: 800; color: var(--accent-rust); flex-shrink: 0; margin-left: 12px;">
+        ${opt.price.toFixed(2)}€
+      </div>
+    </div>
+  `).join('');
+
+  backdrop.style.display = 'flex';
+  return true;
+};
+
+window.closeProductVariantModal = function() {
+  const backdrop = document.getElementById('product-variant-modal-backdrop');
+  if (backdrop) backdrop.style.display = 'none';
+};
+
+window.selectVariantOption = function(productId, optionIndex) {
+  const variantData = window.PRODUCT_VARIANTS[productId];
+  if (!variantData || !variantData.options[optionIndex]) return;
+
+  const chosen = variantData.options[optionIndex];
+
+  const existing = cart.find(item => item.id === chosen.id);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      id: chosen.id,
+      name: chosen.name,
+      price: chosen.price,
+      icon: chosen.name.includes('🍊') ? '🍊' : '🥖',
+      qty: 1
+    });
+  }
+
+  updateCartUI();
+  
+  const countSpan = document.getElementById('full-menu-cart-count');
+  if (countSpan) {
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    countSpan.textContent = totalItems;
+  }
+
+  showToast(`✨ Añadido: ${chosen.name} (${chosen.price.toFixed(2)}€)`);
+  window.closeProductVariantModal();
+};
+
 window.addToCart = function(productId, qty = 1, showToastFlag = true) {
   if (!mesaNumber) {
     const modal = document.getElementById('no-qr-modal-backdrop');
@@ -1169,7 +1305,12 @@ window.addToCart = function(productId, qty = 1, showToastFlag = true) {
     return;
   }
 
-  const product = PRODUCTS.find(p => p.id === productId);
+  if (window.PRODUCT_VARIANTS && window.PRODUCT_VARIANTS[productId]) {
+    window.openProductVariantModal(productId);
+    return;
+  }
+
+  const product = (typeof PRODUCTS !== 'undefined' ? PRODUCTS : []).find(p => p.id === productId) || (typeof DEFAULT_PRODUCTS !== 'undefined' ? DEFAULT_PRODUCTS : []).find(p => p.id === productId);
   if (!product) return;
 
   const existing = cart.find(item => item.id === productId);
@@ -3968,6 +4109,12 @@ window.quickAddFromFullMenu = function(productId) {
   if (!mesaNumber) {
     const modal = document.getElementById('no-qr-modal-backdrop');
     if (modal) modal.style.display = 'flex';
+    return;
+  }
+
+  // If product has variants (like Bocadillo/Pulguita), open the variant selection modal
+  if (window.PRODUCT_VARIANTS && window.PRODUCT_VARIANTS[productId]) {
+    window.openProductVariantModal(productId);
     return;
   }
 

@@ -795,23 +795,55 @@
     </div>
   </div>
 
-  <!-- Modal: No QR Scanned Prompt -->
+  <!-- Modal: Product Variant / Double Option Selection -->
+  <div id="product-variant-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(18, 16, 15, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000010; justify-content: center; align-items: center; padding: 16px; box-sizing: border-box;" onclick="if(event.target === this) window.closeProductVariantModal()">
+    <div style="background-color: #FAF7F2; color: #2C2523; width: 100%; max-width: 420px; border-radius: 16px; padding: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid #D8CEBE; position: relative;">
+      <span onclick="window.closeProductVariantModal()" style="position: absolute; top: 12px; right: 16px; font-size: 1.8rem; cursor: pointer; color: #7A6F66; line-height: 1;">&times;</span>
+      
+      <div style="text-align: center; margin-bottom: 20px;">
+        <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-rust);">OPCIONES DISPONIBLES</span>
+        <h3 id="variant-modal-title" style="font-family: var(--font-title); font-size: 1.4rem; color: #1A1715; margin: 4px 0 6px 0;">El Clásico (Ibérico)</h3>
+        <p id="variant-modal-subtitle" style="font-size: 0.88rem; color: #6E6258; margin: 0;">Elige el formato que prefieras:</p>
+      </div>
+
+      <div id="variant-options-list" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+        <!-- Injected dynamically by JS -->
+      </div>
+
+      <button onclick="window.closeProductVariantModal()" style="width: 100%; background-color: transparent; border: 1px solid #C5BBB0; color: #5C524A; padding: 10px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.88rem; cursor: pointer;">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal: No QR Scanned Prompt & Table Selection -->
   <div id="no-qr-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(18, 16, 15, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000005; justify-content: center; align-items: center; padding: 16px; box-sizing: border-box;" onclick="if(event.target === this) window.closeNoQrModal()">
-    <div style="background-color: #FAF7F2; color: #2C2523; width: 100%; max-width: 380px; border-radius: var(--radius-md); padding: 28px 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid #D8CEBE; text-align: center; position: relative;">
+    <div style="background-color: #FAF7F2; color: #2C2523; width: 100%; max-width: 400px; border-radius: 16px; padding: 28px 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid #D8CEBE; text-align: center; position: relative;">
       <span onclick="window.closeNoQrModal()" style="position: absolute; top: 12px; right: 16px; font-size: 1.8rem; cursor: pointer; color: #7A6F66; line-height: 1;">&times;</span>
       
-      <div style="width: 56px; height: 56px; background-color: #F0EAE1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 1.6rem; border: 2px solid #D8CEBE;">
-        📷
+      <div style="width: 52px; height: 52px; background-color: #F0EAE1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto; font-size: 1.5rem; border: 2px solid #D8CEBE;">
+        🍽️
       </div>
       
-      <h3 style="font-family: var(--font-title); font-size: 1.25rem; color: #1A1715; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Escanea el QR de tu mesa</h3>
+      <h3 style="font-family: var(--font-title); font-size: 1.25rem; color: #1A1715; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">Selecciona tu Mesa</h3>
       
-      <p style="font-size: 0.9rem; color: #5C524A; line-height: 1.5; margin-bottom: 22px;">
-        Para poder realizar un pedido, por favor escanea el código QR ubicado en tu mesa.
+      <p style="font-size: 0.88rem; color: #5C524A; line-height: 1.4; margin-bottom: 16px;">
+        Selecciona el número de mesa donde estás sentado para marchar tu pedido directo a cocina:
       </p>
 
-      <button onclick="window.closeNoQrModal()" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 0.92rem; font-weight: 700;">
-        Entendido
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px;">
+        <button onclick="window.setMesaFromModal(1)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 1</button>
+        <button onclick="window.setMesaFromModal(2)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 2</button>
+        <button onclick="window.setMesaFromModal(3)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 3</button>
+        <button onclick="window.setMesaFromModal(4)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 4</button>
+        <button onclick="window.setMesaFromModal(5)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 5</button>
+        <button onclick="window.setMesaFromModal(6)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 6</button>
+        <button onclick="window.setMesaFromModal(7)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 7</button>
+        <button onclick="window.setMesaFromModal(8)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 8</button>
+      </div>
+
+      <button onclick="window.setMesaFromModal('Barra / Llevar')" style="width: 100%; padding: 12px; background: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.92rem; cursor: pointer;">
+        🛍️ Para Llevar / Pedido en Barra
       </button>
     </div>
   </div>
@@ -1335,6 +1367,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=custom-labels-v1"></script>
+  <script src="app.js?v=variants-v20260810"></script>
 </body>
 </html>
