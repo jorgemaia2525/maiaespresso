@@ -57,7 +57,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Tosta de pan de masa madre artesanal de centeno, aceite de oliva virgen extra y tumaca natural.',
     image: '',
     icon: '🍞',
-    tags: ['Clásicos de la Mañana', 'Vegano']
+    tags: ['Clásicos de la Mañana', 'Vegano'],
+    allergens: ['gluten']
   },
   {
     id: 'croissant-mermelada',
@@ -67,7 +68,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Croissant recién horneado servido con mermelada de frambuesa.',
     image: '',
     icon: '🥐',
-    tags: ['Clásicos de la Mañana']
+    tags: ['Clásicos de la Mañana'],
+    allergens: ['gluten', 'huevos', 'lacteos']
   },
   {
     id: 'mixto-maia',
@@ -77,7 +79,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Pan brioche tostado con mantequilla, jamón york y queso emmental fundido.',
     image: '',
     icon: '🥪',
-    tags: ['Clásicos de la Mañana']
+    tags: ['Clásicos de la Mañana'],
+    allergens: ['gluten', 'huevos', 'lacteos']
   },
   {
     id: 'egg-bacon-brioche',
@@ -87,7 +90,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Pan brioche con huevo revuelto cremoso, bacon crujiente, rúcula fresca y mayonesa japonesa.',
     image: '',
     icon: '🍔',
-    tags: ['Clásicos de la Mañana', 'Recomendado']
+    tags: ['Clásicos de la Mañana', 'Recomendado'],
+    allergens: ['gluten', 'huevos', 'lacteos', 'soja']
   },
   {
     id: 'tosta-salmon',
@@ -97,7 +101,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Tosta de salmón ahumado, aguacate, huevo poché y aliño suave de chalota con wasabi.',
     image: '',
     icon: '🥑',
-    tags: ['Clásicos de la Mañana', 'Premium']
+    tags: ['Clásicos de la Mañana', 'Premium'],
+    allergens: ['gluten', 'pescado', 'huevos']
   },
   {
     id: 'tortilla-cremosa',
@@ -107,7 +112,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Tortilla francesa jugosa con cebolla pochada y ensalada de tomate al lado.',
     image: '',
     icon: '🍳',
-    tags: ['Clásicos de la Mañana']
+    tags: ['Clásicos de la Mañana'],
+    allergens: ['huevos']
   },
   {
     id: 'yogurt-griego',
@@ -117,7 +123,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Yogurt griego con muesli casero y fruta fresca troceada.',
     image: '',
     icon: '🥣',
-    tags: ['Clásicos de la Mañana', 'Saludable']
+    tags: ['Clásicos de la Mañana', 'Saludable'],
+    allergens: ['lacteos', 'frutos-cascara']
   },
 
   // --- PULGAS Y BOCADILLOS ---
@@ -129,7 +136,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Jamón ibérico con queso manchego y tumaca en pan de masa madre. (Disponible en pulga por 2,90€).',
     image: '',
     icon: '🥪',
-    tags: ['Bocadillos & Pulgas']
+    tags: ['Bocadillos & Pulgas'],
+    allergens: ['gluten', 'lacteos']
   },
   {
     id: 'bocadillo-chef',
@@ -139,7 +147,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Tiras de roast beef, queso parmesano, rúcula fresca y mayonesa de trufa en pan crujiente. (Pulga por 3,20€).',
     image: '',
     icon: '🥩',
-    tags: ['Bocadillos & Pulgas', 'Premium']
+    tags: ['Bocadillos & Pulgas', 'Premium'],
+    allergens: ['gluten', 'lacteos', 'huevos']
   },
   {
     id: 'bocadillo-pollomiel',
@@ -149,7 +158,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Pan de semillas, pollo desmenuzado, queso brie fundido y salsa casera de miel y mostaza. (Pulga por 3,10€).',
     image: '',
     icon: '🥖',
-    tags: ['Bocadillos & Pulgas']
+    tags: ['Bocadillos & Pulgas'],
+    allergens: ['gluten', 'lacteos', 'mostaza', 'sesamo']
   },
   {
     id: 'bocadillo-islas',
@@ -159,7 +169,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Pata asada al estilo canario, queso ahumado y mojo rojo de la casa. (Pulga por 3,00€).',
     image: '',
     icon: '🥓',
-    tags: ['Bocadillos & Pulgas', 'Especialidad']
+    tags: ['Bocadillos & Pulgas', 'Especialidad'],
+    allergens: ['gluten', 'lacteos']
   },
   {
     id: 'bocadillo-mechada',
@@ -169,7 +180,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Ternera mechada jugosa, queso emmental y pimientos del piquillo. (Pulga por 3,20€).',
     image: '',
     icon: '🍖',
-    tags: ['Bocadillos & Pulgas']
+    tags: ['Bocadillos & Pulgas'],
+    allergens: ['gluten', 'lacteos']
   },
 
   // --- ADEMÁS (REPOSTERÍA) ---
@@ -181,7 +193,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Donut tierno con glaseado clásico de azúcar.',
     image: '',
     icon: '🍩',
-    tags: ['Además...']
+    tags: ['Además...'],
+    allergens: ['gluten', 'huevos', 'lacteos', 'soja']
   },
   {
     id: 'plumcake',
@@ -191,7 +204,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Bizcocho Plumcake casero con receta cambiante del día.',
     image: '',
     icon: '🍰',
-    tags: ['Además...']
+    tags: ['Además...'],
+    allergens: ['gluten', 'huevos', 'lacteos']
   },
   {
     id: 'croissant-mantequilla',
@@ -201,7 +215,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Croissant clásico hojaldrado elaborado con masa madre natural.',
     image: '',
     icon: '🥐',
-    tags: ['Además...']
+    tags: ['Además...'],
+    allergens: ['gluten', 'huevos', 'lacteos']
   },
   {
     id: 'cookie-suprema',
@@ -211,7 +226,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Galletas caseras hechas a diario con trozos de chocolate.',
     image: '',
     icon: '🍪',
-    tags: ['Además...', 'Casero']
+    tags: ['Además...', 'Casero'],
+    allergens: ['gluten', 'huevos', 'lacteos', 'soja']
   },
 
   // --- BEBIDAS CALIENTES ---
@@ -223,7 +239,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Espresso con grano 100% arábica de tostadero de especialidad.',
     image: '',
     icon: '☕',
-    tags: ['Bebidas Calientes']
+    tags: ['Bebidas Calientes'],
+    allergens: []
   },
   {
     id: 'cortado',
@@ -233,7 +250,8 @@ const DEFAULT_PRODUCTS = [
     desc: 'Espresso con un toque de leche emulsionada.',
     image: '',
     icon: '🥛',
-    tags: ['Bebidas Calientes']
+    tags: ['Bebidas Calientes'],
+    allergens: ['lacteos']
   },
   {
     id: 'americano',
@@ -241,14 +259,21 @@ const DEFAULT_PRODUCTS = [
     category: 'bebidas-calientes',
     price: 1.60,
     desc: 'Espresso doble rebajado con agua caliente para un trago largo.',
+    image: '',
+    icon: '☕',
+    tags: ['Bebidas Calientes'],
+    allergens: []
+  },
+  {
     id: 'barraquito',
     name: 'Barraquito',
     category: 'bebidas-calientes',
     price: 1.90,
     desc: 'Café típico canario con leche condensada, leche, canela y corteza de limón.',
-    image: 'assets/barraquito.png',
+    image: '',
     icon: '🍹',
-    tags: ['Bebidas Calientes', 'Típico Canario']
+    tags: ['Bebidas Calientes', 'Típico Canario'],
+    allergens: ['lacteos']
   },
   {
     id: 'barraquito-especial',
@@ -256,9 +281,10 @@ const DEFAULT_PRODUCTS = [
     category: 'bebidas-calientes',
     price: 2.40,
     desc: 'Barraquito tradicional preparado con Licor 43.',
-    image: 'assets/barraquito_especial.png',
+    image: '',
     icon: '🍸',
-    tags: ['Bebidas Calientes', 'Típico Canario']
+    tags: ['Bebidas Calientes', 'Típico Canario'],
+    allergens: ['lacteos']
   },
   {
     id: 'capuccino',
@@ -266,9 +292,10 @@ const DEFAULT_PRODUCTS = [
     category: 'bebidas-calientes',
     price: 2.20,
     desc: 'Espresso con leche y una generosa capa de espuma cremosa.',
-    image: 'assets/capuccino.png',
+    image: '',
     icon: '🥛',
-    tags: ['Bebidas Calientes']
+    tags: ['Bebidas Calientes'],
+    allergens: ['lacteos']
   },
   {
     id: 'cafe-leche',
@@ -3413,6 +3440,33 @@ function openProductDetailModal(productId) {
       imgContainer.appendChild(img);
     }
 
+window.ALLERGEN_MAP = {
+  'gluten': { name: 'Gluten', icon: '🌾' },
+  'crustaceos': { name: 'Crustáceos', icon: '🦞' },
+  'huevos': { name: 'Huevos', icon: '🥚' },
+  'pescado': { name: 'Pescado', icon: '🐟' },
+  'cacahuetes': { name: 'Cacahuetes', icon: '🥜' },
+  'soja': { name: 'Soja', icon: '🫘' },
+  'lacteos': { name: 'Lácteos', icon: '🥛' },
+  'frutos-cascara': { name: 'Frutos de Cáscara', icon: '🌰' },
+  'apio': { name: 'Apio', icon: '🥬' },
+  'mostaza': { name: 'Mostaza', icon: '🟡' },
+  'sesamo': { name: 'Sésamo', icon: '🌾' },
+  'sulfitos': { name: 'Sulfitos', icon: '🍷' },
+  'altramuces': { name: 'Altramuces', icon: '🪻' },
+  'moluscos': { name: 'Moluscos', icon: '🦪' }
+};
+
+window.openAllergensModal = function() {
+  const modal = document.getElementById('allergens-guide-modal-backdrop');
+  if (modal) modal.style.display = 'flex';
+};
+
+window.closeAllergensModal = function() {
+  const modal = document.getElementById('allergens-guide-modal-backdrop');
+  if (modal) modal.style.display = 'none';
+};
+
     // Set tags
     const tagsContainer = document.getElementById('detail-modal-tags');
     if (tagsContainer) {
@@ -3424,6 +3478,25 @@ function openProductDetailModal(productId) {
         span.textContent = t;
         tagsContainer.appendChild(span);
       });
+    }
+
+    // Set allergens
+    const allergensContainer = document.getElementById('detail-modal-allergens');
+    if (allergensContainer) {
+      allergensContainer.innerHTML = '';
+      const list = product.allergens || [];
+      if (list.length === 0) {
+        allergensContainer.innerHTML = '<span style="font-size: 0.8rem; color: #15803D; font-weight: 700; background: #DCFCE7; padding: 4px 10px; border-radius: 12px;">✅ Sin alérgenos principales declarados</span>';
+      } else {
+        list.forEach(key => {
+          const info = window.ALLERGEN_MAP[key] || { name: key, icon: '⚠️' };
+          const span = document.createElement('span');
+          span.style.cssText = 'display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; background: #FFF3E0; color: #C2410C; padding: 4px 10px; border-radius: 12px; border: 1px solid #FFEDD5; cursor: pointer;';
+          span.onclick = () => window.openAllergensModal();
+          span.innerHTML = `<span>${info.icon}</span> ${info.name}`;
+          allergensContainer.appendChild(span);
+        });
+      }
     }
 
     // Check out-of-stock and bind add action FIRST (before updateDetailModalSubtotal)

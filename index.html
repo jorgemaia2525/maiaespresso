@@ -18,7 +18,7 @@
   </script>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=v20260810_strict_qr_v12">
+  <link rel="stylesheet" href="index.css?v=v20260810_allergens_v13">
 </head>
 <body>
 
@@ -39,6 +39,7 @@
             <li><a href="#filosofia">Esencia</a></li>
             <li><a href="#menu-del-dia">Menú del Día</a></li>
             <li><a href="#menu">Carta</a></li>
+            <li><a href="javascript:void(0)" onclick="window.openAllergensModal()">⚠️ Alérgenos</a></li>
             <li><a href="#reserva">Reserva</a></li>
         </ul>
       </nav>
@@ -777,6 +778,17 @@
         
         <p id="detail-modal-desc" style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.5; margin: 0;">Descripción detallada del plato.</p>
         
+        <!-- Allergen Badges Section -->
+        <div style="margin-top: 4px; padding-top: 10px; border-top: 1px dashed #E5DFD5;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #7A6F66;">Alérgenos declarados:</span>
+            <span onclick="window.openAllergensModal()" style="font-size: 0.76rem; font-weight: 700; color: var(--accent-rust); cursor: pointer; text-decoration: underline;">Ver Leyenda UE ℹ️</span>
+          </div>
+          <div id="detail-modal-allergens" style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+        
         <!-- Bottom Action Row -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 16px; gap: 12px;">
           <!-- Quantity Selector -->
@@ -812,6 +824,143 @@
 
       <button onclick="window.closeProductVariantModal()" style="width: 100%; background-color: transparent; border: 1px solid #C5BBB0; color: #5C524A; padding: 10px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.88rem; cursor: pointer;">
         Cancelar
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal: Guía Oficial de Alérgenos e Información Alimentaria -->
+  <div id="allergens-guide-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(18, 16, 15, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000020; justify-content: center; align-items: center; padding: 16px; box-sizing: border-box;" onclick="if(event.target === this) window.closeAllergensModal()">
+    <div style="background-color: #FAF7F2; color: #2C2523; width: 100%; max-width: 600px; border-radius: 16px; padding: 28px 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid #D8CEBE; position: relative; max-height: 90vh; display: flex; flex-direction: column;">
+      <span onclick="window.closeAllergensModal()" style="position: absolute; top: 14px; right: 18px; font-size: 1.8rem; cursor: pointer; color: #7A6F66; line-height: 1;">&times;</span>
+      
+      <div style="text-align: center; margin-bottom: 16px; flex-shrink: 0;">
+        <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-rust);">REGLAMENTO (UE) Nº 1169/2011 & RD 126/2015</span>
+        <h3 style="font-family: var(--font-title); font-size: 1.35rem; color: #1A1715; margin: 4px 0 6px 0;">Información de Alérgenos</h3>
+        <p style="font-size: 0.85rem; color: #5C524A; margin: 0; line-height: 1.4;">
+          Consulte la leyenda oficial de los 14 alérgenos de declaración obligatoria presentes en nuestras elaboraciones.
+        </p>
+      </div>
+
+      <div style="overflow-y: auto; padding-right: 6px; flex: 1 1 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 16px;">
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🌾</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">1. Cereales con Gluten</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Trigo, centeno, cebada, avena, espelta, kamut</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🦞</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">2. Crustáceos</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Cangrejos, langostas, gambas, langostinos</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🥚</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">3. Huevos</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Huevos y productos derivados</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🐟</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">4. Pescado</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Pescados y derivados</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🥜</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">5. Cacahuetes</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Cacahuetes y derivados</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🫘</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">6. Soja</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Soja y derivados</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🥛</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">7. Lácteos</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Leche y derivados (incluida lactosa)</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🌰</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">8. Frutos de Cáscara</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Almendra, avellana, nuez, pistacho...</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🥬</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">9. Apio</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Apio y productos derivados</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🟡</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">10. Mostaza</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Mostaza y derivados</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🌾</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">11. Sésamo</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Granos de sésamo y derivados</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🍷</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">12. Sulfitos</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Dióxido de azufre (>10mg/kg o l)</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🪻</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">13. Altramuces</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Altramuces y derivados</div>
+          </div>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #E5DFD5; border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🦪</span>
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #1A1715;">14. Moluscos</div>
+            <div style="font-size: 0.76rem; color: #6E6258;">Calamar, pulpo, mejillones, ostras</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background-color: #F3ECE2; border: 1px solid #DCD2C0; border-radius: 10px; padding: 12px; text-align: left; font-size: 0.8rem; color: #5C524A; line-height: 1.4; flex-shrink: 0;">
+        ⚠️ <strong>Aviso de Contaminación Cruzada:</strong> Elaboramos nuestros productos en una cocina donde se manipulan ingredientes con alérgenos. Si padece una alergia o intolerancia severa, por favor comuníquelo a nuestro personal antes de realizar su pedido.
+      </div>
+
+      <button onclick="window.closeAllergensModal()" style="width: 100%; margin-top: 14px; background-color: var(--accent-rust); color: #FFF; padding: 12px; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.9rem; cursor: pointer; flex-shrink: 0;">
+        Entendido
       </button>
     </div>
   </div>
@@ -1356,6 +1505,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=v20260810_strict_qr_v12"></script>
+  <script src="app.js?v=v20260810_allergens_v13"></script>
 </body>
 </html>
