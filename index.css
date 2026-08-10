@@ -319,11 +319,42 @@ button, input, select, textarea {
   padding-top: 140px;
   padding-bottom: 90px;
   position: relative;
-  background-color: var(--bg-secondary);
-  background: radial-gradient(circle at 85% 20%, rgba(184, 80, 50, 0.08) 0%, transparent 45%),
-              radial-gradient(circle at 15% 80%, rgba(95, 111, 82, 0.07) 0%, transparent 45%),
-              var(--bg-secondary);
+  background-color: #1E1B18;
+  background-image: linear-gradient(135deg, rgba(24, 21, 19, 0.86) 0%, rgba(24, 21, 19, 0.75) 100%), url('assets/06.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
   overflow: hidden;
+  color: #F5F2EB;
+}
+
+.hero .hero-title {
+  color: #F5F2EB !important;
+}
+
+.hero .hero-title span {
+  color: #E2B38A !important;
+}
+
+.hero .hero-desc {
+  color: #D4C9BC !important;
+}
+
+.hero .trust-pill span {
+  color: #E5DFD5 !important;
+}
+
+/* --- UNIVERSAL SMOOTH SCROLL REVEAL --- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(45px) scale(0.96);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
 }
 
 .hero-bg-glow {
@@ -333,7 +364,7 @@ button, input, select, textarea {
   width: 450px;
   height: 450px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(184, 80, 50, 0.12) 0%, rgba(0,0,0,0) 70%);
+  background: radial-gradient(circle, rgba(184, 80, 50, 0.18) 0%, rgba(0,0,0,0) 70%);
   pointer-events: none;
 }
 

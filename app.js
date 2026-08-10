@@ -4677,13 +4677,38 @@ window.resetCardTilt = function(card) {
 };
 
 function init3DTiltAndScrollReveal() {
-  document.querySelectorAll('.reveal-3d').forEach(el => el.classList.add('in-view'));
+  // 1. Universal Scroll Reveal Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -50px 0px',
+    threshold: 0.08
+  });
 
+  document.querySelectorAll('.scroll-reveal, .menu-card').forEach(el => observer.observe(el));
+
+  // 2. 3D Tilt Hover Listeners
   const tiltCards = document.querySelectorAll('.gallery-card, .atmosfera-video-card');
   tiltCards.forEach(card => {
     card.addEventListener('mousemove', (e) => window.handleCardTilt(e, card));
     card.addEventListener('mouseleave', () => window.resetCardTilt(card));
   });
+
+  // 3. Hero Background Smooth Parallax
+  const heroSection = document.querySelector('.hero');
+  if (heroSection) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      if (scrolled < 1000) {
+        heroSection.style.backgroundPositionY = `calc(50% + ${(scrolled * 0.35).toFixed(1)}px)`;
+      }
+    }, { passive: true });
+  }
 }
 
 if (document.readyState === 'loading') {
