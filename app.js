@@ -4180,50 +4180,53 @@ function renderDailyMenuSection() {
   }
 
   section.style.display = 'block';
+  
+  // Guarantee solid dark coffee background & padding directly on container
+  container.style.cssText = 'background: #1E1B18 !important; color: #F5F2EB !important; border: 1.5px solid rgba(220, 174, 138, 0.35) !important; border-radius: 16px !important; padding: 36px 40px !important; box-shadow: 0 20px 40px rgba(0,0,0,0.35) !important; position: relative !important; overflow: hidden !important;';
 
-  const itemStyle = 'font-size: 0.95rem; color: #F5F2EB; font-weight: 500; line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;';
-  const bulletSpan = '<span style="color: var(--accent-rust); font-weight: bold; font-size: 1.2rem; line-height: 1; flex-shrink: 0;">•</span>';
+  const itemStyle = 'font-size: 0.95rem; color: #F5F2EB !important; font-weight: 500; line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;';
+  const bulletSpan = '<span style="color: #B85032 !important; font-weight: bold; font-size: 1.2rem; line-height: 1; flex-shrink: 0;">•</span>';
 
-  const primerosHTML = (dailyMenuConfig.primeros || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
-  const segundosHTML = (dailyMenuConfig.segundos || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
-  const postresHTML = (dailyMenuConfig.postresBebidas || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span>${item}</span></li>`).join('');
+  const primerosHTML = (dailyMenuConfig.primeros || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span style="color: #F5F2EB !important;">${item}</span></li>`).join('');
+  const segundosHTML = (dailyMenuConfig.segundos || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span style="color: #F5F2EB !important;">${item}</span></li>`).join('');
+  const postresHTML = (dailyMenuConfig.postresBebidas || []).map(item => `<li style="${itemStyle}">${bulletSpan}<span style="color: #F5F2EB !important;">${item}</span></li>`).join('');
 
   container.innerHTML = `
-    <div class="daily-menu-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); padding-bottom: 24px; margin-bottom: 28px;">
+    <div class="daily-menu-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 24px; margin-bottom: 28px;">
       <div>
-        <span class="daily-menu-badge" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(184, 80, 50, 0.25); border: 1px solid var(--accent-rust); color: #F58A6E; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; margin-bottom: 10px;">✨ SELECCIÓN DE HOY</span>
-        <h2 class="daily-menu-title" style="font-family: var(--font-title); font-size: 2.2rem; margin: 0 0 6px 0; color: #F5F2EB; line-height: 1.2;">${dailyMenuConfig.title || 'Menú del Día Maia'}</h2>
-        <p class="daily-menu-subtitle" style="font-size: 0.98rem; color: #C5BBB0; margin: 0; max-width: 600px; line-height: 1.5;">${dailyMenuConfig.subtitle || ''}</p>
+        <span class="daily-menu-badge" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(184, 80, 50, 0.3) !important; border: 1px solid #B85032 !important; color: #F58A6E !important; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; margin-bottom: 10px;">✨ SELECCIÓN DE HOY</span>
+        <h2 class="daily-menu-title" style="font-family: var(--font-title); font-size: 2.2rem; margin: 0 0 6px 0; color: #F5F2EB !important; line-height: 1.2;">${dailyMenuConfig.title || 'Menú del Día Maia'}</h2>
+        <p class="daily-menu-subtitle" style="font-size: 0.98rem; color: #D4C9BC !important; margin: 0; max-width: 600px; line-height: 1.5;">${dailyMenuConfig.subtitle || ''}</p>
       </div>
-      <div class="daily-menu-price-tag" style="background: linear-gradient(135deg, var(--accent-rust) 0%, #C44528 100%); color: #fff; padding: 14px 26px; border-radius: var(--radius-md); text-align: center; box-shadow: 0 8px 24px rgba(184, 80, 50, 0.35);">
-        <div class="daily-menu-price-amount" style="font-size: 2.2rem; font-weight: 800; line-height: 1; font-family: var(--font-title);">${(dailyMenuConfig.price || 12.90).toFixed(2)}€</div>
-        <div class="daily-menu-price-lbl" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.95; margin-top: 4px; font-weight: 600;">MENÚ COMPLETO</div>
+      <div class="daily-menu-price-tag" style="background: linear-gradient(135deg, #B85032 0%, #C44528 100%) !important; color: #ffffff !important; padding: 14px 26px; border-radius: 12px; text-align: center; box-shadow: 0 8px 24px rgba(184, 80, 50, 0.4);">
+        <div class="daily-menu-price-amount" style="font-size: 2.2rem; font-weight: 800; line-height: 1; font-family: var(--font-title); color: #ffffff !important;">${(dailyMenuConfig.price || 12.90).toFixed(2)}€</div>
+        <div class="daily-menu-price-lbl" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.95; margin-top: 4px; font-weight: 600; color: #ffffff !important;">MENÚ COMPLETO</div>
       </div>
     </div>
     
     <div class="daily-menu-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 32px;">
-      <div class="daily-menu-col" style="background-color: #2A2321; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 22px;">
-        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.15rem; margin: 0 0 16px 0; color: #E2B38A; display: flex; align-items: center; gap: 8px; font-weight: 700;">${dailyMenuConfig.label1 || '🥗 Primeros'}</h3>
-        <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
+      <div class="daily-menu-col" style="background-color: #2A2321 !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 12px; padding: 22px;">
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.15rem; margin: 0 0 16px 0; color: #E2B38A !important; display: flex; align-items: center; gap: 8px; font-weight: 700;">${dailyMenuConfig.label1 || '🥗 Primeros'}</h3>
+        <ul class="daily-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important; display: flex; flex-direction: column;">
           ${primerosHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
-      <div class="daily-menu-col" style="background-color: #2A2321; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 22px;">
-        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.15rem; margin: 0 0 16px 0; color: #E2B38A; display: flex; align-items: center; gap: 8px; font-weight: 700;">${dailyMenuConfig.label2 || '🍳 Segundos'}</h3>
-        <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
+      <div class="daily-menu-col" style="background-color: #2A2321 !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 12px; padding: 22px;">
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.15rem; margin: 0 0 16px 0; color: #E2B38A !important; display: flex; align-items: center; gap: 8px; font-weight: 700;">${dailyMenuConfig.label2 || '🍳 Segundos'}</h3>
+        <ul class="daily-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important; display: flex; flex-direction: column;">
           ${segundosHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
-      <div class="daily-menu-col" style="background-color: #2A2321; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 22px;">
-        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.15rem; margin: 0 0 16px 0; color: #E2B38A; display: flex; align-items: center; gap: 8px; font-weight: 700;">${dailyMenuConfig.label3 || '🍰 Postre o Bebida'}</h3>
-        <ul class="daily-menu-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
+      <div class="daily-menu-col" style="background-color: #2A2321 !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 12px; padding: 22px;">
+        <h3 class="daily-menu-col-title" style="font-family: var(--font-title); font-size: 1.15rem; margin: 0 0 16px 0; color: #E2B38A !important; display: flex; align-items: center; gap: 8px; font-weight: 700;">${dailyMenuConfig.label3 || '🍰 Postre o Bebida'}</h3>
+        <ul class="daily-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important; display: flex; flex-direction: column;">
           ${postresHTML || `<li style="${itemStyle}">Opciones del día</li>`}
         </ul>
       </div>
     </div>
 
-    <div class="daily-menu-footer" style="display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 24px;">
-      <button class="btn btn-primary" onclick="window.openDailyMenuSelector()" style="padding: 14px 32px; font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-full); cursor: pointer; box-shadow: 0 6px 18px rgba(184, 80, 50, 0.35);">
+    <div class="daily-menu-footer" style="display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 24px;">
+      <button class="btn btn-primary" onclick="window.openDailyMenuSelector()" style="padding: 14px 32px; font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; background-color: #B85032 !important; color: #ffffff !important; border: none; border-radius: 30px; cursor: pointer; box-shadow: 0 6px 18px rgba(184, 80, 50, 0.4);">
         🍽️ Elegir y Pedir Menú del Día (${(dailyMenuConfig.price || 12.90).toFixed(2)}€)
       </button>
     </div>
