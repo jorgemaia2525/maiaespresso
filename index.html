@@ -18,7 +18,7 @@
   </script>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=v20260810_qr_fix_v11">
+  <link rel="stylesheet" href="index.css?v=v20260810_strict_qr_v12">
 </head>
 <body>
 
@@ -816,38 +816,23 @@
     </div>
   </div>
 
-  <!-- Modal: No QR Scanned Prompt & Table Selection -->
+  <!-- Modal: No QR Scanned Prompt (Strict Security) -->
   <div id="no-qr-modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(18, 16, 15, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000005; justify-content: center; align-items: center; padding: 16px; box-sizing: border-box;" onclick="if(event.target === this) window.closeNoQrModal()">
-    <div style="background-color: #FAF7F2; color: #2C2523; width: 100%; max-width: 400px; border-radius: 16px; padding: 28px 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid #D8CEBE; text-align: center; position: relative;">
+    <div style="background-color: #FAF7F2; color: #2C2523; width: 100%; max-width: 380px; border-radius: 16px; padding: 28px 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid #D8CEBE; text-align: center; position: relative;">
       <span onclick="window.closeNoQrModal()" style="position: absolute; top: 12px; right: 16px; font-size: 1.8rem; cursor: pointer; color: #7A6F66; line-height: 1;">&times;</span>
       
-      <div style="width: 52px; height: 52px; background-color: #F0EAE1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto; font-size: 1.5rem; border: 2px solid #D8CEBE;">
+      <div style="width: 56px; height: 56px; background-color: #F0EAE1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 1.6rem; border: 2px solid #D8CEBE;">
         📷
       </div>
       
-      <h3 style="font-family: var(--font-title); font-size: 1.25rem; color: #1A1715; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">Escanea el QR de tu Mesa</h3>
+      <h3 style="font-family: var(--font-title); font-size: 1.25rem; color: #1A1715; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Escanea el QR de tu mesa</h3>
       
-      <p style="font-size: 0.88rem; color: #5C524A; line-height: 1.45; margin-bottom: 18px;">
-        Para marchar tu pedido directo a cocina, escanea el código QR ubicado en tu mesa o selecciona tu mesa a continuación:
+      <p style="font-size: 0.9rem; color: #5C524A; line-height: 1.5; margin-bottom: 22px;">
+        Para poder realizar un pedido directo a cocina, por favor escanea el código QR ubicado en tu mesa.
       </p>
 
-      <div id="manual-table-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px;">
-        <button onclick="window.setMesaFromModal(1)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 1</button>
-        <button onclick="window.setMesaFromModal(2)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 2</button>
-        <button onclick="window.setMesaFromModal(3)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 3</button>
-        <button onclick="window.setMesaFromModal(4)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 4</button>
-        <button onclick="window.setMesaFromModal(5)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 5</button>
-        <button onclick="window.setMesaFromModal(6)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 6</button>
-        <button onclick="window.setMesaFromModal(7)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 7</button>
-        <button onclick="window.setMesaFromModal(8)" style="padding: 10px; background: #FFF; border: 1px solid #D8CEBE; border-radius: 8px; font-weight: 700; cursor: pointer;">Mesa 8</button>
-      </div>
-
-      <button onclick="window.setMesaFromModal('Barra / Llevar')" style="width: 100%; padding: 12px; background: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.92rem; cursor: pointer; margin-bottom: 8px;">
-        🛍️ Pedido Para Llevar / En Barra
-      </button>
-
-      <button onclick="window.closeNoQrModal()" style="width: 100%; padding: 8px; background: transparent; color: #7A6F66; border: none; font-size: 0.82rem; cursor: pointer;">
-        Cerrar y seguir viendo la carta
+      <button onclick="window.closeNoQrModal()" style="width: 100%; padding: 12px; font-size: 0.92rem; font-weight: 700; background-color: var(--accent-rust); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer;">
+        Entendido
       </button>
     </div>
   </div>
@@ -1371,6 +1356,6 @@
   <script defer src="/_vercel/insights/script.js"></script>
 
   <!-- Main JavaScript File -->
-  <script src="app.js?v=v20260810_qr_fix_v11"></script>
+  <script src="app.js?v=v20260810_strict_qr_v12"></script>
 </body>
 </html>
