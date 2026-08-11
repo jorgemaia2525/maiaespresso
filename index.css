@@ -319,14 +319,42 @@ button, input, select, textarea {
   padding-top: 140px;
   padding-bottom: 90px;
   position: relative;
-  background-color: #1E1B18;
-  background-image: linear-gradient(135deg, rgba(24, 21, 19, 0.86) 0%, rgba(24, 21, 19, 0.75) 100%), url('assets/06.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: #1A1715;
   overflow: hidden;
   color: #F5F2EB;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/06.jpg');
+  background-size: cover;
+  background-position: center 35%;
+  background-repeat: no-repeat;
+  opacity: 0.22;
+  filter: contrast(1.05) brightness(0.9);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(24, 21, 19, 0.78) 0%, 
+    rgba(24, 21, 19, 0.88) 60%, 
+    rgba(24, 21, 19, 0.98) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 3;
 }
 
 .hero .hero-title {
@@ -2257,10 +2285,18 @@ textarea.form-control {
   .hero {
     padding-top: 100px;
     padding-bottom: 48px;
-    background-attachment: scroll !important;
-    background-size: cover !important;
-    background-position: center center !important;
-    background-repeat: no-repeat !important;
+  }
+  .hero::before {
+    opacity: 0.14 !important;
+    background-position: center top !important;
+  }
+  .hero::after {
+    background: linear-gradient(
+      180deg, 
+      rgba(24, 21, 19, 0.88) 0%, 
+      rgba(24, 21, 19, 0.94) 70%, 
+      #1A1715 100%
+    ) !important;
   }
   .hero-title {
     font-size: 2.5rem;
