@@ -756,34 +756,39 @@ button, input, select, textarea {
 
 .philosophy-card .phi-icon {
   opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.22, 1.25, 0.36, 1), filter 0.85s ease;
+  will-change: opacity, transform, filter;
+  filter: blur(4px);
 }
 
 .philosophy-card h3,
 .philosophy-card p {
   opacity: 0;
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.22, 1.25, 0.36, 1), filter 0.85s ease;
+  will-change: opacity, transform, filter;
+  filter: blur(4px);
 }
 
 .philosophy-card p {
-  transition-delay: 0.12s;
+  transition-delay: 0.14s;
 }
 
-/* DESKTOP (Top / Bottom entrances with staggered card delays) */
+/* DESKTOP (Top / Bottom entrances with pronounced offsets and spring response) */
 @media (min-width: 769px) {
   .philosophy-card .phi-icon {
-    transform: translateY(-45px);
+    transform: translateY(-80px) scale(0.75) rotate(-10deg);
   }
   .philosophy-card h3,
   .philosophy-card p {
-    transform: translateY(45px);
+    transform: translateY(80px);
   }
 
   .philosophy-card.in-view .phi-icon,
   .philosophy-card.is-visible .phi-icon,
   .philosophy-card.auto-animate .phi-icon {
     opacity: 1 !important;
-    transform: translateY(0);
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: blur(0px);
   }
 
   .philosophy-card.in-view h3,
@@ -794,6 +799,7 @@ button, input, select, textarea {
   .philosophy-card.auto-animate p {
     opacity: 1 !important;
     transform: translateY(0);
+    filter: blur(0px);
   }
 
   .philosophy-card:nth-child(1) .phi-icon,
@@ -802,28 +808,29 @@ button, input, select, textarea {
 
   .philosophy-card:nth-child(2) .phi-icon,
   .philosophy-card:nth-child(2) h3,
-  .philosophy-card:nth-child(2) p { transition-delay: 0.25s; }
+  .philosophy-card:nth-child(2) p { transition-delay: 0.28s; }
 
   .philosophy-card:nth-child(3) .phi-icon,
   .philosophy-card:nth-child(3) h3,
-  .philosophy-card:nth-child(3) p { transition-delay: 0.45s; }
+  .philosophy-card:nth-child(3) p { transition-delay: 0.50s; }
 }
 
-/* MOBILE (Icon from LEFT, Text from RIGHT) */
+/* MOBILE (Icon from LEFT with scale/rotation, Text from RIGHT) */
 @media (max-width: 768px) {
   .philosophy-card .phi-icon {
-    transform: translateX(-55px);
+    transform: translateX(-100px) scale(0.75) rotate(-15deg);
   }
   .philosophy-card h3,
   .philosophy-card p {
-    transform: translateX(55px);
+    transform: translateX(100px);
   }
 
   .philosophy-card.in-view .phi-icon,
   .philosophy-card.is-visible .phi-icon,
   .philosophy-card.auto-animate .phi-icon {
     opacity: 1 !important;
-    transform: translateX(0);
+    transform: translateX(0) scale(1) rotate(0deg);
+    filter: blur(0px);
   }
 
   .philosophy-card.in-view h3,
@@ -834,6 +841,7 @@ button, input, select, textarea {
   .philosophy-card.auto-animate p {
     opacity: 1 !important;
     transform: translateX(0);
+    filter: blur(0px);
   }
 }
 

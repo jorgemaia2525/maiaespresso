@@ -968,15 +968,19 @@ function initScrollAnimations() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
+        entry.target.classList.add('is-visible');
+        entry.target.classList.add('auto-animate');
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.10 });
 
   elements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+    if (!el.classList.contains('philosophy-card')) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+    }
     observer.observe(el);
   });
 }
@@ -3850,25 +3854,7 @@ window.reprintTicketFromHistory = async function(orderId) {
   }
 };
 
-function initScrollAnimations() {
-  const cards = document.querySelectorAll('.philosophy-card');
-  if (cards.length === 0) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('auto-animate');
-        setTimeout(() => {
-          entry.target.classList.remove('auto-animate');
-        }, 3500);
-      } else {
-        entry.target.classList.remove('auto-animate');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  cards.forEach(card => observer.observe(card));
-}
 
 window.openContactOptionsModal = function() {
   const modal = document.getElementById('contact-options-modal');
