@@ -2286,7 +2286,7 @@ textarea.form-control {
   }
   .hero {
     padding-top: 100px;
-    padding-bottom: 48px;
+    padding-bottom: 56px;
   }
   .hero-parallax-bg {
     opacity: 0.38 !important;
@@ -2300,11 +2300,32 @@ textarea.form-control {
       #1A1715 100%
     ) !important;
   }
+  .hero-content {
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  .hero-badge {
+    margin-bottom: 20px !important;
+  }
+  .hero-title {
+    font-size: 2.3rem !important;
+    margin-bottom: 28px !important;
+    line-height: 1.2 !important;
+  }
   .hero-desc {
     display: none !important;
   }
-  .hero-title {
-    font-size: 2.5rem;
+  .hero-buttons {
+    justify-content: center !important;
+    margin-bottom: 32px !important;
+    width: 100% !important;
+  }
+  .hero-trust-bar {
+    justify-content: center !important;
+    margin: 0 auto !important;
+    width: 100% !important;
   }
   .section {
     padding: 48px 0;
