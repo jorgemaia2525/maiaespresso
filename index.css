@@ -716,61 +716,40 @@ button, input, select, textarea {
 }
 
 .phi-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-md);
-  background-color: rgba(184, 80, 50, 0.08);
-  color: var(--accent-rust);
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: rgba(245, 242, 235, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.75rem;
   margin-bottom: 24px;
-  transition: var(--transition);
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 6px 20px rgba(44, 37, 35, 0.06);
+  border: 1px solid rgba(184, 80, 50, 0.12);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease;
 }
 
-.philosophy-card:hover .phi-icon {
-  background-color: var(--accent-rust);
-  color: var(--white);
+.phi-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(44, 37, 35, 0.1));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom Micro-Animations for Philosophy Cards SVG Icons on Hover & Scroll */
-.philosophy-card:hover .phi-icon svg line,
-.philosophy-card.auto-animate .phi-icon svg line {
-  animation: riseAndFade 1.2s ease-in-out infinite;
-}
-
-.philosophy-card:hover .phi-icon svg line:nth-of-type(1),
-.philosophy-card.auto-animate .phi-icon svg line:nth-of-type(1) { animation-delay: 0.1s; }
-.philosophy-card:hover .phi-icon svg line:nth-of-type(2),
-.philosophy-card.auto-animate .phi-icon svg line:nth-of-type(2) { animation-delay: 0.3s; }
-.philosophy-card:hover .phi-icon svg line:nth-of-type(3),
-.philosophy-card.auto-animate .phi-icon svg line:nth-of-type(3) { animation-delay: 0.5s; }
-
-.philosophy-card:hover .phi-icon .clock-hand,
-.philosophy-card.auto-animate .phi-icon .clock-hand {
-  transform-origin: 12px 12px;
-  animation: spinHand 6s linear infinite;
-}
-
-.philosophy-card:hover .phi-icon svg circle,
-.philosophy-card.auto-animate .phi-icon svg circle {
-  animation: pawTap 0.8s ease-in-out infinite alternate;
-  transform-origin: center;
-}
-
-.philosophy-card:hover .phi-icon svg circle:nth-of-type(1),
-.philosophy-card.auto-animate .phi-icon svg circle:nth-of-type(1) { animation-delay: 0.05s; }
-.philosophy-card:hover .phi-icon svg circle:nth-of-type(2),
-.philosophy-card.auto-animate .phi-icon svg circle:nth-of-type(2) { animation-delay: 0.15s; }
-.philosophy-card:hover .phi-icon svg circle:nth-of-type(3),
-.philosophy-card.auto-animate .phi-icon svg circle:nth-of-type(3) { animation-delay: 0.25s; }
-.philosophy-card:hover .phi-icon svg circle:nth-of-type(4),
-.philosophy-card.auto-animate .phi-icon svg circle:nth-of-type(4) { animation-delay: 0.35s; }
-
+.philosophy-card:hover .phi-icon,
 .philosophy-card.auto-animate .phi-icon {
-  background-color: var(--accent-rust);
-  color: var(--white);
+  background-color: #FFFFFF;
+  box-shadow: 0 12px 28px rgba(184, 80, 50, 0.22);
+  border-color: rgba(184, 80, 50, 0.35);
+  transform: translateY(-4px) scale(1.06);
+}
+
+.philosophy-card:hover .phi-img,
+.philosophy-card.auto-animate .phi-img {
+  transform: scale(1.1) rotate(3deg);
 }
 
 @keyframes riseAndFade {
