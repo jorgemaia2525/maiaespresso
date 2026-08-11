@@ -328,12 +328,12 @@ button, input, select, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('assets/06.jpg');
+  background-image: url('assets/essence_interior.jpg');
   background-size: cover;
-  background-position: center 35%;
+  background-position: center center;
   background-repeat: no-repeat;
-  opacity: 0.22;
-  filter: contrast(1.05) brightness(0.9);
+  opacity: 0.42;
+  filter: contrast(1.05) brightness(0.95);
   z-index: 1;
   pointer-events: none;
 }
@@ -344,9 +344,9 @@ button, input, select, textarea {
   inset: 0;
   background: linear-gradient(
     180deg, 
-    rgba(24, 21, 19, 0.78) 0%, 
-    rgba(24, 21, 19, 0.88) 60%, 
-    rgba(24, 21, 19, 0.98) 100%
+    rgba(24, 21, 19, 0.60) 0%, 
+    rgba(24, 21, 19, 0.75) 60%, 
+    rgba(24, 21, 19, 0.95) 100%
   );
   z-index: 2;
   pointer-events: none;
@@ -2287,16 +2287,19 @@ textarea.form-control {
     padding-bottom: 48px;
   }
   .hero::before {
-    opacity: 0.14 !important;
-    background-position: center top !important;
+    opacity: 0.38 !important;
+    background-position: center center !important;
   }
   .hero::after {
     background: linear-gradient(
       180deg, 
-      rgba(24, 21, 19, 0.88) 0%, 
-      rgba(24, 21, 19, 0.94) 70%, 
+      rgba(24, 21, 19, 0.68) 0%, 
+      rgba(24, 21, 19, 0.85) 70%, 
       #1A1715 100%
     ) !important;
+  }
+  .hero-desc {
+    display: none !important;
   }
   .hero-title {
     font-size: 2.5rem;
