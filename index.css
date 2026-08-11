@@ -2703,7 +2703,8 @@ textarea.form-control {
     width: 14px !important;
     height: 14px !important;
   }
-  
+}
+
 /* --- CARTA COMPLETA INTERACTIVA "ENTRE SORBOS Y BOCADOS" --- */
 .full-menu-modal-overlay {
   display: none;
