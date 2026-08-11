@@ -3417,16 +3417,8 @@ footer.footer, .footer {
 }
 
 .wave-pulse-orb {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(184, 80, 50, 0.35) 0%, transparent 70%);
-  pointer-events: none;
-  animation: floatOrb 4s ease-in-out infinite alternate;
+  display: none !important;
 }
-
-.orb-1 { top: 10px; left: 15%; width: 45px; height: 45px; animation-delay: 0s; }
-.orb-2 { top: 20px; left: 55%; width: 65px; height: 65px; animation-delay: 1.2s; }
-.orb-3 { top: 5px; left: 85%; width: 38px; height: 38px; animation-delay: 2.4s; }
 
 @keyframes floatOrb {
   0% { transform: translateY(0) scale(0.9); opacity: 0.4; }
