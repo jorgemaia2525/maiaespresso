@@ -37,13 +37,11 @@
           <ul class="nav-links">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#filosofia">Esencia</a></li>
-            <li><a href="#atmosfera">Atmósfera</a></li>
             <li><a href="#menu-del-dia">Menú del Día</a></li>
             <li><a href="#menu">Carta</a></li>
-            <li><a href="javascript:void(0)" onclick="window.openAllergensModal()">⚠️ Alérgenos</a></li>
             <li><a href="#reserva">Reserva</a></li>
-        </ul>
-      </nav>
+          </ul>
+        </nav>
       
       <div class="nav-actions">
         <a href="https://www.instagram.com/maiaespresso_food/" target="_blank" class="nav-social-link" aria-label="Instagram">
@@ -231,9 +229,9 @@
   </section>
 
   <!-- --- TOP LIQUID WAVE SVG DIVIDER (ENTERING ATMÓSFERA) --- -->
-  <div class="wave-divider-top-wrapper" style="position: relative; width: 100%; overflow: hidden; line-height: 0; background-color: var(--bg-primary); margin-bottom: -1px; z-index: 2;">
+  <div class="wave-divider-top-wrapper" style="position: relative; width: 100%; overflow: hidden; line-height: 0; background-color: var(--bg-secondary); margin-bottom: -1px; z-index: 2;">
     <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="display: block; width: 100%; height: 55px;">
-      <path fill="#1E1B18" fill-opacity="1" d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,58.7C840,43,960,21,1080,21.3C1200,21,1320,43,1380,53.3L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C960,80,840,80,720,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z"></path>
+      <path fill="#1E1B18" fill-opacity="1" d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,58.7C840,43,960,21,1080,21.3C1200,21,1320,43,1380,53.3L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z"></path>
     </svg>
     <div class="wave-pulse-orb orb-1"></div>
     <div class="wave-pulse-orb orb-2"></div>
@@ -259,27 +257,10 @@
         
         <!-- Left: Cinematic Video Reel Card -->
         <div class="atmosfera-video-card scroll-reveal" style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(229,223,213,0.15); min-height: 440px; display: flex; flex-direction: column; justify-content: flex-end;">
-          <video autoplay loop muted playsinline style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; filter: brightness(0.85);">
+          <video autoplay loop muted playsinline style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; filter: brightness(0.95);">
             <source src="assets/01.mp4" type="video/mp4">
             Tu navegador no soporta el formato de vídeo.
           </video>
-          <!-- Subtle Dark Gradient Overlay -->
-          <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to top, rgba(24,21,19,0.92) 0%, rgba(24,21,19,0.2) 60%, transparent 100%);"></div>
-          
-          <!-- Floating Live Badge -->
-          <div style="position: absolute; top: 20px; left: 20px; z-index: 2; background: rgba(30,27,24,0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; gap: 8px;">
-            <span style="width: 8px; height: 8px; background-color: #B85032; border-radius: 50%; display: inline-block; animation: pulseGlow 1.8s infinite;"></span>
-            <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F5F2EB;">EN DIRECTO EN MAIA</span>
-          </div>
-
-          <!-- Video Content Caption -->
-          <div style="position: relative; z-index: 2; padding: 32px 28px;">
-            <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-rust); text-transform: uppercase; letter-spacing: 1.5px;">ESPECIALIDAD & RITUAL</span>
-            <h3 style="font-family: var(--font-title); font-size: 1.75rem; color: #F5F2EB; margin: 4px 0 8px 0;">Tostado & Extracción de Autor</h3>
-            <p style="font-size: 0.9rem; color: #D4C9BC; margin: 0; line-height: 1.5; max-width: 480px;">
-              Cada taza se prepara con precisión artesanal para revelar notas sensoriales únicas.
-            </p>
-          </div>
         </div>
 
         <!-- Right: Interactive Fluid Gallery Grid (5 High Resolution Photos) -->
@@ -287,30 +268,18 @@
           
           <div class="gallery-card scroll-reveal" onclick="window.openImageLightbox('assets/02.jpg', 'Café de Especialidad Recién Extraído')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/02.jpg" alt="Café de Especialidad Maia Espresso" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
-            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Café de Especialidad ☕</span>
-            </div>
           </div>
 
           <div class="gallery-card scroll-reveal" onclick="window.openImageLightbox('assets/03.jpg', 'Tostas Artesanales de Masa Madre')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/03.jpg" alt="Gastronomía Artesanal Maia" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
-            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Masa Madre Artesanal 🥖</span>
-            </div>
           </div>
 
           <div class="gallery-card scroll-reveal" onclick="window.openImageLightbox('assets/04.jpg', 'Matcha Uji Ceremonial')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/04.jpg" alt="Matcha Uji Maia Espresso" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
-            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Matcha Uji Ceremonial 🍵</span>
-            </div>
           </div>
 
           <div class="gallery-card scroll-reveal" onclick="window.openImageLightbox('assets/05.jpg', 'Dulces y Repostería Recién Horneada')" style="position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <img src="assets/05.jpg" alt="Repostería Casera Maia" style="width:100%; height:100%; object-fit: cover; transition: transform 0.5s ease;">
-            <div class="gallery-card-overlay" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,21,19,0.85) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 14px; opacity: 0.9; transition: opacity 0.3s ease;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: #F5F2EB; font-family: var(--font-title);">Repostería Casera 🥐</span>
-            </div>
           </div>
 
           <div class="gallery-card scroll-reveal" onclick="window.openImageLightbox('assets/06.jpg', 'El Espacio Maia en Santa Cruz')" style="grid-column: 1 / -1; position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/7; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
@@ -722,35 +691,36 @@
   </div>
 
   <!-- --- FOOTER --- -->
-  <footer class="footer" style="background-color: #181513 !important; color: #F5F2EB !important; padding: 64px 0 36px 0 !important; border-top: 2px solid #B85032 !important;">
-    <div class="container footer-grid" style="display: grid !important; grid-template-columns: 1.4fr 1fr 1fr !important; gap: 48px !important; margin-bottom: 40px !important;">
+  <footer class="footer">
+    <div class="container footer-grid">
       <div class="footer-about">
-        <h4 style="font-family: var(--font-title); font-size: 1.6rem; color: #F5F2EB !important; margin-bottom: 16px;">MAIA</h4>
-        <p style="color: #C5BBB0 !important; font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px;">Buen café, buena comida, buenos momentos. Descubre el sabor de la sencillez en el rincón más acogedor y pet-friendly de Santa Cruz de Tenerife.</p>
-        <p style="font-weight: 600; color: #A3B899 !important; font-size: 0.9rem;">🐾 ¡Espacio Pet-Friendly!</p>
+        <h4>MAIA</h4>
+        <p>Buen café, buena comida, buenos momentos. Descubre el sabor de la sencillez en el rincón más acogedor y pet-friendly de Santa Cruz de Tenerife.</p>
+        <p style="font-weight: 600; color: #A3B899;">🐾 ¡Espacio Pet-Friendly!</p>
       </div>
       
       <div class="footer-links">
-        <h5 style="font-family: var(--font-title); font-size: 1.15rem; color: #F5F2EB !important; margin-bottom: 20px; border-bottom: 2px solid #B85032; display: inline-block; padding-bottom: 4px;">Explora</h5>
-        <ul style="list-style: none !important; padding: 0 !important; margin: 0 !important;">
-          <li style="margin-bottom: 10px;"><a href="#inicio" style="color: #C5BBB0 !important; text-decoration: none;">Inicio</a></li>
-          <li style="margin-bottom: 10px;"><a href="#filosofia" style="color: #C5BBB0 !important; text-decoration: none;">Nuestra Esencia</a></li>
-          <li style="margin-bottom: 10px;"><a href="#menu-del-dia" style="color: #C5BBB0 !important; text-decoration: none;">Menú del Día</a></li>
-          <li style="margin-bottom: 10px;"><a href="#menu" style="color: #C5BBB0 !important; text-decoration: none;">La Carta</a></li>
-          <li style="margin-bottom: 10px;"><a href="#reserva" style="color: #C5BBB0 !important; text-decoration: none;">Reservar Mesa</a></li>
+        <h5>Explora</h5>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#filosofia">Nuestra Esencia</a></li>
+          <li><a href="#menu-del-dia">Menú del Día</a></li>
+          <li><a href="#menu">La Carta</a></li>
+          <li><a href="javascript:void(0)" onclick="window.openAllergensModal()">⚠️ Información de Alérgenos</a></li>
+          <li><a href="#reserva">Reservar Mesa</a></li>
         </ul>
       </div>
       
       <div class="footer-hours">
-        <h5 style="font-family: var(--font-title); font-size: 1.15rem; color: #F5F2EB !important; margin-bottom: 20px; border-bottom: 2px solid #B85032; display: inline-block; padding-bottom: 4px;">Horarios</h5>
-        <p style="color: #C5BBB0 !important; font-size: 0.95rem; margin-bottom: 12px;"><strong style="color: #F5F2EB !important;">Lunes a Viernes:</strong><br>09:30 – 17:00</p>
-        <p style="color: #C5BBB0 !important; font-size: 0.95rem;"><strong style="color: #F5F2EB !important;">Sábados y Domingos:</strong><br>Bajo reserva</p>
+        <h5>Horarios</h5>
+        <p><strong>Lunes a Viernes:</strong><br>09:30 – 17:00</p>
+        <p><strong>Sábados y Domingos:</strong><br>Bajo reserva</p>
       </div>
     </div>
     
-    <div class="container footer-bottom" style="border-top: 1px solid rgba(255, 255, 255, 0.1) !important; padding-top: 32px !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 16px !important;">
+    <div class="container footer-bottom">
       <div class="footer-socials">
-        <a href="https://www.instagram.com/maiaespresso_food/" target="_blank" class="social-icon" aria-label="Instagram" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.08) !important; color: #F5F2EB !important; border: 1px solid rgba(255,255,255,0.15) !important; display: flex; align-items: center; justify-content: center;">
+        <a href="https://www.instagram.com/maiaespresso_food/" target="_blank" class="social-icon" aria-label="Instagram">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -758,11 +728,11 @@
           </svg>
         </a>
       </div>
-      <p style="color: #998F85 !important; font-size: 0.88rem !important;">&copy; 2026 Maia Espresso Food. Todos los derechos reservados. Hecho con amor por <a href="https://madedigital.es" target="_blank" class="madedigital-link" style="color: #B85032 !important; font-weight: 600; text-decoration: none;">madedigital.es</a>.</p>
-      <p class="footer-legal-links" style="margin-top: 10px; font-size: 0.78rem; color: #887F76 !important; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <a href="aviso-legal.html" style="text-decoration: underline; color: #887F76 !important;">Aviso Legal</a>
-        <a href="politica-privacidad.html" style="text-decoration: underline; color: #887F76 !important;">Política de Privacidad</a>
-        <a href="politica-cookies.html" style="text-decoration: underline; color: #887F76 !important;">Política de Cookies</a>
+      <p>&copy; 2026 Maia Espresso Food. Todos los derechos reservados. Hecho con amor por <a href="https://madedigital.es" target="_blank" class="madedigital-link">madedigital.es</a>.</p>
+      <p class="footer-legal-links">
+        <a href="aviso-legal.html">Aviso Legal</a>
+        <a href="politica-privacidad.html">Política de Privacidad</a>
+        <a href="politica-cookies.html">Política de Cookies</a>
       </p>
     </div>
   </footer>
