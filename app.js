@@ -13,6 +13,26 @@ if (SUPABASE_CONFIG.enabled && typeof supabase !== 'undefined') {
 
 let outOfStockItems = [];
 
+// --- HIGH-PERFORMANCE HERO PARALLAX SCROLL ---
+(function initHeroParallax() {
+  let ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        const heroBg = document.querySelector('.hero-parallax-bg');
+        if (heroBg) {
+          const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+          if (scrolled < 1000) {
+            heroBg.style.transform = `translate3d(0, ${scrolled * 0.30}px, 0)`;
+          }
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
 // --- DAILY MENU DEFAULT CONFIGURATION ---
 const DEFAULT_DAILY_MENU = {
   active: true,
