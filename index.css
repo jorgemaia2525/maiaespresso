@@ -729,8 +729,8 @@ button, input, select, textarea {
   box-sizing: border-box;
   box-shadow: 0 6px 20px rgba(44, 37, 35, 0.06);
   border: 1px solid rgba(184, 80, 50, 0.12);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease;
-  overflow: visible;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, background-color 0.35s ease, opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .phi-img {
@@ -739,90 +739,102 @@ button, input, select, textarea {
   object-fit: contain;
   filter: drop-shadow(0 3px 6px rgba(44, 37, 35, 0.1));
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
 }
 
-/* --- ANIMATED STEAM PARTICLES FOR COFFEE --- */
-.steam-waves {
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 5px;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.steam-waves span {
-  width: 3px;
-  height: 14px;
-  background: linear-gradient(180deg, rgba(184, 80, 50, 0.7), rgba(226, 179, 138, 0));
-  border-radius: 4px;
-  opacity: 0;
-}
-
-.philosophy-card:nth-child(1):hover .steam-waves span,
-.philosophy-card:nth-child(1).auto-animate .steam-waves span {
-  animation: riseSteamParticles 1.8s ease-out infinite;
-}
-
-.steam-waves span:nth-child(1) { animation-delay: 0s; }
-.steam-waves span:nth-child(2) { animation-delay: 0.4s; }
-.steam-waves span:nth-child(3) { animation-delay: 0.8s; }
-
-@keyframes riseSteamParticles {
-  0% { transform: translateY(10px) scaleY(0.4); opacity: 0; }
-  40% { opacity: 0.85; }
-  100% { transform: translateY(-14px) scaleY(1.3); opacity: 0; }
-}
-
-/* --- INDIVIDUAL ILLUSTRATION ANIMATIONS --- */
-
-/* 1. Coffee Floating Steam Animation */
-.philosophy-card:nth-child(1):hover .phi-img,
-.philosophy-card:nth-child(1).auto-animate .phi-img {
-  animation: coffeeFloatSteam 2.4s ease-in-out infinite;
-}
-
-@keyframes coffeeFloatSteam {
-  0%, 100% { transform: translateY(0) scale(1.05); }
-  50% { transform: translateY(-7px) scale(1.08); }
-}
-
-/* 2. Clock Ticking / Sway Animation */
-.philosophy-card:nth-child(2):hover .phi-img,
-.philosophy-card:nth-child(2).auto-animate .phi-img {
-  animation: clockTickSway 2.5s ease-in-out infinite;
-}
-
-@keyframes clockTickSway {
-  0%, 100% { transform: rotate(0deg) scale(1.05); }
-  20% { transform: rotate(7deg) scale(1.08); }
-  40% { transform: rotate(-5deg) scale(1.06); }
-  60% { transform: rotate(4deg) scale(1.08); }
-  80% { transform: rotate(-2deg) scale(1.06); }
-}
-
-/* 3. Paw Waving / Tapping Animation */
-.philosophy-card:nth-child(3):hover .phi-img,
-.philosophy-card:nth-child(3).auto-animate .phi-img {
-  animation: pawPlayfulTap 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
-}
-
-@keyframes pawPlayfulTap {
-  0%, 100% { transform: translateY(0) rotate(0deg) scale(1.05); }
-  25% { transform: translateY(-8px) rotate(-10deg) scale(1.1); }
-  50% { transform: translateY(-2px) rotate(6deg) scale(1.06); }
-  75% { transform: translateY(-6px) rotate(-5deg) scale(1.08); }
-}
-
-.philosophy-card:hover .phi-icon,
-.philosophy-card.auto-animate .phi-icon {
+.philosophy-card:hover .phi-icon {
   background-color: #FFFFFF;
   box-shadow: 0 12px 28px rgba(184, 80, 50, 0.22);
   border-color: rgba(184, 80, 50, 0.35);
-  transform: translateY(-4px) scale(1.06);
+  transform: translateY(-4px) scale(1.08) !important;
+}
+
+.philosophy-card:hover .phi-img {
+  transform: scale(1.1) rotate(4deg);
+}
+
+/* --- PHILOSOPHY CARD SEPARATE SCROLL ENTRANCE ANIMATIONS --- */
+
+.philosophy-card .phi-icon {
+  opacity: 0;
+}
+
+.philosophy-card h3,
+.philosophy-card p {
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.philosophy-card p {
+  transition-delay: 0.12s;
+}
+
+/* DESKTOP (Top / Bottom entrances with staggered card delays) */
+@media (min-width: 769px) {
+  .philosophy-card .phi-icon {
+    transform: translateY(-45px);
+  }
+  .philosophy-card h3,
+  .philosophy-card p {
+    transform: translateY(45px);
+  }
+
+  .philosophy-card.in-view .phi-icon,
+  .philosophy-card.is-visible .phi-icon,
+  .philosophy-card.auto-animate .phi-icon {
+    opacity: 1 !important;
+    transform: translateY(0);
+  }
+
+  .philosophy-card.in-view h3,
+  .philosophy-card.in-view p,
+  .philosophy-card.is-visible h3,
+  .philosophy-card.is-visible p,
+  .philosophy-card.auto-animate h3,
+  .philosophy-card.auto-animate p {
+    opacity: 1 !important;
+    transform: translateY(0);
+  }
+
+  .philosophy-card:nth-child(1) .phi-icon,
+  .philosophy-card:nth-child(1) h3,
+  .philosophy-card:nth-child(1) p { transition-delay: 0.05s; }
+
+  .philosophy-card:nth-child(2) .phi-icon,
+  .philosophy-card:nth-child(2) h3,
+  .philosophy-card:nth-child(2) p { transition-delay: 0.25s; }
+
+  .philosophy-card:nth-child(3) .phi-icon,
+  .philosophy-card:nth-child(3) h3,
+  .philosophy-card:nth-child(3) p { transition-delay: 0.45s; }
+}
+
+/* MOBILE (Icon from LEFT, Text from RIGHT) */
+@media (max-width: 768px) {
+  .philosophy-card .phi-icon {
+    transform: translateX(-55px);
+  }
+  .philosophy-card h3,
+  .philosophy-card p {
+    transform: translateX(55px);
+  }
+
+  .philosophy-card.in-view .phi-icon,
+  .philosophy-card.is-visible .phi-icon,
+  .philosophy-card.auto-animate .phi-icon {
+    opacity: 1 !important;
+    transform: translateX(0);
+  }
+
+  .philosophy-card.in-view h3,
+  .philosophy-card.in-view p,
+  .philosophy-card.is-visible h3,
+  .philosophy-card.is-visible p,
+  .philosophy-card.auto-animate h3,
+  .philosophy-card.auto-animate p {
+    opacity: 1 !important;
+    transform: translateX(0);
+  }
 }
 
 @keyframes riseAndFade {
