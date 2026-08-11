@@ -3396,6 +3396,34 @@ window.clearAllShopping = function() {
   }
 };
 
+// --- ALLERGEN MAP & GUIDE MODAL LOGIC ---
+window.ALLERGEN_MAP = {
+  'gluten': { name: 'Gluten', icon: '🌾' },
+  'crustaceos': { name: 'Crustáceos', icon: '🦞' },
+  'huevos': { name: 'Huevos', icon: '🥚' },
+  'pescado': { name: 'Pescado', icon: '🐟' },
+  'cacahuetes': { name: 'Cacahuetes', icon: '🥜' },
+  'soja': { name: 'Soja', icon: '🫘' },
+  'lacteos': { name: 'Lácteos', icon: '🥛' },
+  'frutos-cascara': { name: 'Frutos de Cáscara', icon: '🌰' },
+  'apio': { name: 'Apio', icon: '🥬' },
+  'mostaza': { name: 'Mostaza', icon: '🟡' },
+  'sesamo': { name: 'Sésamo', icon: '🌾' },
+  'sulfitos': { name: 'Sulfitos', icon: '🍷' },
+  'altramuces': { name: 'Altramuces', icon: '🪻' },
+  'moluscos': { name: 'Moluscos', icon: '🦪' }
+};
+
+window.openAllergensModal = function() {
+  const modal = document.getElementById('allergens-guide-modal-backdrop');
+  if (modal) modal.style.display = 'flex';
+};
+
+window.closeAllergensModal = function() {
+  const modal = document.getElementById('allergens-guide-modal-backdrop');
+  if (modal) modal.style.display = 'none';
+};
+
 // --- PRODUCT DETAIL MODAL LOGIC ---
 let selectedProductDetail = null;
 let selectedProductQty = 1;
@@ -3449,33 +3477,6 @@ function openProductDetailModal(productId) {
       img.onload = () => { placeholder.style.display = 'none'; };
       imgContainer.appendChild(img);
     }
-
-window.ALLERGEN_MAP = {
-  'gluten': { name: 'Gluten', icon: '🌾' },
-  'crustaceos': { name: 'Crustáceos', icon: '🦞' },
-  'huevos': { name: 'Huevos', icon: '🥚' },
-  'pescado': { name: 'Pescado', icon: '🐟' },
-  'cacahuetes': { name: 'Cacahuetes', icon: '🥜' },
-  'soja': { name: 'Soja', icon: '🫘' },
-  'lacteos': { name: 'Lácteos', icon: '🥛' },
-  'frutos-cascara': { name: 'Frutos de Cáscara', icon: '🌰' },
-  'apio': { name: 'Apio', icon: '🥬' },
-  'mostaza': { name: 'Mostaza', icon: '🟡' },
-  'sesamo': { name: 'Sésamo', icon: '🌾' },
-  'sulfitos': { name: 'Sulfitos', icon: '🍷' },
-  'altramuces': { name: 'Altramuces', icon: '🪻' },
-  'moluscos': { name: 'Moluscos', icon: '🦪' }
-};
-
-window.openAllergensModal = function() {
-  const modal = document.getElementById('allergens-guide-modal-backdrop');
-  if (modal) modal.style.display = 'flex';
-};
-
-window.closeAllergensModal = function() {
-  const modal = document.getElementById('allergens-guide-modal-backdrop');
-  if (modal) modal.style.display = 'none';
-};
 
     // Set tags
     const tagsContainer = document.getElementById('detail-modal-tags');
